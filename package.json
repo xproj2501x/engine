@@ -1,0 +1,53 @@
+{
+  "name": "engine",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Josh Gwaltney",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xproj2501x/engine.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xproj2501x/engine/issues"
+  },
+  "homepage": "https://github.com/xproj2501x/engine#readme",
+  "license": "MIT",
+  "scripts": {
+    "build": "set NODE_ENV=dev && webpack --progress --colors --profile --watch",
+    "clean": "",
+    "lint": "eslint --max-warnings 100 --format compact src/**/*.js",
+    "start": "babel-node index.js",
+    "test": "mocha --compilers js:babel-core/register test/**/*.test.js"
+  },
+  "devDependencies": {
+    "babel-cli": "latest",
+    "babel-core": "latest",
+    "babel-eslint": "latest",
+    "babel-loader": "latest",
+    "babel-preset-es2015": "latest",
+    "babel-preset-es2016": "latest",
+    "babel-preset-es2017": "latest",
+    "babel-preset-stage-2": "latest",
+    "chai": "latest",
+    "css-loader": "^0.28.5",
+    "eslint": "latest",
+    "eslint-config-google": "^0.9.1",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^0.11.2",
+    "jsdoc": "latest",
+    "mocha": "latest",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "webpack": "latest"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "compression": "^1.7.0",
+    "cors": "^2.8.4",
+    "express": "^4.15.4",
+    "morgan": "^1.8.2",
+    "serve-favicon": "^2.4.3"
+  }
+}

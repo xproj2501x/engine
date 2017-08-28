@@ -1,0 +1,91 @@
+.content-area {
+  @include flex-box(column);
+  @include flex-item(1, 1, auto);
+  background: $gray-bright;
+
+  &__title {
+    @include box-shadow();
+    @include flex-item(0, 0, 64px);
+    background: $gray-light;
+    padding: $gutter;
+    z-index: 80;
+  }
+
+  &__body {
+    @include box-shadow();
+    @include flex-box(column);
+    @include flex-item(1, 1, auto);
+    position: relative;
+    z-index: 70;
+  }
+
+  &__footer {
+    @include flex-item(0, 0, 64px);
+    background: #FEFEFE;
+    padding: $gutter;
+  }
+
+}
+
+.debug {
+  @include box-shadow();
+  @include flex-box(column);
+  background: $white;
+  bottom: 0px;
+  position: absolute;
+  right: 0px;
+  top: 96px;
+  width: 420px;
+  z-index: 1400;
+
+  &__header {
+    @include flex-item(0, 0, 64px);
+    background: $primary-color-dark;
+    padding: 8px 0 4px 16px;
+
+    &--heading {
+      color: $white;
+      letter-spacing: 1.3px;
+      font-size: 36px;
+      font-weight: 600;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  &__body {
+    @include flex-box(column);
+    @include flex-item(1, 0, auto);
+    padding: 24px 16px;
+
+    &>.body__row {
+      @include flex-box(row);
+      @include flex-item(0, 0, auto);
+    }
+
+    & .body__section {
+      @include flex-item(1, 1, auto);
+
+
+      &>.section__title {
+        color: $primary-color-dark;
+        font-size: 18px;
+        font-weight: 400;
+        letter-spacing: 1.1px;
+        margin: 0;
+        padding: 0 0 16px 0;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $small){
+
+}
+
+
+@media screen and (min-width: 481px){
+  .content-area {
+    margin-left: 64px;
+  }
+}

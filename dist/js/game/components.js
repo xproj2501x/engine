@@ -1,0 +1,60 @@
+export const COMPONENT_TYPES = {
+  HEALTH_COMPONENT: 'HEALTH_COMPONENT',
+  TIME_COMPONENT: 'TIME_COMPONENT',
+  POSITION_COMPONENT: 'POSITION_COMPONENT',
+  SPRITE_COMPONENT: 'SPRITE_COMPONENT',
+  ANIMATION_COMPONENT: 'ANIMATION_COMPONENT'
+};
+
+export const COMPONENTS = {
+  HEALTH_COMPONENT: {
+    ID: 0,
+    STATE: {
+      MAX_HEALTH: 'MAX_HEALTH',
+      CURRENT_HEALTH: 'CURRENT_HEALTH'
+    },
+    DEFAULTS: {
+      MAX_HEALTH: 0,
+      CURRENT_HEALTH: 0
+    }
+  },
+  TIME_COMPONENT: {
+    ID: 1,
+    STATE: {
+      TIME: 'TIME'
+    },
+    DEFAULTS: {
+      TIME: 0
+    }
+  },
+  POSITION_COMPONENT: {
+    ID: 2,
+    STATE: {
+      X_POSITION: 'X_POSITION',
+      Y_POSITION: 'Y_POSITION'
+    },
+    DEFAULTS: {
+      X_POSITION: 0,
+      Y_POSITION: 0
+    }
+  },
+  SPRITE_COMPONENT: {
+   ID: 3,
+   STATE: {
+     X_POSITION: 'X_POSTION',
+     Y_POSITION: 'Y_POSTION'
+   },
+   DEFAULTS: {
+     X_POSITION: 0,
+     Y_POSITION: 0
+   }
+  },
+  ANIMATION_COMPONENT: {
+    ID: 4,
+    STATE: {
+      SPEED: 'SPEED',
+      FRAME: 'FRAME',
+      LENGTH: 'LENGTH'
+    }
+  }
+};
