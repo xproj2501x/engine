@@ -71,13 +71,13 @@ class ComponentManager {
    */
   createComponent(id, type, state) { // eslint-disable-line id-length
     const TEMPLATE = this._findTemplate(type);
-    const STATE = this._buildState(TEMPLATE.DEFAULTS, state);
-
+    const DEFAULT_STATE = TEMPLATE.DEFAULTS;
+    const MERGED_STATE = Object.assign({}, DEFAULT_STATE, state);
     const DATA = {
       id: id, // eslint-disable-line id-length
       type: type,
       keys: TEMPLATE.STATE,
-      state: STATE
+      state: MERGED_STATE
     };
     const COMPONENT = Component.create(DATA);
 

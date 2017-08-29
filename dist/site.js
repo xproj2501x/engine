@@ -60,11 +60,82 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var COMPONENT_TYPES = exports.COMPONENT_TYPES = {
+  HEALTH_COMPONENT: 'HEALTH_COMPONENT',
+  TIME_COMPONENT: 'TIME_COMPONENT',
+  POSITION_COMPONENT: 'POSITION_COMPONENT',
+  SPRITE_COMPONENT: 'SPRITE_COMPONENT',
+  ANIMATION_COMPONENT: 'ANIMATION_COMPONENT'
+};
+
+var COMPONENTS = exports.COMPONENTS = {
+  HEALTH_COMPONENT: {
+    ID: 0,
+    STATE: {
+      MAX_HEALTH: 'MAX_HEALTH',
+      CURRENT_HEALTH: 'CURRENT_HEALTH'
+    },
+    DEFAULTS: {
+      MAX_HEALTH: 0,
+      CURRENT_HEALTH: 0
+    }
+  },
+  TIME_COMPONENT: {
+    ID: 1,
+    STATE: {
+      TIME: 'TIME'
+    },
+    DEFAULTS: {
+      TIME: 0
+    }
+  },
+  POSITION_COMPONENT: {
+    ID: 2,
+    STATE: {
+      X_POSITION: 'X_POSITION',
+      Y_POSITION: 'Y_POSITION'
+    },
+    DEFAULTS: {
+      X_POSITION: 0,
+      Y_POSITION: 0
+    }
+  },
+  SPRITE_COMPONENT: {
+    ID: 3,
+    STATE: {
+      X_POSITION: 'X_POSTION',
+      Y_POSITION: 'Y_POSTION'
+    },
+    DEFAULTS: {
+      X_POSITION: 0,
+      Y_POSITION: 0
+    }
+  },
+  ANIMATION_COMPONENT: {
+    ID: 4,
+    STATE: {
+      SPEED: 'SPEED',
+      FRAME: 'FRAME',
+      LENGTH: 'LENGTH'
+    }
+  }
+};
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88,7 +159,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-var _log = __webpack_require__(8);
+var _log = __webpack_require__(9);
 
 var _log2 = _interopRequireDefault(_log);
 
@@ -246,77 +317,6 @@ var LogService = function () {
 exports.default = LogService;
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var COMPONENT_TYPES = exports.COMPONENT_TYPES = {
-  HEALTH_COMPONENT: 'HEALTH_COMPONENT',
-  TIME_COMPONENT: 'TIME_COMPONENT',
-  POSITION_COMPONENT: 'POSITION_COMPONENT',
-  SPRITE_COMPONENT: 'SPRITE_COMPONENT',
-  ANIMATION_COMPONENT: 'ANIMATION_COMPONENT'
-};
-
-var COMPONENTS = exports.COMPONENTS = {
-  HEALTH_COMPONENT: {
-    ID: 0,
-    STATE: {
-      MAX_HEALTH: 'MAX_HEALTH',
-      CURRENT_HEALTH: 'CURRENT_HEALTH'
-    },
-    DEFAULTS: {
-      MAX_HEALTH: 0,
-      CURRENT_HEALTH: 0
-    }
-  },
-  TIME_COMPONENT: {
-    ID: 1,
-    STATE: {
-      TIME: 'TIME'
-    },
-    DEFAULTS: {
-      TIME: 0
-    }
-  },
-  POSITION_COMPONENT: {
-    ID: 2,
-    STATE: {
-      X_POSITION: 'X_POSITION',
-      Y_POSITION: 'Y_POSITION'
-    },
-    DEFAULTS: {
-      X_POSITION: 0,
-      Y_POSITION: 0
-    }
-  },
-  SPRITE_COMPONENT: {
-    ID: 3,
-    STATE: {
-      X_POSITION: 'X_POSTION',
-      Y_POSITION: 'Y_POSTION'
-    },
-    DEFAULTS: {
-      X_POSITION: 0,
-      Y_POSITION: 0
-    }
-  },
-  ANIMATION_COMPONENT: {
-    ID: 4,
-    STATE: {
-      SPEED: 'SPEED',
-      FRAME: 'FRAME',
-      LENGTH: 'LENGTH'
-    }
-  }
-};
-
-/***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -328,7 +328,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ASSEMBLAGES = exports.ASSEMBLAGE_TYPES = undefined;
 
-var _components = __webpack_require__(1);
+var _components = __webpack_require__(0);
 
 var ASSEMBLAGE_TYPES = exports.ASSEMBLAGE_TYPES = {
   CELL_ASSEMBLAGE: 'CELL_ASSEMBLAGE',
@@ -358,19 +358,58 @@ var ASSEMBLAGES = exports.ASSEMBLAGES = {
 "use strict";
 
 
-__webpack_require__(4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * Engine - Constants
+ * ===
+ *
+ */
 
-var _components = __webpack_require__(1);
+////////////////////////////////////////////////////////////////////////////////
+// Definitions
+////////////////////////////////////////////////////////////////////////////////
+/**
+ * The number of milliseconds in a second
+ * @type {number}
+ */
+var MILLISECONDS = exports.MILLISECONDS = 1000;
+
+/**
+ * The number of frames per second to display
+ * @type {number}
+ */
+var FPS = exports.FPS = 30;
+
+/**
+ * The duration of a frame in milliseconds
+ * @type { int }
+ */
+var FRAME_DURATION = exports.FRAME_DURATION = MILLISECONDS / FPS;
+
+var MAX_FRAME_SKIP = exports.MAX_FRAME_SKIP = 5;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(5);
+
+var _components = __webpack_require__(0);
 
 var _assemblages = __webpack_require__(2);
 
-var _systems = __webpack_require__(5);
+var _systems = __webpack_require__(6);
 
-var _src = __webpack_require__(9);
+var _src = __webpack_require__(10);
 
 var _src2 = _interopRequireDefault(_src);
 
-var _game = __webpack_require__(16);
+var _game = __webpack_require__(18);
 
 var _game2 = _interopRequireDefault(_game);
 
@@ -389,39 +428,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   var ENGINE = _src2.default.create(CONFIG);
 
   if (DEBUG) {
-    var element = document.getElementById('debug');
+    var element = document.getElementById('diagnostics');
     element.classList.toggle('hidden');
   }
   ENGINE.start();
 })();
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.SYSTEMS = undefined;
-
-var _updateSystem = __webpack_require__(6);
-
-var _updateSystem2 = _interopRequireDefault(_updateSystem);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var SYSTEMS = exports.SYSTEMS = {
-  UPDATE_SYSTEM: new _updateSystem2.default()
-};
 
 /***/ }),
 /* 6 */
@@ -433,16 +450,42 @@ var SYSTEMS = exports.SYSTEMS = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.SYSTEMS = undefined;
+
+var _updateSystem = __webpack_require__(7);
+
+var _updateSystem2 = _interopRequireDefault(_updateSystem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SYSTEMS = exports.SYSTEMS = {
+  UPDATE_SYSTEM: new _updateSystem2.default()
+};
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _system = __webpack_require__(7);
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+var _system = __webpack_require__(8);
 
 var _system2 = _interopRequireDefault(_system);
 
 var _assemblages = __webpack_require__(2);
 
-var _components = __webpack_require__(1);
+var _components = __webpack_require__(0);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -510,8 +553,10 @@ var UpdateSystem = function (_System) {
 
 
   _createClass(UpdateSystem, [{
-    key: "update",
+    key: 'update',
     value: function update(assemblages) {
+      var _this2 = this;
+
       var TIME_ASSEMBLAGE = assemblages.findAssemblagesOfType(_assemblages.ASSEMBLAGE_TYPES.TIME_ASSEMBLAGE)[0];
       var TIME_COMPONENT = TIME_ASSEMBLAGE.findComponent(_components.COMPONENT_TYPES.TIME_COMPONENT);
       var TIME = TIME_COMPONENT.state.TIME++;
@@ -520,10 +565,10 @@ var UpdateSystem = function (_System) {
         var CELLS = assemblages.findAssemblagesOfType(_assemblages.ASSEMBLAGE_TYPES.CELL_ASSEMBLAGE);
         var GRID = this._createGrid(CELLS);
 
-        // this._findNeighbors(GRID);
-        //   this._flaggedForUpdate.forEach((cell) => {
-        //     this._changeState(cell);
-        //   });
+        this._findNeighbors(GRID);
+        this._flaggedForUpdate.forEach(function (cell) {
+          _this2._changeState(cell);
+        });
       }
     }
 
@@ -532,7 +577,7 @@ var UpdateSystem = function (_System) {
     //////////////////////////////////////////////////////////////////////////////
 
   }, {
-    key: "_createGrid",
+    key: '_createGrid',
     value: function _createGrid(cells) {
       var GRID = [];
 
@@ -550,9 +595,9 @@ var UpdateSystem = function (_System) {
       return GRID;
     }
   }, {
-    key: "_findNeighbors",
+    key: '_findNeighbors',
     value: function _findNeighbors(grid) {
-      var _this2 = this;
+      var _this3 = this;
 
       var _loop = function _loop(idx) {
         var COLUMN = grid[idx];
@@ -575,7 +620,7 @@ var UpdateSystem = function (_System) {
             }
           });
 
-          _this2._checkState(CELL, neighbors);
+          _this3._checkState(CELL, neighbors);
         };
 
         for (var jdx = 0; jdx < COLUMN.length; jdx++) {
@@ -588,7 +633,7 @@ var UpdateSystem = function (_System) {
       }
     }
   }, {
-    key: "_checkState",
+    key: '_checkState',
     value: function _checkState(cell, neighbors) {
       var HEALTH_COMPONENT = cell.findComponent(_components.COMPONENT_TYPES.HEALTH_COMPONENT);
       var ALIVE = HEALTH_COMPONENT.getProperty(HEALTH_STATE.CURRENT_HEALTH);
@@ -602,7 +647,7 @@ var UpdateSystem = function (_System) {
       }
     }
   }, {
-    key: "_changeState",
+    key: '_changeState',
     value: function _changeState(cell) {
       var HEALTH = cell.findComponent(_components.COMPONENT_TYPES.HEALTH_COMPONENT);
       var VALUE = HEALTH.getProperty(HEALTH_STATE.CURRENT_HEALTH);
@@ -628,7 +673,7 @@ var UpdateSystem = function (_System) {
 exports.default = UpdateSystem;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -650,7 +695,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-var _log = __webpack_require__(0);
+var _log = __webpack_require__(1);
 
 var _log2 = _interopRequireDefault(_log);
 
@@ -722,7 +767,7 @@ var System = function () {
 exports.default = System;
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -827,7 +872,7 @@ var Log = function () {
 exports.default = Log;
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -849,31 +894,31 @@ var _createClass = function () { function defineProperties(target, props) { for 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-var _log = __webpack_require__(0);
+var _log = __webpack_require__(1);
 
 var _log2 = _interopRequireDefault(_log);
 
-var _entityManager = __webpack_require__(10);
+var _entityManager = __webpack_require__(11);
 
 var _entityManager2 = _interopRequireDefault(_entityManager);
 
-var _componentManager = __webpack_require__(12);
+var _componentManager = __webpack_require__(13);
 
 var _componentManager2 = _interopRequireDefault(_componentManager);
 
-var _assemblageManager = __webpack_require__(14);
+var _assemblageManager = __webpack_require__(15);
 
 var _assemblageManager2 = _interopRequireDefault(_assemblageManager);
 
-var _display = __webpack_require__(18);
+var _display = __webpack_require__(17);
 
 var _display2 = _interopRequireDefault(_display);
 
 var _assemblages = __webpack_require__(2);
 
-var _components = __webpack_require__(1);
+var _components = __webpack_require__(0);
 
-var _constants = __webpack_require__(19);
+var _constants = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1001,13 +1046,11 @@ var Engine = function () {
 
       var NOW = timestamp;
 
-      if (this._currentTick < 1) {
+      if (this._currentTick < 100) {
         this._currentTick++;
         if (NOW > this._lastFrame + _constants.FRAME_DURATION) {
           this._update(NOW);
           this._render(NOW);
-          // this._framesThisSecond++;
-          // this._fpsElement.textContent = Math.round(this.fps) + ' FPS';
           this._lastFrame = NOW;
         }
         this._frameId = requestAnimationFrame(function (timestamp) {
@@ -1039,7 +1082,7 @@ var Engine = function () {
 
     /**
      *
-     * @param interpolation
+     * @param delta
      * @private
      */
 
@@ -1056,10 +1099,7 @@ var Engine = function () {
           SPRITES.push(cell);
         }
       });
-
       this._display.render(SPRITES);
-
-      // this._display.render(CELLS);
     }
 
     /**
@@ -1101,7 +1141,7 @@ var Engine = function () {
 exports.default = Engine;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1123,11 +1163,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-var _log = __webpack_require__(0);
+var _log = __webpack_require__(1);
 
 var _log2 = _interopRequireDefault(_log);
 
-var _entity = __webpack_require__(11);
+var _entity = __webpack_require__(12);
 
 var _entity2 = _interopRequireDefault(_entity);
 
@@ -1271,7 +1311,7 @@ var EntityManager = function () {
 exports.default = EntityManager;
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1432,7 +1472,7 @@ var Entity = function () {
 exports.default = Entity;
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1454,11 +1494,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-var _log = __webpack_require__(0);
+var _log = __webpack_require__(1);
 
 var _log2 = _interopRequireDefault(_log);
 
-var _component = __webpack_require__(13);
+var _component = __webpack_require__(14);
 
 var _component2 = _interopRequireDefault(_component);
 
@@ -1533,13 +1573,13 @@ var ComponentManager = function () {
     value: function createComponent(id, type, state) {
       // eslint-disable-line id-length
       var TEMPLATE = this._findTemplate(type);
-      var STATE = this._buildState(TEMPLATE.DEFAULTS, state);
-
+      var DEFAULT_STATE = TEMPLATE.DEFAULTS;
+      var MERGED_STATE = Object.assign({}, DEFAULT_STATE, state);
       var DATA = {
         id: id, // eslint-disable-line id-length
         type: type,
         keys: TEMPLATE.STATE,
-        state: STATE
+        state: MERGED_STATE
       };
       var COMPONENT = _component2.default.create(DATA);
 
@@ -1682,7 +1722,7 @@ var ComponentManager = function () {
 exports.default = ComponentManager;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1918,7 +1958,7 @@ var Component = function () {
 exports.default = Component;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1929,7 +1969,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Engine Assemblage Manager
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Engine - Assemblage Manager
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * ===
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       *
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * @module assemblageManager
@@ -1940,11 +1980,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-var _log = __webpack_require__(0);
+var _log = __webpack_require__(1);
 
 var _log2 = _interopRequireDefault(_log);
 
-var _assemblage = __webpack_require__(15);
+var _assemblage = __webpack_require__(16);
 
 var _assemblage2 = _interopRequireDefault(_assemblage);
 
@@ -2026,34 +2066,28 @@ var AssemblageManager = function () {
 
   _createClass(AssemblageManager, [{
     key: 'createAssemblage',
-    value: function createAssemblage(type) {
+    value: function createAssemblage(type, state, entity) {
       var _this = this;
-
-      var state = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-      var entity = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
       var TEMPLATE = this._findTemplate(type);
       var ENTITY = entity || this._entityManager.createEntity();
 
       TEMPLATE.COMPONENTS.forEach(function (componentType) {
         try {
-          var mergedState = TEMPLATE.DEFAULTS && TEMPLATE.DEFAULTS[componentType] ? TEMPLATE.DEFAULTS[componentType] : {};
+          var DEFAULT_STATE = TEMPLATE.DEFAULTS && TEMPLATE.DEFAULTS[componentType] ? TEMPLATE.DEFAULTS[componentType] : {};
+          var CUSTOM_STATE = state && state[componentType] ? state[componentType] : {};
+          var MERGED_STATE = Object.assign({}, DEFAULT_STATE, CUSTOM_STATE);
+          var COMPONENT = _this._componentManager.createComponent(ENTITY.id, componentType, MERGED_STATE);
 
-          if (state) {
-            if (state.hasOwnProperty(componentType)) {
-              mergedState = _this._buildState(mergedState, state[componentType]);
-            }
-          }
-          var COMPONENT = _this._componentManager.createComponent(ENTITY.id, componentType, mergedState);
-
+          // if (COMPONENT.type === 'HEALTH_COMPONENT' && COMPONENT.state.CURRENT_HEALTH === 1) {
+          //   console.log(JSON.stringify(COMPONENT));
+          // }
           ENTITY.attachComponent(componentType, COMPONENT);
         } catch (err) {
           _this._logService.error(err);
           throw err;
         }
       });
-
-      console.log(ENTITY);
       var ASSEMBLAGE = _assemblage2.default.create(ENTITY, type);
 
       this._assemblages.push(ASSEMBLAGE);
@@ -2174,7 +2208,7 @@ var AssemblageManager = function () {
 exports.default = AssemblageManager;
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2328,130 +2362,7 @@ var Assemblage = function () {
 exports.default = Assemblage;
 
 /***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Game - Game
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * ===
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @module game
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
-
-////////////////////////////////////////////////////////////////////////////////
-// Imports
-////////////////////////////////////////////////////////////////////////////////
-
-
-var _components = __webpack_require__(1);
-
-var _assemblages = __webpack_require__(2);
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-////////////////////////////////////////////////////////////////////////////////
-// Definitions
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
-// Class
-////////////////////////////////////////////////////////////////////////////////
-/**
- * Game
- * @class
- * @memberof module:game
- */
-var Game = function () {
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Private Properties
-  //////////////////////////////////////////////////////////////////////////////
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Public Properties
-  //////////////////////////////////////////////////////////////////////////////
-  function Game() {
-    _classCallCheck(this, Game);
-  }
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Public Methods
-  //////////////////////////////////////////////////////////////////////////////
-
-
-  _createClass(Game, [{
-    key: "create",
-    value: function create() {
-      var ASSEMBLAGES = [];
-      var HEIGHT = 10;
-      var WIDTH = 10;
-      var TIME_ASSEMBLAGE = {
-        type: _assemblages.ASSEMBLAGE_TYPES.TIME_ASSEMBLAGE
-      };
-
-      ASSEMBLAGES.push(TIME_ASSEMBLAGE);
-      var counter = 0;
-      for (var idx = 0; idx < HEIGHT; idx++) {
-        for (var jdx = 0; jdx < WIDTH; jdx++) {
-          var ASSEMBLAGE = {};
-          var POSITION_COMPONENT = {
-            X_POSITION: idx,
-            Y_POSITION: jdx
-          };
-
-          ASSEMBLAGE.type = _assemblages.ASSEMBLAGE_TYPES.CELL_ASSEMBLAGE;
-          ASSEMBLAGE.state = {};
-          ASSEMBLAGE.state[_components.COMPONENT_TYPES.POSITION_COMPONENT] = POSITION_COMPONENT;
-
-          var ALIVE = this._isAlive();
-          if (ALIVE) {
-            counter++;
-            ASSEMBLAGE.state[_components.COMPONENT_TYPES.HEALTH_COMPONENT] = {
-              MAX_HEALTH: 0,
-              CURRENT_HEALTH: 1
-            };
-          }
-          ASSEMBLAGES.push(ASSEMBLAGE);
-        }
-      }
-      return ASSEMBLAGES;
-    }
-
-    //////////////////////////////////////////////////////////////////////////////
-    // Private Methods
-    //////////////////////////////////////////////////////////////////////////////
-
-  }, {
-    key: "_isAlive",
-    value: function _isAlive() {
-      var MIN = 1;
-      var MAX = 100;
-      var CHANCE = Math.floor(Math.random() * (MAX - MIN)) + MIN;
-
-      return CHANCE > 75;
-    }
-  }]);
-
-  return Game;
-}();
-
-////////////////////////////////////////////////////////////////////////////////
-// Exports
-////////////////////////////////////////////////////////////////////////////////
-
-
-exports.default = Game;
-
-/***/ }),
-/* 17 */,
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2473,9 +2384,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-var _components = __webpack_require__(1);
+var _components = __webpack_require__(0);
 
-var _constants = __webpack_require__(19);
+var _constants = __webpack_require__(3);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2611,7 +2522,7 @@ var Display = function () {
 exports.default = Display;
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2620,34 +2531,117 @@ exports.default = Display;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-/**
- * Engine - Constants
- * ===
- *
- */
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Game - Game
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * ===
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @module game
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+////////////////////////////////////////////////////////////////////////////////
+// Imports
+////////////////////////////////////////////////////////////////////////////////
+
+
+var _components = __webpack_require__(0);
+
+var _assemblages = __webpack_require__(2);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Definitions
 ////////////////////////////////////////////////////////////////////////////////
-/**
- * The number of milliseconds in a second
- * @type {number}
- */
-var MILLISECONDS = exports.MILLISECONDS = 1000;
 
+////////////////////////////////////////////////////////////////////////////////
+// Class
+////////////////////////////////////////////////////////////////////////////////
 /**
- * The number of frames per second to display
- * @type {number}
+ * Game
+ * @class
+ * @memberof module:game
  */
-var FPS = exports.FPS = 30;
+var Game = function () {
 
-/**
- * The duration of a frame in milliseconds
- * @type { int }
- */
-var FRAME_DURATION = exports.FRAME_DURATION = MILLISECONDS / FPS;
+  //////////////////////////////////////////////////////////////////////////////
+  // Private Properties
+  //////////////////////////////////////////////////////////////////////////////
 
-var MAX_FRAME_SKIP = exports.MAX_FRAME_SKIP = 5;
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Properties
+  //////////////////////////////////////////////////////////////////////////////
+  function Game() {
+    _classCallCheck(this, Game);
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Methods
+  //////////////////////////////////////////////////////////////////////////////
+
+
+  _createClass(Game, [{
+    key: "create",
+    value: function create() {
+      var ASSEMBLAGES = [];
+      var HEIGHT = 25;
+      var WIDTH = 25;
+      var TIME_ASSEMBLAGE = {
+        type: _assemblages.ASSEMBLAGE_TYPES.TIME_ASSEMBLAGE
+      };
+
+      ASSEMBLAGES.push(TIME_ASSEMBLAGE);
+      var counter = 0;
+      for (var idx = 0; idx < WIDTH; idx++) {
+        for (var jdx = 0; jdx < HEIGHT; jdx++) {
+          var ASSEMBLAGE = {};
+          var POSITION_COMPONENT = {
+            X_POSITION: idx,
+            Y_POSITION: jdx
+          };
+
+          ASSEMBLAGE.type = _assemblages.ASSEMBLAGE_TYPES.CELL_ASSEMBLAGE;
+          ASSEMBLAGE.state = {};
+          ASSEMBLAGE.state[_components.COMPONENT_TYPES.POSITION_COMPONENT] = POSITION_COMPONENT;
+
+          var ALIVE = this._isAlive();
+          if (ALIVE) {
+            counter++;
+            ASSEMBLAGE.state[_components.COMPONENT_TYPES.HEALTH_COMPONENT] = {
+              MAX_HEALTH: 0,
+              CURRENT_HEALTH: 1
+            };
+          }
+          ASSEMBLAGES.push(ASSEMBLAGE);
+        }
+      }
+      return ASSEMBLAGES;
+    }
+
+    //////////////////////////////////////////////////////////////////////////////
+    // Private Methods
+    //////////////////////////////////////////////////////////////////////////////
+
+  }, {
+    key: "_isAlive",
+    value: function _isAlive() {
+      var MIN = 1;
+      var MAX = 100;
+      var CHANCE = Math.floor(Math.random() * (MAX - MIN)) + MIN;
+
+      return CHANCE > 75;
+    }
+  }]);
+
+  return Game;
+}();
+
+////////////////////////////////////////////////////////////////////////////////
+// Exports
+////////////////////////////////////////////////////////////////////////////////
+
+
+exports.default = Game;
 
 /***/ })
 /******/ ]);

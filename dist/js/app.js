@@ -19,7 +19,7 @@ import Game from './game';
   const ENGINE = Engine.create(CONFIG);
 
   if (DEBUG) {
-    const element = document.getElementById('debug');
+    const element = document.getElementById('diagnostics');
     element.classList.toggle('hidden');
   }
   ENGINE.start();

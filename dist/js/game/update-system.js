@@ -8,6 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Imports
 ////////////////////////////////////////////////////////////////////////////////
+import LogService from '../../../src/services/log';
 import System from '../../../src/system';
 import { ASSEMBLAGE_TYPES, ASSEMBLAGES } from "./assemblages";
 import { COMPONENT_TYPES, COMPONENTS } from "./components";
@@ -69,10 +70,10 @@ class UpdateSystem extends System {
       const CELLS = assemblages.findAssemblagesOfType(ASSEMBLAGE_TYPES.CELL_ASSEMBLAGE);
       const GRID = this._createGrid(CELLS);
 
-      // this._findNeighbors(GRID);
-    //   this._flaggedForUpdate.forEach((cell) => {
-    //     this._changeState(cell);
-    //   });
+      this._findNeighbors(GRID);
+      this._flaggedForUpdate.forEach((cell) => {
+        this._changeState(cell);
+      });
     }
   }
 

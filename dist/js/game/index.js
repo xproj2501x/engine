@@ -41,16 +41,16 @@ class Game {
   //////////////////////////////////////////////////////////////////////////////
   create() {
     const ASSEMBLAGES = [];
-    const HEIGHT = 10;
-    const WIDTH = 10;
+    const HEIGHT = 25;
+    const WIDTH = 25;
     const TIME_ASSEMBLAGE = {
       type: ASSEMBLAGE_TYPES.TIME_ASSEMBLAGE
     };
 
     ASSEMBLAGES.push(TIME_ASSEMBLAGE);
     let counter = 0;
-    for (let idx = 0; idx < HEIGHT; idx++) {
-      for (let jdx = 0; jdx < WIDTH; jdx++) {
+    for (let idx = 0; idx < WIDTH; idx++) {
+      for (let jdx = 0; jdx < HEIGHT; jdx++) {
         const ASSEMBLAGE = {};
         const POSITION_COMPONENT = {
           X_POSITION: idx,

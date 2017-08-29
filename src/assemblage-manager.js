@@ -1,5 +1,5 @@
 /**
- * Engine Assemblage Manager
+ * Engine - Assemblage Manager
  * ===
  *
  * @module assemblageManager
@@ -81,30 +81,27 @@ class AssemblageManager {
    * @param { module:engine.EntityManager } entity
    * @param { object } state
    */
-  createAssemblage(type, state = null, entity = null) {
+  createAssemblage(type, state, entity) {
     const TEMPLATE = this._findTemplate(type);
     const ENTITY = entity || this._entityManager.createEntity();
 
     TEMPLATE.COMPONENTS.forEach((componentType) => {
       try {
-        let mergedState = (TEMPLATE.DEFAULTS && TEMPLATE.DEFAULTS[componentType])
+        const DEFAULT_STATE = (TEMPLATE.DEFAULTS && TEMPLATE.DEFAULTS[componentType])
           ? TEMPLATE.DEFAULTS[componentType] : {};
+        const CUSTOM_STATE = (state && state[componentType]) ? state[componentType] : {};
+        const MERGED_STATE = Object.assign({}, DEFAULT_STATE, CUSTOM_STATE);
+        const COMPONENT = this._componentManager.createComponent(ENTITY.id, componentType, MERGED_STATE);
 
-        if (state) {
-          if (state.hasOwnProperty(componentType)) {
-            mergedState = this._buildState(mergedState, state[componentType]);
-          }
-        }
-        const COMPONENT = this._componentManager.createComponent(ENTITY.id, componentType, mergedState);
-
+        // if (COMPONENT.type === 'HEALTH_COMPONENT' && COMPONENT.state.CURRENT_HEALTH === 1) {
+        //   console.log(JSON.stringify(COMPONENT));
+        // }
         ENTITY.attachComponent(componentType, COMPONENT);
       } catch (err) {
         this._logService.error(err);
         throw err;
       }
     });
-
-    console.log(ENTITY);
     const ASSEMBLAGE = Assemblage.create(ENTITY, type);
 
     this._assemblages.push(ASSEMBLAGE);

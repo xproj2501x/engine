@@ -122,19 +122,16 @@ class Engine {
   _tick(timestamp) {
     const NOW = timestamp;
 
-    if (this._currentTick < 1) {
+    if (this._currentTick < 100) {
       this._currentTick++;
       if (NOW > this._lastFrame + FRAME_DURATION) {
         this._update(NOW);
         this._render(NOW);
-        // this._framesThisSecond++;
-        // this._fpsElement.textContent = Math.round(this.fps) + ' FPS';
         this._lastFrame = NOW;
       }
       this._frameId = requestAnimationFrame((timestamp) => {
         this._tick(timestamp);
       });
-
     }
   }
 
@@ -158,7 +155,7 @@ class Engine {
 
   /**
    *
-   * @param interpolation
+   * @param delta
    * @private
    */
   _render(delta) {
@@ -172,10 +169,7 @@ class Engine {
         SPRITES.push(cell);
       }
     });
-
     this._display.render(SPRITES);
-
-    // this._display.render(CELLS);
   }
 
   /**
