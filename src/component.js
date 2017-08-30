@@ -139,12 +139,14 @@ class Component {
   /**
    * Sets the keys for the component state
    * @private
-   * @param { enum } keys - the keys for the state of the of the component
+   * @param { enum } state - the keys for the state of the of the component
    */
   _init(state) {
     this._state = {};
     for (const KEY in state) {
-      this._state[state[KEY]] = null;
+      if (state.hasOwnProperty(KEY)) {
+        this._state[state[KEY]] = null;
+      }
     }
   }
 

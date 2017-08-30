@@ -14,13 +14,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 let instance = null;
 
-const LEVEL = {
-  LOG: 'LOG',
-  WARN: 'WARN',
-  INFO: 'INFO',
-  ERROR: 'ERROR'
-};
-
 ////////////////////////////////////////////////////////////////////////////////
 // Class
 ////////////////////////////////////////////////////////////////////////////////
@@ -44,21 +37,33 @@ class Log {
   // Public Properties
   //////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Log
+   * @constructor
+   * @return {*}
+   */
   constructor() {
     if (!instance) {
-      instance = this;
+      instance = this; // eslint-disable-line consistent-this
     }
     return instance;
   }
 
-  write(msg) {
-    this._log.push(msg);
-    console.log(msg);
+  /**
+   * Writes a message to the log
+   * @param { object } message - the message to be written
+   */
+  write(message) {
+    this._log.push(message);
+    console.log(message);
   }
   ////////////////////////////////////////////////////////////////////////////////
   // Public Methods
   ////////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Clears the log
+   */
   clear() {
     this._log = [];
   }

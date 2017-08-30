@@ -66,32 +66,32 @@ class LogService {
   // Public Methods
   ////////////////////////////////////////////////////////////////////////////////
   /**
-   *
-   * @param { string } message
+   * Writes a log message to the log
+   * @param { string } message - the message to be written
    */
   log(message) {
     this._write(LEVEL.LOG, message);
   }
 
   /**
-   *
-   * @param { string } message
+   * Writes a warning message to the log
+   * @param { string } message - the message to be written
    */
   warn(message) {
     this._write(LEVEL.WARN, message);
   }
 
   /**
-   *
-   * @param { string } message
+   * Writes an info message to the log
+   * @param { string } message - the message to be written
    */
   info(message) {
     this._write(LEVEL.INFO, message);
   }
 
   /**
-   *
-   * @param { string } message
+   * Writes an error message to the log
+   * @param { string } message - the message to be written
    */
   error(message) {
     this._write(LEVEL.ERROR, message);
@@ -100,10 +100,10 @@ class LogService {
   ////////////////////////////////////////////////////////////////////////////////
   // Private Methods
   ////////////////////////////////////////////////////////////////////////////////
-    /**
-   *
-   * @param { string } level
-   * @param { string } message
+  /**
+   * Writes a message to the log
+   * @param { string } level - the level of the message
+   * @param { string } message - the message to be written
    */
   _write(level, message) {
     if (typeof message === 'object') {

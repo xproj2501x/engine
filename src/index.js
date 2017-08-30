@@ -13,9 +13,9 @@ import EntityManager from './entity-manager';
 import ComponentManager from './component-manager';
 import AssemblageManager from './assemblage-manager';
 import Display from './display';
-import {ASSEMBLAGE_TYPES} from "../dist/js/game/assemblages";
-import {COMPONENT_TYPES} from "../dist/js/game/components";
-import { MILLISECONDS, FPS, FRAME_DURATION } from "./constants";
+import {ASSEMBLAGE_TYPES} from '../dist/js/game/assemblages';
+import {COMPONENT_TYPES} from '../dist/js/game/components';
+import { FRAME_DURATION } from './constants';
 ////////////////////////////////////////////////////////////////////////////////
 // Definitions
 ////////////////////////////////////////////////////////////////////////////////
@@ -37,45 +37,31 @@ class Engine {
   _systems;
   _assemblageManager;
   _display;
-  _fpsElement;
   _running;
   _lastFrame;
   _frameId;
-  _lastFpsUpdate;
-  _framesThisSecond;
-  _fps;
-
 
   //////////////////////////////////////////////////////////////////////////////
   // Public Properties
   //////////////////////////////////////////////////////////////////////////////
-  get fps() {
-    if (this._lastFrame > this._lastFpsUpdate + MILLISECONDS) {
-      this._fps = 0.25 * this._framesThisSecond + 0.75 * this._fps;
-      this._lastFpsUpdate = this._lastFrame;
-      this._framesThisSecond = 0;
-    }
-    return this._fps;
-  }
 
   /**
    * Engine
    * @constructor
+   * @param { object } configuration - configuration for the engine
    */
-  constructor(config) {
+  constructor(configuration) {
     this._logService = new LogService(this.constructor.name);
     this._running = false;
     this._display = new Display();
-    this._fps = FPS;
-    this._fpsElement = document.getElementById('fps');
-    this._init(config);
+    this._init(configuration);
   }
 
   //////////////////////////////////////////////////////////////////////////////
   // Public Methods
   //////////////////////////////////////////////////////////////////////////////
   /**
-   *
+   * Starts the engine
    */
   start() {
     if (!this._running) {
@@ -83,8 +69,6 @@ class Engine {
       this._running = true;
       this._frameId = requestAnimationFrame((timestamp) => {
         this._lastFrame = timestamp;
-        this._lastFpsUpdate = timestamp;
-        this._framesThisSecond = 0;
         this._frameId = requestAnimationFrame((timestamp) =>
           this._tick(timestamp));
       });
@@ -93,7 +77,7 @@ class Engine {
   }
 
   /**
-   *
+   * Stops the engine
    */
   stop() {
     this._running = false;
@@ -103,6 +87,11 @@ class Engine {
   //////////////////////////////////////////////////////////////////////////////
   // Private Methods
   //////////////////////////////////////////////////////////////////////////////
+  /**
+   * Initializes the engine
+   * @private
+   * @param { object } configuration - configuration for the engine
+   */
   _init(configuration) {
     const ENTITY_MANAGER = EntityManager.create();
     const COMPONENT_MANAGER = ComponentManager.create(configuration.COMPONENTS);
@@ -116,28 +105,27 @@ class Engine {
   }
 
   /**
-   *
+   * The main game loop
    * @private
+   * @param { float } timestamp - the timestamp for the current animation frame
    */
   _tick(timestamp) {
     const NOW = timestamp;
 
-    if (this._currentTick < 100) {
-      this._currentTick++;
-      if (NOW > this._lastFrame + FRAME_DURATION) {
-        this._update(NOW);
-        this._render(NOW);
-        this._lastFrame = NOW;
-      }
-      this._frameId = requestAnimationFrame((timestamp) => {
-        this._tick(timestamp);
-      });
+    this._currentTick++;
+    if (NOW > this._lastFrame + FRAME_DURATION) {
+      this._update(NOW);
+      this._render(NOW);
+      this._lastFrame = NOW;
     }
+    this._frameId = requestAnimationFrame((timestamp) => {
+      this._tick(timestamp);
+    });
   }
 
   /**
-   *
-   * @param delta
+   * Runs the update loop on all systems
+   * @param { float } delta - the amount of time since last update
    * @private
    */
   _update(delta) {
@@ -154,8 +142,8 @@ class Engine {
   }
 
   /**
-   *
-   * @param delta
+   * Runs the render loop on all entities
+   * @param { float } delta - the amount of time since last update
    * @private
    */
   _render(delta) {
@@ -172,22 +160,13 @@ class Engine {
     this._display.render(SPRITES);
   }
 
-  /**
-   *
-   * @private
-   * @returns {*}
-   */
-  _timestamp() {
-    return window.performance && window.performance.now ?
-      window.performance.now() : new Date().getTime();
-  }
-
   //////////////////////////////////////////////////////////////////////////////
   // Static Methods
   //////////////////////////////////////////////////////////////////////////////
   /**
    * Static factory method
    * @static
+   * @param { object } configuration - configuration for the engine
    * @return { module:engine.Engine }
    */
   static create(configuration) {

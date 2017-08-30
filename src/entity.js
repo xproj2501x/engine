@@ -52,6 +52,7 @@ class Entity {
   /**
    * Entity
    * @constructor
+   * @param { int } id - the id of the entity
    */
   constructor(id) { // eslint-disable-line id-length
     this._id = id;

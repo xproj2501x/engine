@@ -8,6 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Imports
 ////////////////////////////////////////////////////////////////////////////////
+import Entity from './entity';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Definitions
@@ -51,7 +52,7 @@ class Assemblage {
    * @readonly
    * @return { int }
    */
-  get id() {
+  get id() { // eslint-disable-line id-length
     return this._entity.id;
   }
 
@@ -70,6 +71,9 @@ class Assemblage {
    * @param { string } type - the assemblage type
    */
   constructor(entity, type) {
+    if (!(entity instanceof Entity)) {
+      throw new Error();
+    }
     this._entity = entity;
     this._type = type;
   }

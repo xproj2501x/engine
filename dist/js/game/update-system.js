@@ -74,6 +74,8 @@ class UpdateSystem extends System {
       this._flaggedForUpdate.forEach((cell) => {
         this._changeState(cell);
       });
+
+      this._flaggedForUpdate = [];
     }
   }
 
@@ -107,7 +109,7 @@ class UpdateSystem extends System {
 
         DIRECTIONS.forEach((direction) => {
           const X_POSITION = idx + direction[0];
-          const Y_POSITION = idx + direction[1];
+          const Y_POSITION = jdx + direction[1];
 
           if (X_POSITION >= 0 && X_POSITION < grid.length && Y_POSITION >= 0 && Y_POSITION < COLUMN.length) {
             const NEIGHBOR = grid[X_POSITION][Y_POSITION];

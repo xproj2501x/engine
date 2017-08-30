@@ -46,9 +46,9 @@ class MessageService {
   // Public Methods
   ////////////////////////////////////////////////////////////////////////////////
   /**
-   *
-   * @param { string } message -
-   * @param { function } subscriber -
+   * Adds a subscriber for the specified message type
+   * @param { string } message - the message type
+   * @param { function } subscriber - the subscriber
    */
   subscribe(message, subscriber) {
     if (!(this._subscribers[message])) {
@@ -60,9 +60,9 @@ class MessageService {
   }
 
   /**
-   *
-   * @param { object } message -
-   * @param { function } subscriber -
+   * Removes a subscriber for the message type
+   * @param { string } message - the message type
+   * @param { function } subscriber - the subscriber
    */
   unsubscribe(message, subscriber) {
     if (message in this._subscribers) {
@@ -76,7 +76,7 @@ class MessageService {
   }
 
   /**
-   *
+   * Publishes a message to all subscribers
    * @param { object } message -
    */
   publish(message) {

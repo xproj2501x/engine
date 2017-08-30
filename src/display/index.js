@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Imports
 ////////////////////////////////////////////////////////////////////////////////
-import { COMPONENT_TYPES, COMPONENTS } from "../../dist/js/game/components";
+import { COMPONENT_TYPES } from '../../dist/js/game/components';
 import { FPS, MILLISECONDS } from '../constants';
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -16,7 +16,7 @@ import { FPS, MILLISECONDS } from '../constants';
 ////////////////////////////////////////////////////////////////////////////////
 const UNIT = 10;
 const SPACING = 1;
-const SIZE = UNIT - (SPACING * 2);
+const SIZE = UNIT - (SPACING + SPACING);
 
 ////////////////////////////////////////////////////////////////////////////////
 // Class
@@ -43,6 +43,10 @@ class Display {
   // Public Properties
   //////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Display
+   * @constructor
+   */
   constructor() {
     this._fps = FPS;
     this._framesThisSecond = 0;
@@ -53,6 +57,10 @@ class Display {
   // Public Methods
   //////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Renders a collection of sprites to the screen
+   * @param sprites
+   */
   render(sprites) {
     this._refresh();
     this._draw(sprites);
@@ -64,6 +72,10 @@ class Display {
   //////////////////////////////////////////////////////////////////////////////
   // Private Methods
   //////////////////////////////////////////////////////////////////////////////
+  /**
+   * Initializes the display and generates the canvas element
+   * @private
+   */
   _init() {
     this._element = document.getElementById('root');
     this._canvas = document.createElement('canvas');
@@ -73,18 +85,28 @@ class Display {
     this._refresh();
   }
 
+  /**
+   * Updates the number of frames per second
+   * @private
+   */
   _updateFps() {
     const ELEMENT = document.getElementById('fps');
+    const MUL1 = 0.25;
+    const MUL2 = 0.75;
 
     if (this._lastRender > this._lastFpsUpdate + MILLISECONDS) {
-      this._fps = 0.25 * this._framesThisSecond + 0.75 * this._fps;
+      this._fps = (MUL1 * this._framesThisSecond) + (MUL2 * this._fps);
       this._lastFpsUpdate = this._lastRender;
       this._framesThisSecond = 0;
     }
 
-    ELEMENT.textContent= Math.round(this._fps) + ' FPS';
+    ELEMENT.textContent = Math.round(this._fps) + ' FPS';
   }
 
+  /**
+   * Refreshes the canvas element
+   * @private
+   */
   _refresh() {
     const HEIGHT = this._element.clientHeight;
     const WIDTH = this._element.clientWidth;
@@ -93,12 +115,17 @@ class Display {
     this._canvas.width = WIDTH;
   }
 
+  /**
+   * Draws a collection of sprites to the screen
+   * @param { Array } sprites - a collection of sprites to be drawn
+   * @private
+   */
   _draw(sprites) {
     const CONTEXT = this._canvas.getContext('2d');
 
     CONTEXT.save();
     CONTEXT.fillStyle = '#FFFFFF';
-    CONTEXT.rect(0, 0, this._canvas.width, this._canvas.height);
+    CONTEXT.clearRect(0, 0, this._canvas.width, this._canvas.height);
     CONTEXT.fill();
     sprites.forEach((sprite) => {
       const POSITION = sprite.findComponent(COMPONENT_TYPES.POSITION_COMPONENT);
@@ -119,11 +146,10 @@ class Display {
   /**
    * Static factory method
    * @static
-   * @param { object } data - configuration for the component to be created
-   * @return { module:engine.Component }
+   * @return { module:display.Display }
    */
-  static create(data) {
-
+  static create() {
+    return new Display();
   }
 }
 

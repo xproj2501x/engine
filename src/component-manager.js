@@ -164,16 +164,6 @@ class ComponentManager {
     return this._templates[type];
   }
 
-  _buildState(defaults, custom) {
-    if (custom) {
-      for (const KEY in custom) {
-        if (custom.hasOwnProperty(KEY)) {
-          defaults[KEY] = custom[KEY];
-        }
-      }
-    }
-    return defaults;
-  }
   //////////////////////////////////////////////////////////////////////////////
   // Static Methods
   //////////////////////////////////////////////////////////////////////////////

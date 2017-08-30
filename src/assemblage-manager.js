@@ -64,6 +64,13 @@ class AssemblageManager {
   // Public Properties
   //////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * AssemblageManager
+   * @constructor
+   * @param { Array } templates - a collection of assemblage templates
+   * @param { module:engine.EntityManager } entityManager - the entity manager
+   * @param { module:engine.ComponentManager } componentManager - the component manager
+   */
   constructor(templates, entityManager, componentManager) {
     this._logService = LogService.create(this.constructor.name);
     this._templates = templates;
@@ -77,11 +84,11 @@ class AssemblageManager {
   //////////////////////////////////////////////////////////////////////////////
   /**
    * Creates an assemblage of the specified type
-   * @param { string } type
-   * @param { module:engine.EntityManager } entity
-   * @param { object } state
+   * @param { string } type - the type of assemblage to be created
+   * @param { object } state - the initial state of the assemblage to be created
+   * @param { module:engine.EntityManager } entity - the root entity of the assemblage
    */
-  createAssemblage(type, state, entity) {
+  createAssemblage(type, state, entity = null) {
     const TEMPLATE = this._findTemplate(type);
     const ENTITY = entity || this._entityManager.createEntity();
 
@@ -93,9 +100,6 @@ class AssemblageManager {
         const MERGED_STATE = Object.assign({}, DEFAULT_STATE, CUSTOM_STATE);
         const COMPONENT = this._componentManager.createComponent(ENTITY.id, componentType, MERGED_STATE);
 
-        // if (COMPONENT.type === 'HEALTH_COMPONENT' && COMPONENT.state.CURRENT_HEALTH === 1) {
-        //   console.log(JSON.stringify(COMPONENT));
-        // }
         ENTITY.attachComponent(componentType, COMPONENT);
       } catch (err) {
         this._logService.error(err);
@@ -110,17 +114,21 @@ class AssemblageManager {
   /**
    * Finds assemblages of the specified type
    * @param { string } type - the assemblage type
-   * @return
+   * @return { Array }
    */
   findAssemblagesOfType(type) {
     const ASSEMBLAGES = this._assemblages.filter((assemblage) => {
       return assemblage.type === type;
     });
 
-
     return ASSEMBLAGES;
   }
 
+  /**
+   * Removes the specified assemblage from the collection
+   * @param { string } type - the assemblage type
+   * @param { int } entity - the entity id
+   */
   removeAssemblage(type, entity) {
     try {
       const ASSEMBLAGE = this._findAssemblage(type, entity);
@@ -173,16 +181,6 @@ class AssemblageManager {
     return this._templates[type];
   }
 
-  _buildState(defaults, custom) {
-    if (custom) {
-      for (const KEY in custom) {
-        if (custom.hasOwnProperty(KEY)) {
-          defaults[KEY] = custom[KEY];
-        }
-      }
-    }
-    return defaults;
-  }
   //////////////////////////////////////////////////////////////////////////////
   // Static Methods
   //////////////////////////////////////////////////////////////////////////////

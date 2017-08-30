@@ -219,8 +219,8 @@ var LogService = function () {
   // Public Methods
   ////////////////////////////////////////////////////////////////////////////////
   /**
-   *
-   * @param { string } message
+   * Writes a log message to the log
+   * @param { string } message - the message to be written
    */
 
 
@@ -238,8 +238,8 @@ var LogService = function () {
     }
 
     /**
-     *
-     * @param { string } message
+     * Writes a warning message to the log
+     * @param { string } message - the message to be written
      */
 
   }, {
@@ -249,8 +249,8 @@ var LogService = function () {
     }
 
     /**
-     *
-     * @param { string } message
+     * Writes an info message to the log
+     * @param { string } message - the message to be written
      */
 
   }, {
@@ -260,8 +260,8 @@ var LogService = function () {
     }
 
     /**
-     *
-     * @param { string } message
+     * Writes an error message to the log
+     * @param { string } message - the message to be written
      */
 
   }, {
@@ -274,10 +274,10 @@ var LogService = function () {
     // Private Methods
     ////////////////////////////////////////////////////////////////////////////////
     /**
-    *
-    * @param { string } level
-    * @param { string } message
-    */
+     * Writes a message to the log
+     * @param { string } level - the level of the message
+     * @param { string } message - the message to be written
+     */
 
   }, {
     key: '_write',
@@ -569,6 +569,8 @@ var UpdateSystem = function (_System) {
         this._flaggedForUpdate.forEach(function (cell) {
           _this2._changeState(cell);
         });
+
+        this._flaggedForUpdate = [];
       }
     }
 
@@ -608,7 +610,7 @@ var UpdateSystem = function (_System) {
 
           DIRECTIONS.forEach(function (direction) {
             var X_POSITION = idx + direction[0];
-            var Y_POSITION = idx + direction[1];
+            var Y_POSITION = jdx + direction[1];
 
             if (X_POSITION >= 0 && X_POSITION < grid.length && Y_POSITION >= 0 && Y_POSITION < COLUMN.length) {
               var NEIGHBOR = grid[X_POSITION][Y_POSITION];
@@ -797,13 +799,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 ////////////////////////////////////////////////////////////////////////////////
 var instance = null;
 
-var LEVEL = {
-  LOG: 'LOG',
-  WARN: 'WARN',
-  INFO: 'INFO',
-  ERROR: 'ERROR'
-};
-
 ////////////////////////////////////////////////////////////////////////////////
 // Class
 ////////////////////////////////////////////////////////////////////////////////
@@ -819,16 +814,27 @@ var Log = function () {
   // Public Properties
   //////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Log
+   * @constructor
+   * @return {*}
+   */
   function Log() {
     _classCallCheck(this, Log);
 
     this._log = [];
 
     if (!instance) {
-      instance = this;
+      instance = this; // eslint-disable-line consistent-this
     }
     return instance;
   }
+
+  /**
+   * Writes a message to the log
+   * @param { object } message - the message to be written
+   */
+
 
   //////////////////////////////////////////////////////////////////////////////
   // Private Properties
@@ -840,17 +846,21 @@ var Log = function () {
 
 
   _createClass(Log, [{
-    key: 'write',
-    value: function write(msg) {
-      this._log.push(msg);
-      console.log(msg);
+    key: "write",
+    value: function write(message) {
+      this._log.push(message);
+      console.log(message);
     }
     ////////////////////////////////////////////////////////////////////////////////
     // Public Methods
     ////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Clears the log
+     */
+
   }, {
-    key: 'clear',
+    key: "clear",
     value: function clear() {
       this._log = [];
     }
@@ -937,51 +947,36 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * @memberof module:engine
  */
 var Engine = function () {
-  _createClass(Engine, [{
-    key: 'fps',
 
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Properties
+  //////////////////////////////////////////////////////////////////////////////
 
-    //////////////////////////////////////////////////////////////////////////////
-    // Public Properties
-    //////////////////////////////////////////////////////////////////////////////
-    get: function get() {
-      if (this._lastFrame > this._lastFpsUpdate + _constants.MILLISECONDS) {
-        this._fps = 0.25 * this._framesThisSecond + 0.75 * this._fps;
-        this._lastFpsUpdate = this._lastFrame;
-        this._framesThisSecond = 0;
-      }
-      return this._fps;
-    }
-
-    /**
-     * Engine
-     * @constructor
-     */
-
-
-    //////////////////////////////////////////////////////////////////////////////
-    // Private Properties
-    //////////////////////////////////////////////////////////////////////////////
-
-  }]);
-
-  function Engine(config) {
+  /**
+   * Engine
+   * @constructor
+   * @param { object } configuration - configuration for the engine
+   */
+  function Engine(configuration) {
     _classCallCheck(this, Engine);
 
     this._logService = new _log2.default(this.constructor.name);
     this._running = false;
     this._display = new _display2.default();
-    this._fps = _constants.FPS;
-    this._fpsElement = document.getElementById('fps');
-    this._init(config);
+    this._init(configuration);
   }
 
   //////////////////////////////////////////////////////////////////////////////
   // Public Methods
   //////////////////////////////////////////////////////////////////////////////
   /**
-   *
+   * Starts the engine
    */
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Private Properties
+  //////////////////////////////////////////////////////////////////////////////
 
 
   _createClass(Engine, [{
@@ -994,8 +989,6 @@ var Engine = function () {
         this._running = true;
         this._frameId = requestAnimationFrame(function (timestamp) {
           _this._lastFrame = timestamp;
-          _this._lastFpsUpdate = timestamp;
-          _this._framesThisSecond = 0;
           _this._frameId = requestAnimationFrame(function (timestamp) {
             return _this._tick(timestamp);
           });
@@ -1004,7 +997,7 @@ var Engine = function () {
     }
 
     /**
-     *
+     * Stops the engine
      */
 
   }, {
@@ -1017,6 +1010,11 @@ var Engine = function () {
     //////////////////////////////////////////////////////////////////////////////
     // Private Methods
     //////////////////////////////////////////////////////////////////////////////
+    /**
+     * Initializes the engine
+     * @private
+     * @param { object } configuration - configuration for the engine
+     */
 
   }, {
     key: '_init',
@@ -1035,8 +1033,9 @@ var Engine = function () {
     }
 
     /**
-     *
+     * The main game loop
      * @private
+     * @param { float } timestamp - the timestamp for the current animation frame
      */
 
   }, {
@@ -1046,22 +1045,20 @@ var Engine = function () {
 
       var NOW = timestamp;
 
-      if (this._currentTick < 100) {
-        this._currentTick++;
-        if (NOW > this._lastFrame + _constants.FRAME_DURATION) {
-          this._update(NOW);
-          this._render(NOW);
-          this._lastFrame = NOW;
-        }
-        this._frameId = requestAnimationFrame(function (timestamp) {
-          _this3._tick(timestamp);
-        });
+      this._currentTick++;
+      if (NOW > this._lastFrame + _constants.FRAME_DURATION) {
+        this._update(NOW);
+        this._render(NOW);
+        this._lastFrame = NOW;
       }
+      this._frameId = requestAnimationFrame(function (timestamp) {
+        _this3._tick(timestamp);
+      });
     }
 
     /**
-     *
-     * @param delta
+     * Runs the update loop on all systems
+     * @param { float } delta - the amount of time since last update
      * @private
      */
 
@@ -1081,8 +1078,8 @@ var Engine = function () {
     }
 
     /**
-     *
-     * @param delta
+     * Runs the render loop on all entities
+     * @param { float } delta - the amount of time since last update
      * @private
      */
 
@@ -1102,24 +1099,13 @@ var Engine = function () {
       this._display.render(SPRITES);
     }
 
-    /**
-     *
-     * @private
-     * @returns {*}
-     */
-
-  }, {
-    key: '_timestamp',
-    value: function _timestamp() {
-      return window.performance && window.performance.now ? window.performance.now() : new Date().getTime();
-    }
-
     //////////////////////////////////////////////////////////////////////////////
     // Static Methods
     //////////////////////////////////////////////////////////////////////////////
     /**
      * Static factory method
      * @static
+     * @param { object } configuration - configuration for the engine
      * @return { module:engine.Engine }
      */
 
@@ -1376,6 +1362,7 @@ var Entity = function () {
     /**
      * Entity
      * @constructor
+     * @param { int } id - the id of the entity
      */
 
 
@@ -1682,18 +1669,7 @@ var ComponentManager = function () {
       }
       return this._templates[type];
     }
-  }, {
-    key: '_buildState',
-    value: function _buildState(defaults, custom) {
-      if (custom) {
-        for (var KEY in custom) {
-          if (custom.hasOwnProperty(KEY)) {
-            defaults[KEY] = custom[KEY];
-          }
-        }
-      }
-      return defaults;
-    }
+
     //////////////////////////////////////////////////////////////////////////////
     // Static Methods
     //////////////////////////////////////////////////////////////////////////////
@@ -1899,7 +1875,7 @@ var Component = function () {
     /**
      * Sets the keys for the component state
      * @private
-     * @param { enum } keys - the keys for the state of the of the component
+     * @param { enum } state - the keys for the state of the of the component
      */
 
   }, {
@@ -1907,7 +1883,9 @@ var Component = function () {
     value: function _init(state) {
       this._state = {};
       for (var KEY in state) {
-        this._state[state[KEY]] = null;
+        if (state.hasOwnProperty(KEY)) {
+          this._state[state[KEY]] = null;
+        }
       }
     }
 
@@ -2011,6 +1989,15 @@ var AssemblageManager = function () {
   //////////////////////////////////////////////////////////////////////////////
 
   /**
+   * AssemblageManager
+   * @constructor
+   * @param { Array } templates - a collection of assemblage templates
+   * @param { module:engine.EntityManager } entityManager - the entity manager
+   * @param { module:engine.ComponentManager } componentManager - the component manager
+   */
+
+
+  /**
    * @private
    * @type { module:engine.EntityManager }
    */
@@ -2036,9 +2023,9 @@ var AssemblageManager = function () {
   //////////////////////////////////////////////////////////////////////////////
   /**
    * Creates an assemblage of the specified type
-   * @param { string } type
-   * @param { module:engine.EntityManager } entity
-   * @param { object } state
+   * @param { string } type - the type of assemblage to be created
+   * @param { object } state - the initial state of the assemblage to be created
+   * @param { module:engine.EntityManager } entity - the root entity of the assemblage
    */
 
 
@@ -2066,8 +2053,10 @@ var AssemblageManager = function () {
 
   _createClass(AssemblageManager, [{
     key: 'createAssemblage',
-    value: function createAssemblage(type, state, entity) {
+    value: function createAssemblage(type, state) {
       var _this = this;
+
+      var entity = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
       var TEMPLATE = this._findTemplate(type);
       var ENTITY = entity || this._entityManager.createEntity();
@@ -2079,9 +2068,6 @@ var AssemblageManager = function () {
           var MERGED_STATE = Object.assign({}, DEFAULT_STATE, CUSTOM_STATE);
           var COMPONENT = _this._componentManager.createComponent(ENTITY.id, componentType, MERGED_STATE);
 
-          // if (COMPONENT.type === 'HEALTH_COMPONENT' && COMPONENT.state.CURRENT_HEALTH === 1) {
-          //   console.log(JSON.stringify(COMPONENT));
-          // }
           ENTITY.attachComponent(componentType, COMPONENT);
         } catch (err) {
           _this._logService.error(err);
@@ -2096,7 +2082,7 @@ var AssemblageManager = function () {
     /**
      * Finds assemblages of the specified type
      * @param { string } type - the assemblage type
-     * @return
+     * @return { Array }
      */
 
   }, {
@@ -2108,6 +2094,13 @@ var AssemblageManager = function () {
 
       return ASSEMBLAGES;
     }
+
+    /**
+     * Removes the specified assemblage from the collection
+     * @param { string } type - the assemblage type
+     * @param { int } entity - the entity id
+     */
+
   }, {
     key: 'removeAssemblage',
     value: function removeAssemblage(type, entity) {
@@ -2167,18 +2160,7 @@ var AssemblageManager = function () {
       }
       return this._templates[type];
     }
-  }, {
-    key: '_buildState',
-    value: function _buildState(defaults, custom) {
-      if (custom) {
-        for (var KEY in custom) {
-          if (custom.hasOwnProperty(KEY)) {
-            defaults[KEY] = custom[KEY];
-          }
-        }
-      }
-      return defaults;
-    }
+
     //////////////////////////////////////////////////////////////////////////////
     // Static Methods
     //////////////////////////////////////////////////////////////////////////////
@@ -2218,20 +2200,25 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**
- * Engine - Assemblage
- * ===
- *
- * @module assemblage
- */
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Engine - Assemblage
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * ===
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @module assemblage
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
 
 ////////////////////////////////////////////////////////////////////////////////
 // Imports
 ////////////////////////////////////////////////////////////////////////////////
+
+
+var _entity = __webpack_require__(12);
+
+var _entity2 = _interopRequireDefault(_entity);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Definitions
@@ -2247,7 +2234,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  */
 var Assemblage = function () {
   _createClass(Assemblage, [{
-    key: "id",
+    key: 'id',
 
     //////////////////////////////////////////////////////////////////////////////
     // Public Properties
@@ -2265,6 +2252,7 @@ var Assemblage = function () {
      * @type { string }
      */
     get: function get() {
+      // eslint-disable-line id-length
       return this._entity.id;
     }
 
@@ -2289,7 +2277,7 @@ var Assemblage = function () {
      */
 
   }, {
-    key: "type",
+    key: 'type',
     get: function get() {
       return this._type;
     }
@@ -2305,6 +2293,9 @@ var Assemblage = function () {
   function Assemblage(entity, type) {
     _classCallCheck(this, Assemblage);
 
+    if (!(entity instanceof _entity2.default)) {
+      throw new Error();
+    }
     this._entity = entity;
     this._type = type;
   }
@@ -2320,7 +2311,7 @@ var Assemblage = function () {
 
 
   _createClass(Assemblage, [{
-    key: "findComponent",
+    key: 'findComponent',
     value: function findComponent(type) {
       try {
         return this._entity.findComponent(type);
@@ -2345,7 +2336,7 @@ var Assemblage = function () {
      */
 
   }], [{
-    key: "create",
+    key: 'create',
     value: function create(entity, type) {
       return new Assemblage(entity, type);
     }
@@ -2395,7 +2386,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 ////////////////////////////////////////////////////////////////////////////////
 var UNIT = 10;
 var SPACING = 1;
-var SIZE = UNIT - SPACING * 2;
+var SIZE = UNIT - (SPACING + SPACING);
 
 ////////////////////////////////////////////////////////////////////////////////
 // Class
@@ -2416,6 +2407,10 @@ var Display = function () {
   // Public Properties
   //////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Display
+   * @constructor
+   */
   function Display() {
     _classCallCheck(this, Display);
 
@@ -2427,6 +2422,12 @@ var Display = function () {
   //////////////////////////////////////////////////////////////////////////////
   // Public Methods
   //////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Renders a collection of sprites to the screen
+   * @param sprites
+   */
+
 
   _createClass(Display, [{
     key: 'render',
@@ -2441,6 +2442,10 @@ var Display = function () {
     //////////////////////////////////////////////////////////////////////////////
     // Private Methods
     //////////////////////////////////////////////////////////////////////////////
+    /**
+     * Initializes the display and generates the canvas element
+     * @private
+     */
 
   }, {
     key: '_init',
@@ -2452,19 +2457,33 @@ var Display = function () {
       this._lastRender = window.performance.now();
       this._refresh();
     }
+
+    /**
+     * Updates the number of frames per second
+     * @private
+     */
+
   }, {
     key: '_updateFps',
     value: function _updateFps() {
       var ELEMENT = document.getElementById('fps');
+      var MUL1 = 0.25;
+      var MUL2 = 0.75;
 
       if (this._lastRender > this._lastFpsUpdate + _constants.MILLISECONDS) {
-        this._fps = 0.25 * this._framesThisSecond + 0.75 * this._fps;
+        this._fps = MUL1 * this._framesThisSecond + MUL2 * this._fps;
         this._lastFpsUpdate = this._lastRender;
         this._framesThisSecond = 0;
       }
 
       ELEMENT.textContent = Math.round(this._fps) + ' FPS';
     }
+
+    /**
+     * Refreshes the canvas element
+     * @private
+     */
+
   }, {
     key: '_refresh',
     value: function _refresh() {
@@ -2474,6 +2493,13 @@ var Display = function () {
       this._canvas.height = HEIGHT;
       this._canvas.width = WIDTH;
     }
+
+    /**
+     * Draws a collection of sprites to the screen
+     * @param { Array } sprites - a collection of sprites to be drawn
+     * @private
+     */
+
   }, {
     key: '_draw',
     value: function _draw(sprites) {
@@ -2481,7 +2507,7 @@ var Display = function () {
 
       CONTEXT.save();
       CONTEXT.fillStyle = '#FFFFFF';
-      CONTEXT.rect(0, 0, this._canvas.width, this._canvas.height);
+      CONTEXT.clearRect(0, 0, this._canvas.width, this._canvas.height);
       CONTEXT.fill();
       sprites.forEach(function (sprite) {
         var POSITION = sprite.findComponent(_components.COMPONENT_TYPES.POSITION_COMPONENT);
@@ -2502,13 +2528,14 @@ var Display = function () {
     /**
      * Static factory method
      * @static
-     * @param { object } data - configuration for the component to be created
-     * @return { module:engine.Component }
+     * @return { module:display.Display }
      */
 
   }], [{
     key: 'create',
-    value: function create(data) {}
+    value: function create() {
+      return new Display();
+    }
   }]);
 
   return Display;
