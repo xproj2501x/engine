@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -135,188 +135,7 @@ var COMPONENTS = exports.COMPONENTS = {
 };
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Imperium 4X (Shared) - Log Service
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * ===
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @module logService
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
-
-////////////////////////////////////////////////////////////////////////////////
-// Imports
-////////////////////////////////////////////////////////////////////////////////
-
-
-var _log = __webpack_require__(9);
-
-var _log2 = _interopRequireDefault(_log);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-////////////////////////////////////////////////////////////////////////////////
-// Definitions
-////////////////////////////////////////////////////////////////////////////////
-
-var LEVEL = {
-  LOG: 'LOG',
-  WARN: 'WARN',
-  INFO: 'INFO',
-  ERROR: 'ERROR'
-};
-
-////////////////////////////////////////////////////////////////////////////////
-// Class
-////////////////////////////////////////////////////////////////////////////////
-/**
- * LogService
- * @class
- * @memberof module:logService
- */
-
-var LogService = function () {
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Public Properties
-  //////////////////////////////////////////////////////////////////////////////
-
-  /**
-   * LogService
-   * @constructor
-   * @param { string } context - the name of the constructor for the calling class
-   */
-
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Private Properties
-  //////////////////////////////////////////////////////////////////////////////
-  /**
-   * The name of the constructor for the calling class
-   * @private
-   * @type { string }
-   */
-  function LogService(context) {
-    _classCallCheck(this, LogService);
-
-    this._log = new _log2.default();
-    this._context = context;
-  }
-
-  ////////////////////////////////////////////////////////////////////////////////
-  // Public Methods
-  ////////////////////////////////////////////////////////////////////////////////
-  /**
-   * Writes a log message to the log
-   * @param { string } message - the message to be written
-   */
-
-
-  /**
-   *
-   * @private
-   * @type { module:logService.Log }
-   */
-
-
-  _createClass(LogService, [{
-    key: 'log',
-    value: function log(message) {
-      this._write(LEVEL.LOG, message);
-    }
-
-    /**
-     * Writes a warning message to the log
-     * @param { string } message - the message to be written
-     */
-
-  }, {
-    key: 'warn',
-    value: function warn(message) {
-      this._write(LEVEL.WARN, message);
-    }
-
-    /**
-     * Writes an info message to the log
-     * @param { string } message - the message to be written
-     */
-
-  }, {
-    key: 'info',
-    value: function info(message) {
-      this._write(LEVEL.INFO, message);
-    }
-
-    /**
-     * Writes an error message to the log
-     * @param { string } message - the message to be written
-     */
-
-  }, {
-    key: 'error',
-    value: function error(message) {
-      this._write(LEVEL.ERROR, message);
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////
-    // Private Methods
-    ////////////////////////////////////////////////////////////////////////////////
-    /**
-     * Writes a message to the log
-     * @param { string } level - the level of the message
-     * @param { string } message - the message to be written
-     */
-
-  }, {
-    key: '_write',
-    value: function _write(level, message) {
-      if ((typeof message === 'undefined' ? 'undefined' : _typeof(message)) === 'object') {
-        this._log.write('[' + this._context + '] ' + level + ':');
-        this._log.write(JSON.stringify(message));
-      } else {
-        this._log.write('[' + this._context + '] ' + level + ': ' + message);
-      }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////
-    // Static Methods
-    ////////////////////////////////////////////////////////////////////////////////
-    /**
-     * Static factory method
-     * @param { string } context - the name of the constructor for the calling class
-     * @return {module:logService.LogService}
-     */
-
-  }], [{
-    key: 'create',
-    value: function create(context) {
-      return new LogService(context);
-    }
-  }]);
-
-  return LogService;
-}();
-
-////////////////////////////////////////////////////////////////////////////////
-// Exports
-////////////////////////////////////////////////////////////////////////////////
-
-
-exports.default = LogService;
-
-/***/ }),
+/* 1 */,
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -353,951 +172,6 @@ var ASSEMBLAGES = exports.ASSEMBLAGES = {
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-/**
- * Engine - Constants
- * ===
- *
- */
-
-////////////////////////////////////////////////////////////////////////////////
-// Definitions
-////////////////////////////////////////////////////////////////////////////////
-/**
- * The number of milliseconds in a second
- * @type {number}
- */
-var MILLISECONDS = exports.MILLISECONDS = 1000;
-
-/**
- * The number of frames per second to display
- * @type {number}
- */
-var FPS = exports.FPS = 30;
-
-/**
- * The duration of a frame in milliseconds
- * @type { int }
- */
-var FRAME_DURATION = exports.FRAME_DURATION = MILLISECONDS / FPS;
-
-var MAX_FRAME_SKIP = exports.MAX_FRAME_SKIP = 5;
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(5);
-
-var _components = __webpack_require__(0);
-
-var _assemblages = __webpack_require__(2);
-
-var _systems = __webpack_require__(6);
-
-var _src = __webpack_require__(10);
-
-var _src2 = _interopRequireDefault(_src);
-
-var _game = __webpack_require__(18);
-
-var _game2 = _interopRequireDefault(_game);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-(function () {
-  var HREF = window.location;
-  var DEBUG = HREF.search === '?DEBUG';
-  var GAME = new _game2.default();
-  var CONFIG = {
-    COMPONENTS: _components.COMPONENTS,
-    ASSEMBLAGES: _assemblages.ASSEMBLAGES,
-    SYSTEMS: _systems.SYSTEMS,
-    STATE: GAME.create()
-  };
-  var ENGINE = _src2.default.create(CONFIG);
-
-  if (DEBUG) {
-    var element = document.getElementById('diagnostics');
-    element.classList.toggle('hidden');
-  }
-  ENGINE.start();
-})();
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.SYSTEMS = undefined;
-
-var _updateSystem = __webpack_require__(7);
-
-var _updateSystem2 = _interopRequireDefault(_updateSystem);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var SYSTEMS = exports.SYSTEMS = {
-  UPDATE_SYSTEM: new _updateSystem2.default()
-};
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _log = __webpack_require__(1);
-
-var _log2 = _interopRequireDefault(_log);
-
-var _system = __webpack_require__(8);
-
-var _system2 = _interopRequireDefault(_system);
-
-var _assemblages = __webpack_require__(2);
-
-var _components = __webpack_require__(0);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Game - Update System
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * ===
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * @module updateSystem
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-
-////////////////////////////////////////////////////////////////////////////////
-// Imports
-////////////////////////////////////////////////////////////////////////////////
-
-
-////////////////////////////////////////////////////////////////////////////////
-// Definitions
-////////////////////////////////////////////////////////////////////////////////
-var TIME_STATE = _components.COMPONENTS.TIME_COMPONENT.STATE;
-var POSITION_STATE = _components.COMPONENTS.POSITION_COMPONENT.STATE;
-var HEALTH_STATE = _components.COMPONENTS.HEALTH_COMPONENT.STATE;
-
-var DIRECTIONS = [[-1, -1], [0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0]];
-////////////////////////////////////////////////////////////////////////////////
-// Class
-////////////////////////////////////////////////////////////////////////////////
-/**
- * UpdateSystem
- * @class
- * @extends module:engine.System
- * @memberof module:game
- */
-
-var UpdateSystem = function (_System) {
-  _inherits(UpdateSystem, _System);
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Public Properties
-  //////////////////////////////////////////////////////////////////////////////
-  function UpdateSystem() {
-    _classCallCheck(this, UpdateSystem);
-
-    var _this = _possibleConstructorReturn(this, (UpdateSystem.__proto__ || Object.getPrototypeOf(UpdateSystem)).call(this));
-
-    _this._flaggedForUpdate = [];
-    return _this;
-  }
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Public Methods
-  //////////////////////////////////////////////////////////////////////////////
-  /**
-   * Runs the update routine
-   * @param { module:engine.AssemblageManager } assemblages - the assemblage manager
-   */
-
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Private Properties
-  //////////////////////////////////////////////////////////////////////////////
-
-
-  _createClass(UpdateSystem, [{
-    key: 'update',
-    value: function update(assemblages) {
-      var _this2 = this;
-
-      var TIME_ASSEMBLAGE = assemblages.findAssemblagesOfType(_assemblages.ASSEMBLAGE_TYPES.TIME_ASSEMBLAGE)[0];
-      var TIME_COMPONENT = TIME_ASSEMBLAGE.findComponent(_components.COMPONENT_TYPES.TIME_COMPONENT);
-      var TIME = TIME_COMPONENT.state.TIME++;
-
-      if (TIME % 10 === 0) {
-        var CELLS = assemblages.findAssemblagesOfType(_assemblages.ASSEMBLAGE_TYPES.CELL_ASSEMBLAGE);
-        var GRID = this._createGrid(CELLS);
-
-        this._findNeighbors(GRID);
-        this._flaggedForUpdate.forEach(function (cell) {
-          _this2._changeState(cell);
-        });
-
-        this._flaggedForUpdate = [];
-      }
-    }
-
-    //////////////////////////////////////////////////////////////////////////////
-    // Private Methods
-    //////////////////////////////////////////////////////////////////////////////
-
-  }, {
-    key: '_createGrid',
-    value: function _createGrid(cells) {
-      var GRID = [];
-
-      for (var KEY in cells) {
-        var CELL = cells[KEY];
-        var POSITION = CELL.findComponent(_components.COMPONENT_TYPES.POSITION_COMPONENT);
-        var X_POSITION = POSITION.getProperty(POSITION_STATE.X_POSITION);
-        var Y_POSITION = POSITION.getProperty(POSITION_STATE.Y_POSITION);
-
-        if (!GRID[X_POSITION]) {
-          GRID[X_POSITION] = [];
-        }
-        GRID[X_POSITION][Y_POSITION] = CELL;
-      }
-      return GRID;
-    }
-  }, {
-    key: '_findNeighbors',
-    value: function _findNeighbors(grid) {
-      var _this3 = this;
-
-      var _loop = function _loop(idx) {
-        var COLUMN = grid[idx];
-
-        var _loop2 = function _loop2(jdx) {
-          var CELL = grid[idx][jdx];
-          var neighbors = 0;
-
-          DIRECTIONS.forEach(function (direction) {
-            var X_POSITION = idx + direction[0];
-            var Y_POSITION = jdx + direction[1];
-
-            if (X_POSITION >= 0 && X_POSITION < grid.length && Y_POSITION >= 0 && Y_POSITION < COLUMN.length) {
-              var NEIGHBOR = grid[X_POSITION][Y_POSITION];
-              var HEALTH_COMPONENT = NEIGHBOR.findComponent(_components.COMPONENT_TYPES.HEALTH_COMPONENT);
-
-              if (HEALTH_COMPONENT.getProperty(HEALTH_STATE.CURRENT_HEALTH) === 1) {
-                neighbors++;
-              }
-            }
-          });
-
-          _this3._checkState(CELL, neighbors);
-        };
-
-        for (var jdx = 0; jdx < COLUMN.length; jdx++) {
-          _loop2(jdx);
-        }
-      };
-
-      for (var idx = 0; idx < grid.length; idx++) {
-        _loop(idx);
-      }
-    }
-  }, {
-    key: '_checkState',
-    value: function _checkState(cell, neighbors) {
-      var HEALTH_COMPONENT = cell.findComponent(_components.COMPONENT_TYPES.HEALTH_COMPONENT);
-      var ALIVE = HEALTH_COMPONENT.getProperty(HEALTH_STATE.CURRENT_HEALTH);
-
-      if (neighbors < 2 && ALIVE === 1) {
-        this._flaggedForUpdate.push(cell);
-      } else if (neighbors === 3 && ALIVE === 0) {
-        this._flaggedForUpdate.push(cell);
-      } else if (neighbors > 3 && ALIVE) {
-        this._flaggedForUpdate.push(cell);
-      }
-    }
-  }, {
-    key: '_changeState',
-    value: function _changeState(cell) {
-      var HEALTH = cell.findComponent(_components.COMPONENT_TYPES.HEALTH_COMPONENT);
-      var VALUE = HEALTH.getProperty(HEALTH_STATE.CURRENT_HEALTH);
-      var update = void 0;
-
-      if (VALUE === 1) {
-        update = 0;
-      } else {
-        update = 1;
-      }
-      HEALTH.update({ CURRENT_HEALTH: update });
-    }
-  }]);
-
-  return UpdateSystem;
-}(_system2.default);
-
-////////////////////////////////////////////////////////////////////////////////
-// Exports
-////////////////////////////////////////////////////////////////////////////////
-
-
-exports.default = UpdateSystem;
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Engine - System
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * ===
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @module system
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
-
-////////////////////////////////////////////////////////////////////////////////
-// Imports
-////////////////////////////////////////////////////////////////////////////////
-
-
-var _log = __webpack_require__(1);
-
-var _log2 = _interopRequireDefault(_log);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-////////////////////////////////////////////////////////////////////////////////
-// Definitions
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
-// Class
-////////////////////////////////////////////////////////////////////////////////
-/**
- * System
- * @class
- * @memberof module:engine
- */
-var System = function () {
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Public Properties
-  //////////////////////////////////////////////////////////////////////////////
-
-  function System() {
-    _classCallCheck(this, System);
-
-    this._logService = _log2.default.create(this.constructor.name);
-  }
-  ////////////////////////////////////////////////////////////////////////////////
-  // Public Methods
-  ////////////////////////////////////////////////////////////////////////////////
-  /**
-   * Runs the update routine
-   * @param { module:engine.AssemblageManager } assemblages - the assemblage manager
-   */
-
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Private Properties
-  //////////////////////////////////////////////////////////////////////////////
-  /**
-   * @private
-   * @type { module:logService.LogService }
-   */
-
-
-  _createClass(System, [{
-    key: 'update',
-    value: function update(assemblages) {
-      throw new Error('Error: update method called from base class');
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////
-    // Private Methods
-    ////////////////////////////////////////////////////////////////////////////////
-
-  }]);
-
-  return System;
-}();
-
-////////////////////////////////////////////////////////////////////////////////
-// Exports
-////////////////////////////////////////////////////////////////////////////////
-
-
-exports.default = System;
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**
- * Imperium 4X (Shared) - Log
- * ===
- *
- * @module log
- */
-
-////////////////////////////////////////////////////////////////////////////////
-// Imports
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
-// Definitions
-////////////////////////////////////////////////////////////////////////////////
-var instance = null;
-
-////////////////////////////////////////////////////////////////////////////////
-// Class
-////////////////////////////////////////////////////////////////////////////////
-/**
- * LogService
- * @class
- * @memberof module:logService
- */
-
-var Log = function () {
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Public Properties
-  //////////////////////////////////////////////////////////////////////////////
-
-  /**
-   * Log
-   * @constructor
-   * @return {*}
-   */
-  function Log() {
-    _classCallCheck(this, Log);
-
-    this._log = [];
-
-    if (!instance) {
-      instance = this; // eslint-disable-line consistent-this
-    }
-    return instance;
-  }
-
-  /**
-   * Writes a message to the log
-   * @param { object } message - the message to be written
-   */
-
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Private Properties
-  //////////////////////////////////////////////////////////////////////////////
-  /**
-   * @private
-   * @type { Array }
-   */
-
-
-  _createClass(Log, [{
-    key: "write",
-    value: function write(message) {
-      this._log.push(message);
-      console.log(message);
-    }
-    ////////////////////////////////////////////////////////////////////////////////
-    // Public Methods
-    ////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Clears the log
-     */
-
-  }, {
-    key: "clear",
-    value: function clear() {
-      this._log = [];
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////
-    // Private Methods
-    ////////////////////////////////////////////////////////////////////////////////
-
-  }]);
-
-  return Log;
-}();
-
-////////////////////////////////////////////////////////////////////////////////
-// Exports
-////////////////////////////////////////////////////////////////////////////////
-
-
-exports.default = Log;
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Engine - Engine
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * ===
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @module engine
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
-
-////////////////////////////////////////////////////////////////////////////////
-// Imports
-////////////////////////////////////////////////////////////////////////////////
-
-
-var _log = __webpack_require__(1);
-
-var _log2 = _interopRequireDefault(_log);
-
-var _entityManager = __webpack_require__(11);
-
-var _entityManager2 = _interopRequireDefault(_entityManager);
-
-var _componentManager = __webpack_require__(13);
-
-var _componentManager2 = _interopRequireDefault(_componentManager);
-
-var _assemblageManager = __webpack_require__(15);
-
-var _assemblageManager2 = _interopRequireDefault(_assemblageManager);
-
-var _display = __webpack_require__(17);
-
-var _display2 = _interopRequireDefault(_display);
-
-var _assemblages = __webpack_require__(2);
-
-var _components = __webpack_require__(0);
-
-var _constants = __webpack_require__(3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-////////////////////////////////////////////////////////////////////////////////
-// Definitions
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
-// Class
-////////////////////////////////////////////////////////////////////////////////
-/**
- * Engine
- * @class
- * @memberof module:engine
- */
-var Engine = function () {
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Public Properties
-  //////////////////////////////////////////////////////////////////////////////
-
-  /**
-   * Engine
-   * @constructor
-   * @param { object } configuration - configuration for the engine
-   */
-  function Engine(configuration) {
-    _classCallCheck(this, Engine);
-
-    this._logService = new _log2.default(this.constructor.name);
-    this._running = false;
-    this._display = new _display2.default();
-    this._init(configuration);
-  }
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Public Methods
-  //////////////////////////////////////////////////////////////////////////////
-  /**
-   * Starts the engine
-   */
-
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Private Properties
-  //////////////////////////////////////////////////////////////////////////////
-
-
-  _createClass(Engine, [{
-    key: 'start',
-    value: function start() {
-      var _this = this;
-
-      if (!this._running) {
-        this._currentTick = 0;
-        this._running = true;
-        this._frameId = requestAnimationFrame(function (timestamp) {
-          _this._lastFrame = timestamp;
-          _this._frameId = requestAnimationFrame(function (timestamp) {
-            return _this._tick(timestamp);
-          });
-        });
-      }
-    }
-
-    /**
-     * Stops the engine
-     */
-
-  }, {
-    key: 'stop',
-    value: function stop() {
-      this._running = false;
-      cancelAnimationFrame(this._frameId);
-    }
-
-    //////////////////////////////////////////////////////////////////////////////
-    // Private Methods
-    //////////////////////////////////////////////////////////////////////////////
-    /**
-     * Initializes the engine
-     * @private
-     * @param { object } configuration - configuration for the engine
-     */
-
-  }, {
-    key: '_init',
-    value: function _init(configuration) {
-      var _this2 = this;
-
-      var ENTITY_MANAGER = _entityManager2.default.create();
-      var COMPONENT_MANAGER = _componentManager2.default.create(configuration.COMPONENTS);
-
-      this._systems = configuration.SYSTEMS;
-      this._assemblageManager = _assemblageManager2.default.create(configuration.ASSEMBLAGES, ENTITY_MANAGER, COMPONENT_MANAGER);
-
-      configuration.STATE.forEach(function (assemblage) {
-        _this2._assemblageManager.createAssemblage(assemblage.type, assemblage.state);
-      });
-    }
-
-    /**
-     * The main game loop
-     * @private
-     * @param { float } timestamp - the timestamp for the current animation frame
-     */
-
-  }, {
-    key: '_tick',
-    value: function _tick(timestamp) {
-      var _this3 = this;
-
-      var NOW = timestamp;
-
-      this._currentTick++;
-      if (NOW > this._lastFrame + _constants.FRAME_DURATION) {
-        this._update(NOW);
-        this._render(NOW);
-        this._lastFrame = NOW;
-      }
-      this._frameId = requestAnimationFrame(function (timestamp) {
-        _this3._tick(timestamp);
-      });
-    }
-
-    /**
-     * Runs the update loop on all systems
-     * @param { float } delta - the amount of time since last update
-     * @private
-     */
-
-  }, {
-    key: '_update',
-    value: function _update(delta) {
-      while (delta >= _constants.FRAME_DURATION) {
-        for (var KEY in this._systems) {
-          if (this._systems.hasOwnProperty(KEY)) {
-            var SYSTEM = this._systems[KEY];
-
-            SYSTEM.update(this._assemblageManager);
-          }
-        }
-        delta -= _constants.FRAME_DURATION;
-      }
-    }
-
-    /**
-     * Runs the render loop on all entities
-     * @param { float } delta - the amount of time since last update
-     * @private
-     */
-
-  }, {
-    key: '_render',
-    value: function _render(delta) {
-      var CELLS = this._assemblageManager.findAssemblagesOfType(_assemblages.ASSEMBLAGE_TYPES.CELL_ASSEMBLAGE);
-      var SPRITES = [];
-
-      CELLS.forEach(function (cell) {
-        var HEALTH = cell.findComponent(_components.COMPONENT_TYPES.HEALTH_COMPONENT);
-
-        if (HEALTH.state.CURRENT_HEALTH === 1) {
-          SPRITES.push(cell);
-        }
-      });
-      this._display.render(SPRITES);
-    }
-
-    //////////////////////////////////////////////////////////////////////////////
-    // Static Methods
-    //////////////////////////////////////////////////////////////////////////////
-    /**
-     * Static factory method
-     * @static
-     * @param { object } configuration - configuration for the engine
-     * @return { module:engine.Engine }
-     */
-
-  }], [{
-    key: 'create',
-    value: function create(configuration) {
-      return new Engine(configuration);
-    }
-  }]);
-
-  return Engine;
-}();
-
-////////////////////////////////////////////////////////////////////////////////
-// Exports
-////////////////////////////////////////////////////////////////////////////////
-
-
-exports.default = Engine;
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Engine - Entity Manager
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * ===
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @module entityManager
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
-
-////////////////////////////////////////////////////////////////////////////////
-// Imports
-////////////////////////////////////////////////////////////////////////////////
-
-
-var _log = __webpack_require__(1);
-
-var _log2 = _interopRequireDefault(_log);
-
-var _entity = __webpack_require__(12);
-
-var _entity2 = _interopRequireDefault(_entity);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-////////////////////////////////////////////////////////////////////////////////
-// Class
-////////////////////////////////////////////////////////////////////////////////
-/**
- * EntityManager
- * @class
- * @memberof module:engine
- */
-var EntityManager = function () {
-  //////////////////////////////////////////////////////////////////////////////
-  // Public Properties
-  //////////////////////////////////////////////////////////////////////////////
-
-  /**
-   * EntityManager
-   * @constructor
-   */
-
-
-  /**
-   * Collection of entities
-   * @private
-   * @type { Array }
-   */
-  function EntityManager() {
-    _classCallCheck(this, EntityManager);
-
-    this._logService = _log2.default.create(this.constructor.name);
-    this._nextId = 0;
-    this._entities = [];
-  }
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Public Methods
-  //////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates a new entity
-   * @return { module:engine.Entity }
-   */
-
-
-  /**
-   * The id to be assigned to the next entity created
-   * @private
-   * @type { int }
-   */
-
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Private Properties
-  //////////////////////////////////////////////////////////////////////////////
-  /**
-   * @private
-   * @type { module:logService.LogService }
-   */
-
-
-  _createClass(EntityManager, [{
-    key: 'createEntity',
-    value: function createEntity() {
-      var ENTITY = _entity2.default.create(this._nextId);
-
-      this._nextId++;
-      this._entities.push(ENTITY);
-      return ENTITY;
-    }
-
-    /**
-     * Finds an entity with the specified id
-     * @param { int } id - The id of the entity to be retrieved
-     * @return { module:engine.Entity }
-     */
-
-  }, {
-    key: 'findEntity',
-    value: function findEntity(id) {
-      // eslint-disable-line id-length
-      var Entity = this._entities.find(function (entity) {
-        if (entity.id === id) {
-          return entity;
-        }
-        return null;
-      });
-
-      if (!Entity) {
-        throw new Error('Entity id ' + id + ' not found');
-      }
-      return Entity;
-    }
-
-    /**
-     * Removes an entity
-     * @param { string } id - The id of the entity to be deleted
-     */
-
-  }, {
-    key: 'removeEntity',
-    value: function removeEntity(id) {
-      // eslint-disable-line id-length
-      try {
-        var ENTITY = this.findEntity(id);
-        var INDEX = this._entities.indexOf(ENTITY);
-
-        this._entities.splice(INDEX, 1);
-      } catch (err) {
-        throw err;
-      }
-    }
-
-    //////////////////////////////////////////////////////////////////////////////
-    // Static Methods
-    //////////////////////////////////////////////////////////////////////////////
-    /**
-     * Static factory method
-     * @static
-     * @return { module:engine.EntityManager }
-     */
-
-  }], [{
-    key: 'create',
-    value: function create() {
-      return new EntityManager();
-    }
-  }]);
-
-  return EntityManager;
-}();
-
-////////////////////////////////////////////////////////////////////////////////
-// Exports
-////////////////////////////////////////////////////////////////////////////////
-
-
-exports.default = EntityManager;
-
-/***/ }),
-/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1459,6 +333,987 @@ var Entity = function () {
 exports.default = Entity;
 
 /***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * Engine - Constants
+ * ===
+ *
+ */
+
+////////////////////////////////////////////////////////////////////////////////
+// Definitions
+////////////////////////////////////////////////////////////////////////////////
+/**
+ * The number of milliseconds in a second
+ * @type {number}
+ */
+var MILLISECONDS = exports.MILLISECONDS = 1000;
+
+/**
+ * The number of frames per second to display
+ * @type {number}
+ */
+var FPS = exports.FPS = 30;
+
+/**
+ * The duration of a frame in milliseconds
+ * @type { int }
+ */
+var FRAME_DURATION = exports.FRAME_DURATION = MILLISECONDS / FPS;
+
+var MAX_FRAME_SKIP = exports.MAX_FRAME_SKIP = 5;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(6);
+
+var _components = __webpack_require__(0);
+
+var _assemblages = __webpack_require__(2);
+
+var _systems = __webpack_require__(7);
+
+var _viewFactory = __webpack_require__(20);
+
+var _viewFactory2 = _interopRequireDefault(_viewFactory);
+
+var _diagnosticsView = __webpack_require__(25);
+
+var _diagnosticsView2 = _interopRequireDefault(_diagnosticsView);
+
+var _src = __webpack_require__(11);
+
+var _src2 = _interopRequireDefault(_src);
+
+var _game = __webpack_require__(18);
+
+var _game2 = _interopRequireDefault(_game);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+(function () {
+  var HREF = window.location;
+  var DEBUG = HREF.search === '?DEBUG';
+  var VIEW_FACTORY = _viewFactory2.default.create();
+  var DIAGNOSTICS_VIEW = _diagnosticsView2.default.create();
+  var GAME = new _game2.default();
+  var CONFIG = {
+    COMPONENTS: _components.COMPONENTS,
+    ASSEMBLAGES: _assemblages.ASSEMBLAGES,
+    SYSTEMS: _systems.SYSTEMS,
+    STATE: GAME.create()
+  };
+  var ENGINE = _src2.default.create(CONFIG);
+
+  VIEW_FACTORY.createView({
+    url: 'http://localhost:3050/js/views/diagnostics-view.html',
+    headers: {
+      'Content-Type': 'text/html',
+      'Accept': 'text/html'
+    }
+  }).then(function (response) {
+
+    var PARSER = new DOMParser();
+    var DOC = PARSER.parseFromString(response.responseText, 'text/html');
+    var ELEMENT = DOC.getElementById('diagnostics');
+    var ROOT = document.getElementsByTagName('diagnostics')[0];
+
+    ROOT.append(ELEMENT);
+  }).catch(function (err) {
+    console.log(err);
+  });
+
+  if (DEBUG) {
+    // const element = document.getElementById('diagnostics');
+    // element.classList.toggle('hidden');
+  }
+  ENGINE.start();
+})();
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.SYSTEMS = undefined;
+
+var _updateSystem = __webpack_require__(8);
+
+var _updateSystem2 = _interopRequireDefault(_updateSystem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SYSTEMS = exports.SYSTEMS = {
+  UPDATE_SYSTEM: new _updateSystem2.default()
+};
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _log = __webpack_require__(24);
+
+var _log2 = _interopRequireDefault(_log);
+
+var _system = __webpack_require__(10);
+
+var _system2 = _interopRequireDefault(_system);
+
+var _assemblages = __webpack_require__(2);
+
+var _components = __webpack_require__(0);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Game - Update System
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * ===
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * @module updateSystem
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+////////////////////////////////////////////////////////////////////////////////
+// Imports
+////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Definitions
+////////////////////////////////////////////////////////////////////////////////
+var TIME_STATE = _components.COMPONENTS.TIME_COMPONENT.STATE;
+var POSITION_STATE = _components.COMPONENTS.POSITION_COMPONENT.STATE;
+var HEALTH_STATE = _components.COMPONENTS.HEALTH_COMPONENT.STATE;
+
+var DIRECTIONS = [[-1, -1], [0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0]];
+////////////////////////////////////////////////////////////////////////////////
+// Class
+////////////////////////////////////////////////////////////////////////////////
+/**
+ * UpdateSystem
+ * @class
+ * @extends module:engine.System
+ * @memberof module:game
+ */
+
+var UpdateSystem = function (_System) {
+  _inherits(UpdateSystem, _System);
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Properties
+  //////////////////////////////////////////////////////////////////////////////
+  function UpdateSystem() {
+    _classCallCheck(this, UpdateSystem);
+
+    var _this = _possibleConstructorReturn(this, (UpdateSystem.__proto__ || Object.getPrototypeOf(UpdateSystem)).call(this));
+
+    _this._flaggedForUpdate = [];
+    return _this;
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Methods
+  //////////////////////////////////////////////////////////////////////////////
+  /**
+   * Runs the update routine
+   * @param { module:engine.AssemblageManager } assemblages - the assemblage manager
+   */
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Private Properties
+  //////////////////////////////////////////////////////////////////////////////
+
+
+  _createClass(UpdateSystem, [{
+    key: 'update',
+    value: function update(assemblages) {
+      var _this2 = this;
+
+      var TIME_ASSEMBLAGE = assemblages.findAssemblagesOfType(_assemblages.ASSEMBLAGE_TYPES.TIME_ASSEMBLAGE)[0];
+      var TIME_COMPONENT = TIME_ASSEMBLAGE.findComponent(_components.COMPONENT_TYPES.TIME_COMPONENT);
+      var TIME = TIME_COMPONENT.state.TIME++;
+
+      if (TIME % 10 === 0) {
+        var CELLS = assemblages.findAssemblagesOfType(_assemblages.ASSEMBLAGE_TYPES.CELL_ASSEMBLAGE);
+        var GRID = this._createGrid(CELLS);
+
+        this._findNeighbors(GRID);
+        this._flaggedForUpdate.forEach(function (cell) {
+          _this2._changeState(cell);
+        });
+
+        this._flaggedForUpdate = [];
+      }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////
+    // Private Methods
+    //////////////////////////////////////////////////////////////////////////////
+
+  }, {
+    key: '_createGrid',
+    value: function _createGrid(cells) {
+      var GRID = [];
+
+      for (var KEY in cells) {
+        var CELL = cells[KEY];
+        var POSITION = CELL.findComponent(_components.COMPONENT_TYPES.POSITION_COMPONENT);
+        var STATE = POSITION.state;
+        var X_POSITION = STATE[POSITION_STATE.X_POSITION];
+        var Y_POSITION = STATE[POSITION_STATE.Y_POSITION];
+
+        if (!GRID[X_POSITION]) {
+          GRID[X_POSITION] = [];
+        }
+        GRID[X_POSITION][Y_POSITION] = CELL;
+      }
+      return GRID;
+    }
+  }, {
+    key: '_findNeighbors',
+    value: function _findNeighbors(grid) {
+      var _this3 = this;
+
+      var _loop = function _loop(idx) {
+        var COLUMN = grid[idx];
+
+        var _loop2 = function _loop2(jdx) {
+          var CELL = grid[idx][jdx];
+          var neighbors = 0;
+
+          DIRECTIONS.forEach(function (direction) {
+            var X_POSITION = idx + direction[0];
+            var Y_POSITION = jdx + direction[1];
+
+            if (X_POSITION >= 0 && X_POSITION < grid.length && Y_POSITION >= 0 && Y_POSITION < COLUMN.length) {
+              var NEIGHBOR = grid[X_POSITION][Y_POSITION];
+              var HEALTH_COMPONENT = NEIGHBOR.findComponent(_components.COMPONENT_TYPES.HEALTH_COMPONENT);
+              var STATE = HEALTH_COMPONENT.state;
+
+              if (STATE[HEALTH_STATE.CURRENT_HEALTH] === 1) {
+                neighbors++;
+              }
+            }
+          });
+
+          _this3._checkState(CELL, neighbors);
+        };
+
+        for (var jdx = 0; jdx < COLUMN.length; jdx++) {
+          _loop2(jdx);
+        }
+      };
+
+      for (var idx = 0; idx < grid.length; idx++) {
+        _loop(idx);
+      }
+    }
+  }, {
+    key: '_checkState',
+    value: function _checkState(cell, neighbors) {
+      var HEALTH_COMPONENT = cell.findComponent(_components.COMPONENT_TYPES.HEALTH_COMPONENT);
+      var STATE = HEALTH_COMPONENT.state;
+      var ALIVE = STATE[HEALTH_STATE.CURRENT_HEALTH];
+
+      if (neighbors < 2 && ALIVE === 1) {
+        this._flaggedForUpdate.push(cell);
+      } else if (neighbors === 3 && ALIVE === 0) {
+        this._flaggedForUpdate.push(cell);
+      } else if (neighbors > 3 && ALIVE) {
+        this._flaggedForUpdate.push(cell);
+      }
+    }
+  }, {
+    key: '_changeState',
+    value: function _changeState(cell) {
+      var HEALTH = cell.findComponent(_components.COMPONENT_TYPES.HEALTH_COMPONENT);
+      var STATE = HEALTH.state;
+      var VALUE = STATE[HEALTH_STATE.CURRENT_HEALTH];
+      var update = void 0;
+
+      if (VALUE === 1) {
+        update = 0;
+      } else {
+        update = 1;
+      }
+      HEALTH.update({ CURRENT_HEALTH: update });
+    }
+  }]);
+
+  return UpdateSystem;
+}(_system2.default);
+
+////////////////////////////////////////////////////////////////////////////////
+// Exports
+////////////////////////////////////////////////////////////////////////////////
+
+
+exports.default = UpdateSystem;
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Imperium 4X (Shared) - Log
+ * ===
+ *
+ * @module log
+ */
+
+////////////////////////////////////////////////////////////////////////////////
+// Imports
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// Definitions
+////////////////////////////////////////////////////////////////////////////////
+var instance = null;
+
+////////////////////////////////////////////////////////////////////////////////
+// Class
+////////////////////////////////////////////////////////////////////////////////
+/**
+ * Log
+ * @class
+ * @memberof module:logService
+ */
+
+var Log = function () {
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Properties
+  //////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Log
+   * @constructor
+   * @return {*}
+   */
+  function Log() {
+    _classCallCheck(this, Log);
+
+    this._log = [];
+
+    if (!instance) {
+      instance = this; // eslint-disable-line consistent-this
+    }
+    return instance;
+  }
+
+  /**
+   * Writes a message to the log
+   * @param { object } message - the message to be written
+   */
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Private Properties
+  //////////////////////////////////////////////////////////////////////////////
+  /**
+   * @private
+   * @type { Array }
+   */
+
+
+  _createClass(Log, [{
+    key: "write",
+    value: function write(message) {
+      this._log.push(message);
+      console.log(message);
+    }
+    ////////////////////////////////////////////////////////////////////////////////
+    // Public Methods
+    ////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Clears the log
+     */
+
+  }, {
+    key: "clear",
+    value: function clear() {
+      this._log = [];
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // Private Methods
+    ////////////////////////////////////////////////////////////////////////////////
+
+  }]);
+
+  return Log;
+}();
+
+////////////////////////////////////////////////////////////////////////////////
+// Exports
+////////////////////////////////////////////////////////////////////////////////
+
+
+exports.default = Log;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Engine - System
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * ===
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @module system
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+////////////////////////////////////////////////////////////////////////////////
+// Imports
+////////////////////////////////////////////////////////////////////////////////
+
+
+var _log = __webpack_require__(24);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+////////////////////////////////////////////////////////////////////////////////
+// Definitions
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// Class
+////////////////////////////////////////////////////////////////////////////////
+/**
+ * System
+ * @class
+ * @memberof module:engine
+ */
+var System = function () {
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Properties
+  //////////////////////////////////////////////////////////////////////////////
+
+  function System() {
+    _classCallCheck(this, System);
+
+    this._logService = _log2.default.create(this.constructor.name);
+  }
+  ////////////////////////////////////////////////////////////////////////////////
+  // Public Methods
+  ////////////////////////////////////////////////////////////////////////////////
+  /**
+   * Runs the update routine
+   * @param { module:engine.AssemblageManager } assemblages - the assemblage manager
+   */
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Private Properties
+  //////////////////////////////////////////////////////////////////////////////
+  /**
+   * @private
+   * @type { module:logService.LogService }
+   */
+
+
+  _createClass(System, [{
+    key: 'update',
+    value: function update(assemblages) {
+      throw new Error('Error: update method called from base class');
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // Private Methods
+    ////////////////////////////////////////////////////////////////////////////////
+
+  }]);
+
+  return System;
+}();
+
+////////////////////////////////////////////////////////////////////////////////
+// Exports
+////////////////////////////////////////////////////////////////////////////////
+
+
+exports.default = System;
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Engine - Engine
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * ===
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @module engine
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+////////////////////////////////////////////////////////////////////////////////
+// Imports
+////////////////////////////////////////////////////////////////////////////////
+
+
+var _log = __webpack_require__(24);
+
+var _log2 = _interopRequireDefault(_log);
+
+var _entityManager = __webpack_require__(12);
+
+var _entityManager2 = _interopRequireDefault(_entityManager);
+
+var _componentManager = __webpack_require__(13);
+
+var _componentManager2 = _interopRequireDefault(_componentManager);
+
+var _assemblageManager = __webpack_require__(15);
+
+var _assemblageManager2 = _interopRequireDefault(_assemblageManager);
+
+var _display = __webpack_require__(17);
+
+var _display2 = _interopRequireDefault(_display);
+
+var _assemblages = __webpack_require__(2);
+
+var _components = __webpack_require__(0);
+
+var _constants = __webpack_require__(4);
+
+var _timestamp = __webpack_require__(22);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+////////////////////////////////////////////////////////////////////////////////
+// Definitions
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// Class
+////////////////////////////////////////////////////////////////////////////////
+/**
+ * Engine
+ * @class
+ * @memberof module:engine
+ */
+var Engine = function () {
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Properties
+  //////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Engine
+   * @constructor
+   * @param { object } configuration - configuration for the engine
+   */
+  function Engine(configuration) {
+    _classCallCheck(this, Engine);
+
+    this._logService = new _log2.default(this.constructor.name);
+    this._running = false;
+    this._display = new _display2.default();
+    this._init(configuration);
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Methods
+  //////////////////////////////////////////////////////////////////////////////
+  /**
+   * Starts the engine
+   */
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Private Properties
+  //////////////////////////////////////////////////////////////////////////////
+
+
+  _createClass(Engine, [{
+    key: 'start',
+    value: function start() {
+      var _this = this;
+
+      if (!this._running) {
+        this._currentTick = 0;
+        this._running = true;
+        this._frameId = requestAnimationFrame(function (raf) {
+          _this._lastFrame = raf;
+          _this._frameId = requestAnimationFrame(function (raf) {
+            return _this._tick(raf);
+          });
+        });
+      }
+    }
+
+    /**
+     * Stops the engine
+     */
+
+  }, {
+    key: 'stop',
+    value: function stop() {
+      this._running = false;
+      cancelAnimationFrame(this._frameId);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////
+    // Private Methods
+    //////////////////////////////////////////////////////////////////////////////
+    /**
+     * Initializes the engine
+     * @private
+     * @param { object } configuration - configuration for the engine
+     */
+
+  }, {
+    key: '_init',
+    value: function _init(configuration) {
+      var _this2 = this;
+
+      var ENTITY_MANAGER = _entityManager2.default.create();
+      var COMPONENT_MANAGER = _componentManager2.default.create(configuration.COMPONENTS);
+
+      this._systems = configuration.SYSTEMS;
+      this._assemblageManager = _assemblageManager2.default.create(configuration.ASSEMBLAGES, ENTITY_MANAGER, COMPONENT_MANAGER);
+
+      configuration.STATE.forEach(function (assemblage) {
+        _this2._assemblageManager.createAssemblage(assemblage.type, assemblage.state);
+      });
+    }
+
+    /**
+     * The main game loop
+     * @private
+     * @param { float } timestamp - the timestamp for the current animation frame
+     */
+
+  }, {
+    key: '_tick',
+    value: function _tick(raf) {
+      var _this3 = this;
+
+      var NOW = raf;
+
+      // if (this._currentTick < 35) {
+      this._currentTick++;
+      if (NOW > this._lastFrame + _constants.FRAME_DURATION) {
+        this._update(NOW);
+        this._render(NOW);
+        this._lastFrame = NOW;
+      }
+      this._frameId = requestAnimationFrame(function (raf) {
+        _this3._tick(raf);
+      });
+      // }
+    }
+
+    /**
+     * Runs the update loop on all systems
+     * @param { float } delta - the amount of time since last update
+     * @private
+     */
+
+  }, {
+    key: '_update',
+    value: function _update(delta) {
+      while (delta >= _constants.FRAME_DURATION) {
+        for (var KEY in this._systems) {
+          if (this._systems.hasOwnProperty(KEY)) {
+            var SYSTEM = this._systems[KEY];
+
+            SYSTEM.update(this._assemblageManager);
+          }
+        }
+        delta -= _constants.FRAME_DURATION;
+      }
+    }
+
+    /**
+     * Runs the render loop on all entities
+     * @param { float } delta - the amount of time since last update
+     * @private
+     */
+
+  }, {
+    key: '_render',
+    value: function _render(delta) {
+      var CELLS = this._assemblageManager.findAssemblagesOfType(_assemblages.ASSEMBLAGE_TYPES.CELL_ASSEMBLAGE);
+      var SPRITES = [];
+
+      CELLS.forEach(function (cell) {
+        var HEALTH = cell.findComponent(_components.COMPONENT_TYPES.HEALTH_COMPONENT);
+
+        if (HEALTH.state.CURRENT_HEALTH === 1) {
+          SPRITES.push(cell);
+        }
+      });
+      this._display.render(SPRITES);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////
+    // Static Methods
+    //////////////////////////////////////////////////////////////////////////////
+    /**
+     * Static factory method
+     * @static
+     * @param { object } configuration - configuration for the engine
+     * @return { module:engine.Engine }
+     */
+
+  }], [{
+    key: 'create',
+    value: function create(configuration) {
+      return new Engine(configuration);
+    }
+  }]);
+
+  return Engine;
+}();
+
+////////////////////////////////////////////////////////////////////////////////
+// Exports
+////////////////////////////////////////////////////////////////////////////////
+
+
+exports.default = Engine;
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Engine - Entity Manager
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * ===
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @module entityManager
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+////////////////////////////////////////////////////////////////////////////////
+// Imports
+////////////////////////////////////////////////////////////////////////////////
+
+
+var _log = __webpack_require__(24);
+
+var _log2 = _interopRequireDefault(_log);
+
+var _entity = __webpack_require__(3);
+
+var _entity2 = _interopRequireDefault(_entity);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+////////////////////////////////////////////////////////////////////////////////
+// Class
+////////////////////////////////////////////////////////////////////////////////
+/**
+ * EntityManager
+ * @class
+ * @memberof module:engine
+ */
+var EntityManager = function () {
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Properties
+  //////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * EntityManager
+   * @constructor
+   */
+
+
+  /**
+   * Collection of entities
+   * @private
+   * @type { Array }
+   */
+  function EntityManager() {
+    _classCallCheck(this, EntityManager);
+
+    this._logService = _log2.default.create(this.constructor.name);
+    this._nextId = 0;
+    this._entities = [];
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Methods
+  //////////////////////////////////////////////////////////////////////////////
+  /**
+   * Creates a new entity
+   * @return { module:engine.Entity }
+   */
+
+
+  /**
+   * The id to be assigned to the next entity created
+   * @private
+   * @type { int }
+   */
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Private Properties
+  //////////////////////////////////////////////////////////////////////////////
+  /**
+   * @private
+   * @type { module:logService.LogService }
+   */
+
+
+  _createClass(EntityManager, [{
+    key: 'createEntity',
+    value: function createEntity() {
+      var ENTITY = _entity2.default.create(this._nextId);
+
+      this._nextId++;
+      this._entities.push(ENTITY);
+      return ENTITY;
+    }
+
+    /**
+     * Finds an entity with the specified id
+     * @param { int } id - The id of the entity to be retrieved
+     * @return { module:engine.Entity }
+     */
+
+  }, {
+    key: 'findEntity',
+    value: function findEntity(id) {
+      // eslint-disable-line id-length
+      var Entity = this._entities.find(function (entity) {
+        if (entity.id === id) {
+          return entity;
+        }
+        return null;
+      });
+
+      if (!Entity) {
+        throw new Error('Entity id ' + id + ' not found');
+      }
+      return Entity;
+    }
+
+    /**
+     * Removes an entity
+     * @param { string } id - The id of the entity to be deleted
+     */
+
+  }, {
+    key: 'removeEntity',
+    value: function removeEntity(id) {
+      // eslint-disable-line id-length
+      try {
+        var ENTITY = this.findEntity(id);
+        var INDEX = this._entities.indexOf(ENTITY);
+
+        this._entities.splice(INDEX, 1);
+      } catch (err) {
+        throw err;
+      }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////
+    // Static Methods
+    //////////////////////////////////////////////////////////////////////////////
+    /**
+     * Static factory method
+     * @static
+     * @return { module:engine.EntityManager }
+     */
+
+  }], [{
+    key: 'create',
+    value: function create() {
+      return new EntityManager();
+    }
+  }]);
+
+  return EntityManager;
+}();
+
+////////////////////////////////////////////////////////////////////////////////
+// Exports
+////////////////////////////////////////////////////////////////////////////////
+
+
+exports.default = EntityManager;
+
+/***/ }),
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1481,7 +1336,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-var _log = __webpack_require__(1);
+var _log = __webpack_require__(24);
 
 var _log2 = _interopRequireDefault(_log);
 
@@ -1565,7 +1420,6 @@ var ComponentManager = function () {
       var DATA = {
         id: id, // eslint-disable-line id-length
         type: type,
-        keys: TEMPLATE.STATE,
         state: MERGED_STATE
       };
       var COMPONENT = _component2.default.create(DATA);
@@ -1810,100 +1664,52 @@ var Component = function () {
      * @constructor
      * @param { int } id - the id of the parent entity
      * @param { string } type - the type of the component to be created
-     * @param { enum } keys - the keys for the component type
      * @param { object } state - the initial state of the component
      */
 
   }]);
 
-  function Component(id, type, keys, state) {
+  function Component(id, type, state) {
     _classCallCheck(this, Component);
 
     // eslint-disable-line id-length
+    if (id === null) {
+      throw new Error('Component id cannot be null');
+    }
     if (type === null) {
       throw new Error('Component type cannot be null');
     }
+    if (state === null) {
+      throw new Error('Component state cannot be null');
+    }
     this._id = id;
     this._type = type;
-    this._init(keys);
-    this.update(state);
+    this._state = Object.assign({}, state);
   }
 
   //////////////////////////////////////////////////////////////////////////////
   // Public Methods
   //////////////////////////////////////////////////////////////////////////////
   /**
-   * Gets the specificed property of the component state
-   * @param { string } key - the key for the property to be retrieved
-   * @return { object }
+   * Updates the state of the component with new values
+   * @param { object } state - the new state of the component
    */
 
 
   _createClass(Component, [{
-    key: 'getProperty',
-    value: function getProperty(key) {
-      if (!this._state.hasOwnProperty(key)) {
-        throw new Error('Invalid property ' + key + ' for component type ' + this._type);
-      }
-      return this._state[key];
-    }
-
-    /**
-     * Updates the state of the component with new values
-     * @param { object } state - the new state of the component
-     */
-
-  }, {
     key: 'update',
     value: function update(state) {
       for (var KEY in state) {
-        if (state.hasOwnProperty(KEY)) {
-          var VALUE = state[KEY];
-
-          try {
-            this._setProperty(KEY, VALUE);
-          } catch (err) {
-            throw err;
-          }
+        if (!this._state.hasOwnProperty(KEY)) {
+          throw new Error('Invalid property ' + KEY + ' for component type ' + this._type);
         }
       }
+      this._state = Object.assign({}, this._state, state);
     }
 
     //////////////////////////////////////////////////////////////////////////////
     // Private Methods
     //////////////////////////////////////////////////////////////////////////////
-    /**
-     * Sets the keys for the component state
-     * @private
-     * @param { enum } state - the keys for the state of the of the component
-     */
-
-  }, {
-    key: '_init',
-    value: function _init(state) {
-      this._state = {};
-      for (var KEY in state) {
-        if (state.hasOwnProperty(KEY)) {
-          this._state[state[KEY]] = null;
-        }
-      }
-    }
-
-    /**
-     * Sets the value of the specified property
-     * @private
-     * @param { string } key - the key of the property to be changed
-     * @param { string } value - the value of the property to be changed
-     */
-
-  }, {
-    key: '_setProperty',
-    value: function _setProperty(key, value) {
-      if (!this._state.hasOwnProperty(key)) {
-        throw new Error('Invalid property ' + key + ' for component type ' + this._type);
-      }
-      this._state[key] = value;
-    }
 
     //////////////////////////////////////////////////////////////////////////////
     // Static Methods
@@ -1921,7 +1727,7 @@ var Component = function () {
       if (data === null) {
         throw new Error('Component configuration missing');
       }
-      return new Component(data.id, data.type, data.keys, data.state);
+      return new Component(data.id, data.type, data.state);
     }
   }]);
 
@@ -1958,7 +1764,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-var _log = __webpack_require__(1);
+var _log = __webpack_require__(24);
 
 var _log2 = _interopRequireDefault(_log);
 
@@ -2212,7 +2018,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-var _entity = __webpack_require__(12);
+var _entity = __webpack_require__(3);
 
 var _entity2 = _interopRequireDefault(_entity);
 
@@ -2375,9 +2181,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 ////////////////////////////////////////////////////////////////////////////////
 
 
+var _message = __webpack_require__(23);
+
+var _message2 = _interopRequireDefault(_message);
+
 var _components = __webpack_require__(0);
 
-var _constants = __webpack_require__(3);
+var _constants = __webpack_require__(4);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2414,6 +2226,7 @@ var Display = function () {
   function Display() {
     _classCallCheck(this, Display);
 
+    this._messageService = _message2.default.create();
     this._fps = _constants.FPS;
     this._framesThisSecond = 0;
     this._init();
@@ -2425,7 +2238,7 @@ var Display = function () {
 
   /**
    * Renders a collection of sprites to the screen
-   * @param sprites
+   * @param { Array } sprites - a collection of sprite object to be rendered
    */
 
 
@@ -2466,17 +2279,21 @@ var Display = function () {
   }, {
     key: '_updateFps',
     value: function _updateFps() {
-      var ELEMENT = document.getElementById('fps');
       var MUL1 = 0.25;
       var MUL2 = 0.75;
 
       if (this._lastRender > this._lastFpsUpdate + _constants.MILLISECONDS) {
-        this._fps = MUL1 * this._framesThisSecond + MUL2 * this._fps;
+        this._fps = Math.floor(MUL1 * this._framesThisSecond + MUL2 * this._fps);
         this._lastFpsUpdate = this._lastRender;
+        var MESSAGE = {
+          subject: 'DIAGNOSTICS',
+          body: {
+            fps: this._fps
+          }
+        };
+        this._messageService.publish(MESSAGE);
         this._framesThisSecond = 0;
       }
-
-      ELEMENT.textContent = Math.round(this._fps) + ' FPS';
     }
 
     /**
@@ -2496,7 +2313,7 @@ var Display = function () {
 
     /**
      * Draws a collection of sprites to the screen
-     * @param { Array } sprites - a collection of sprites to be drawn
+     * @param { Array } sprites - a collection of sprites to be rendered
      * @private
      */
 
@@ -2669,6 +2486,843 @@ var Game = function () {
 
 
 exports.default = Game;
+
+/***/ }),
+/* 19 */,
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Views - View Factory
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * ===
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @module viewFactory
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+////////////////////////////////////////////////////////////////////////////////
+// Imports
+////////////////////////////////////////////////////////////////////////////////
+
+
+var _log = __webpack_require__(24);
+
+var _log2 = _interopRequireDefault(_log);
+
+var _ajax = __webpack_require__(21);
+
+var _ajax2 = _interopRequireDefault(_ajax);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+////////////////////////////////////////////////////////////////////////////////
+// Definitions
+////////////////////////////////////////////////////////////////////////////////
+var API = 'http://localhost:3050';
+
+////////////////////////////////////////////////////////////////////////////////
+// Class
+////////////////////////////////////////////////////////////////////////////////
+/**
+ * View
+ * @class
+ * @memberof module:views
+ */
+
+var ViewFactory = function () {
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Properties
+  //////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * @private
+   * @type { module:services.AjaxService }
+   */
+  function ViewFactory() {
+    _classCallCheck(this, ViewFactory);
+
+    this._logService = _log2.default.create(this.constructor.name);
+    this._ajaxService = _ajax2.default.create();
+    this._templates = {};
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Methods
+  //////////////////////////////////////////////////////////////////////////////
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Private Properties
+  //////////////////////////////////////////////////////////////////////////////
+  /**
+   * @private
+   * @type { module:logService.LogService }
+   */
+
+
+  _createClass(ViewFactory, [{
+    key: 'createView',
+    value: function createView(options) {
+      return this._ajaxService.get(options).then(function (response) {
+        return response;
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+
+    //////////////////////////////////////////////////////////////////////////////
+    // Private Methods
+    //////////////////////////////////////////////////////////////////////////////
+
+  }, {
+    key: '_loadTemplate',
+    value: function _loadTemplate() {}
+    //////////////////////////////////////////////////////////////////////////////
+    // Static Methods
+    //////////////////////////////////////////////////////////////////////////////
+    /**
+     * Static factory method
+     * @returns { module:views.ViewFactory }
+     */
+
+  }], [{
+    key: 'create',
+    value: function create() {
+      return new ViewFactory();
+    }
+  }]);
+
+  return ViewFactory;
+}();
+
+////////////////////////////////////////////////////////////////////////////////
+// Exports
+////////////////////////////////////////////////////////////////////////////////
+
+
+exports.default = ViewFactory;
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Engine - Ajax Service
+ * ===
+ *
+ * @module ajaxService
+ */
+
+////////////////////////////////////////////////////////////////////////////////
+// Imports
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// Definitions
+////////////////////////////////////////////////////////////////////////////////
+var METHOD = {
+  DELETE: 'DELETE',
+  GET: 'GET',
+  HEAD: 'HEAD',
+  PATCH: 'PATCH',
+  POST: 'POST',
+  PUT: 'PUT'
+};
+
+////////////////////////////////////////////////////////////////////////////////
+// Class
+////////////////////////////////////////////////////////////////////////////////
+/**
+ * AjaxService
+ * @class
+ * @memberof module:services
+ */
+
+var AjaxService = function () {
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Private Properties
+  //////////////////////////////////////////////////////////////////////////////
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Properties
+  //////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * AjaxService
+   * @constructor
+   */
+  function AjaxService() {
+    _classCallCheck(this, AjaxService);
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Methods
+  //////////////////////////////////////////////////////////////////////////////
+  /**
+   * Sends a delete request to the specified resource
+   * @param { object } options - options for the request
+   * @return { Promise }
+   */
+
+
+  _createClass(AjaxService, [{
+    key: 'delete',
+    value: function _delete(options) {
+      return this._send(METHOD.DELETE, options);
+    }
+
+    /**
+     * Sends a get request to the specified resource
+     * @param { object } options - options for the request
+     * @return { Promise }
+     */
+
+  }, {
+    key: 'get',
+    value: function get(options) {
+      return this._send(METHOD.GET, options);
+    }
+
+    /**
+     * Sends a head request to the specified resource
+     * @param { object } options - options for the request
+     * @return { Promise }
+     */
+
+  }, {
+    key: 'head',
+    value: function head(options) {
+      return this._send(METHOD.HEAD, options);
+    }
+
+    /**
+     * Sends a patch request to the specified resource
+     * @param { object } options - options for the request
+     * @return { Promise }
+     */
+
+  }, {
+    key: 'patch',
+    value: function patch(options) {
+      return this._send(METHOD.PATCH, options);
+    }
+
+    /**
+     * Sends a post request to the specified resource
+     * @param { object } options - options for the request
+     * @return { Promise }
+     */
+
+  }, {
+    key: 'post',
+    value: function post(options) {
+      return this._send(METHOD.POST, options);
+    }
+
+    /**
+     * Sends a put request to the specified resource
+     * @param { object } options - options for the request
+     * @return { Promise }
+     */
+
+  }, {
+    key: 'put',
+    value: function put(options) {
+      return this._send(METHOD.PUT, options);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////
+    // Private Methods
+    //////////////////////////////////////////////////////////////////////////////
+    /**
+     * Sends a request to the specified resource
+     * @param { string } method - the request method
+     * @param { object } options - options for the request
+     * @return { Promise }
+     */
+
+  }, {
+    key: '_send',
+    value: function _send(method, options) {
+      return new Promise(function (resolve, reject) {
+        var xhr = new XMLHttpRequest();
+
+        xhr.open(method, options.url);
+
+        for (var HEADER in options.headers) {
+          var VALUE = options.headers[HEADER];
+
+          xhr.setRequestHeader(HEADER, VALUE);
+        }
+
+        xhr.onload = function () {
+          if (this.status >= 200 && this.status < 300) {
+            resolve(xhr);
+          } else {
+            reject({
+              status: this.status,
+              statusText: xhr.statusText
+            });
+          }
+        };
+
+        xhr.onerror = function () {
+          reject({
+            status: this.status,
+            statusText: xhr.statusText
+          });
+        };
+        xhr.send(options.body);
+      });
+    }
+
+    //////////////////////////////////////////////////////////////////////////////
+    // Static Methods
+    //////////////////////////////////////////////////////////////////////////////
+    /**
+     * Static factory method
+     * @return { module:services.AjaxService }
+     */
+
+  }], [{
+    key: 'create',
+    value: function create() {
+      return new AjaxService();
+    }
+  }]);
+
+  return AjaxService;
+}();
+
+////////////////////////////////////////////////////////////////////////////////
+// Exports
+////////////////////////////////////////////////////////////////////////////////
+
+
+exports.default = AjaxService;
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ *
+ * ===
+ *
+ */
+
+////////////////////////////////////////////////////////////////////////////////
+// Imports
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// Definitions
+////////////////////////////////////////////////////////////////////////////////
+function timestamp() {
+  // return window.performance && window.performance.now ? window.performance.now() : new Date().getTime();
+  return window.performance.now();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Exports
+////////////////////////////////////////////////////////////////////////////////
+exports.timestamp = timestamp;
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Engine - Message Service
+ * ===
+ *
+ * @module messageService
+ */
+
+////////////////////////////////////////////////////////////////////////////////
+// Imports
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// Definitions
+////////////////////////////////////////////////////////////////////////////////
+var instance = null;
+
+////////////////////////////////////////////////////////////////////////////////
+// Class
+////////////////////////////////////////////////////////////////////////////////
+/**
+ * MessageService
+ * @class
+ * @memberof module:messageService
+ */
+
+var MessageService = function () {
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Properties
+  //////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * MessageService
+   * @constructor
+   */
+  function MessageService() {
+    _classCallCheck(this, MessageService);
+
+    if (!instance) {
+      instance = this; // eslint-disable-line consistent-this
+      this._subscribers = {};
+    }
+    return instance;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // Public Methods
+  ////////////////////////////////////////////////////////////////////////////////
+  /**
+   * Adds a subscriber for the specified message type
+   * @param { string } message - the message type
+   * @param { function } subscriber - the subscriber
+   */
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Private Properties
+  //////////////////////////////////////////////////////////////////////////////
+  /**
+   * @private
+   * @type { object }
+   */
+
+
+  _createClass(MessageService, [{
+    key: "subscribe",
+    value: function subscribe(message, subscriber) {
+      if (!this._subscribers[message]) {
+        this._subscribers[message] = [];
+      }
+      var SUBSCRIBERS = this._subscribers[message];
+
+      SUBSCRIBERS.push(subscriber);
+    }
+
+    /**
+     * Removes a subscriber for the message type
+     * @param { string } message - the message type
+     * @param { function } subscriber - the subscriber
+     */
+
+  }, {
+    key: "unsubscribe",
+    value: function unsubscribe(message, subscriber) {
+      if (message in this._subscribers) {
+        var SUBSCRIBERS = this._subscribers[message];
+        var INDEX = SUBSCRIBERS.indexOf(subscriber);
+
+        if (INDEX > -1) {
+          SUBSCRIBERS.slice(INDEX, 0);
+        }
+      }
+    }
+
+    /**
+     * Publishes a message to all subscribers
+     * @param { object } message -
+     */
+
+  }, {
+    key: "publish",
+    value: function publish(message) {
+      var SUBSCRIBERS = this._subscribers[message.subject];
+
+      SUBSCRIBERS.forEach(function (subscriber) {
+        subscriber(message.body);
+      });
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // Private Methods
+    ////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Verifies that
+     * @private
+     * @param message
+     * @param subscriber
+     * @return { int }
+     */
+
+  }, {
+    key: "_hasSubscriber",
+    value: function _hasSubscriber(message, subscriber) {
+      var SUBSCRIBERS = this._subscribers[message];
+
+      return SUBSCRIBERS.indexOf(subscriber);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // Static Methods
+    ////////////////////////////////////////////////////////////////////////////////
+
+  }], [{
+    key: "create",
+    value: function create() {
+      return new MessageService();
+    }
+  }]);
+
+  return MessageService;
+}();
+
+////////////////////////////////////////////////////////////////////////////////
+// Exports
+////////////////////////////////////////////////////////////////////////////////
+
+
+exports.default = MessageService;
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Imperium 4X (Shared) - Log Service
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * ===
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @module logService
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+////////////////////////////////////////////////////////////////////////////////
+// Imports
+////////////////////////////////////////////////////////////////////////////////
+
+
+var _log = __webpack_require__(9);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+////////////////////////////////////////////////////////////////////////////////
+// Definitions
+////////////////////////////////////////////////////////////////////////////////
+
+var LEVEL = {
+  LOG: 'LOG',
+  WARN: 'WARN',
+  INFO: 'INFO',
+  ERROR: 'ERROR'
+};
+
+////////////////////////////////////////////////////////////////////////////////
+// Class
+////////////////////////////////////////////////////////////////////////////////
+/**
+ * LogService
+ * @class
+ * @memberof module:logService
+ */
+
+var LogService = function () {
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Properties
+  //////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * LogService
+   * @constructor
+   * @param { string } context - the name of the constructor for the calling class
+   */
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Private Properties
+  //////////////////////////////////////////////////////////////////////////////
+  /**
+   * The name of the constructor for the calling class
+   * @private
+   * @type { string }
+   */
+  function LogService(context) {
+    _classCallCheck(this, LogService);
+
+    this._log = new _log2.default();
+    this._context = context;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // Public Methods
+  ////////////////////////////////////////////////////////////////////////////////
+  /**
+   * Writes a log message to the log
+   * @param { string } message - the message to be written
+   */
+
+
+  /**
+   *
+   * @private
+   * @type { module:logService.Log }
+   */
+
+
+  _createClass(LogService, [{
+    key: 'log',
+    value: function log(message) {
+      this._write(LEVEL.LOG, message);
+    }
+
+    /**
+     * Writes a warning message to the log
+     * @param { string } message - the message to be written
+     */
+
+  }, {
+    key: 'warn',
+    value: function warn(message) {
+      this._write(LEVEL.WARN, message);
+    }
+
+    /**
+     * Writes an info message to the log
+     * @param { string } message - the message to be written
+     */
+
+  }, {
+    key: 'info',
+    value: function info(message) {
+      this._write(LEVEL.INFO, message);
+    }
+
+    /**
+     * Writes an error message to the log
+     * @param { string } message - the message to be written
+     */
+
+  }, {
+    key: 'error',
+    value: function error(message) {
+      this._write(LEVEL.ERROR, message);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // Private Methods
+    ////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Writes a message to the log
+     * @param { string } level - the level of the message
+     * @param { string } message - the message to be written
+     */
+
+  }, {
+    key: '_write',
+    value: function _write(level, message) {
+      if ((typeof message === 'undefined' ? 'undefined' : _typeof(message)) === 'object') {
+        this._log.write('[' + this._context + '] ' + level + ':');
+        this._log.write(JSON.stringify(message));
+      } else {
+        this._log.write('[' + this._context + '] ' + level + ': ' + message);
+      }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // Static Methods
+    ////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Static factory method
+     * @param { string } context - the name of the constructor for the calling class
+     * @return {module:logService.LogService}
+     */
+
+  }], [{
+    key: 'create',
+    value: function create(context) {
+      return new LogService(context);
+    }
+  }]);
+
+  return LogService;
+}();
+
+////////////////////////////////////////////////////////////////////////////////
+// Exports
+////////////////////////////////////////////////////////////////////////////////
+
+
+exports.default = LogService;
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Views - Diagnostics View
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * ===
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @module diagnosticsView
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+////////////////////////////////////////////////////////////////////////////////
+// Imports
+////////////////////////////////////////////////////////////////////////////////
+
+
+var _log = __webpack_require__(24);
+
+var _log2 = _interopRequireDefault(_log);
+
+var _message = __webpack_require__(23);
+
+var _message2 = _interopRequireDefault(_message);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+////////////////////////////////////////////////////////////////////////////////
+// Definitions
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// Class
+////////////////////////////////////////////////////////////////////////////////
+/**
+ * DiagnosticsView
+ * @class
+ * @memberof module:views
+ */
+var DiagnosticsView = function () {
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Properties
+  //////////////////////////////////////////////////////////////////////////////
+
+  function DiagnosticsView() {
+    var _this = this;
+
+    _classCallCheck(this, DiagnosticsView);
+
+    this._logService = _log2.default.create(this.constructor.name);
+    this._messageService = _message2.default.create();
+    this._messageService.subscribe('DIAGNOSTICS', function (msg) {
+      return _this.update(msg);
+    });
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Methods
+  //////////////////////////////////////////////////////////////////////////////
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Private Properties
+  //////////////////////////////////////////////////////////////////////////////
+  /**
+   * @private
+   * @type { module:logService.LogService }
+   */
+
+
+  _createClass(DiagnosticsView, [{
+    key: 'update',
+    value: function update(message) {
+      console.log(message);
+      this._viewModel = Object.assign({}, this._viewModel, message);
+
+      for (var KEY in this._viewModel) {
+        if (this._viewModel.hasOwnProperty(KEY)) {
+          var ELEMENT = document.getElementById(KEY);
+
+          ELEMENT.textContent = this._viewModel[KEY];
+        }
+      }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////
+    // Private Methods
+    //////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////////////
+    // Static Methods
+    //////////////////////////////////////////////////////////////////////////////
+    /**
+     * Static factory method
+     * @return {module:views.DiagnosticsView}
+     */
+
+  }], [{
+    key: 'create',
+    value: function create() {
+      return new DiagnosticsView();
+    }
+  }]);
+
+  return DiagnosticsView;
+}();
+
+////////////////////////////////////////////////////////////////////////////////
+// Exports
+////////////////////////////////////////////////////////////////////////////////
+
+
+exports.default = DiagnosticsView;
 
 /***/ })
 /******/ ]);

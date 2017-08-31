@@ -17,7 +17,6 @@ let chai = require('chai');
 ////////////////////////////////////////////////////////////////////////////////
 describe('AssemblageManager', () => {
 
-
   describe('#assemblageManager', () => {
 
   });

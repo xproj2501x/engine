@@ -76,7 +76,6 @@ class ComponentManager {
     const DATA = {
       id: id, // eslint-disable-line id-length
       type: type,
-      keys: TEMPLATE.STATE,
       state: MERGED_STATE
     };
     const COMPONENT = Component.create(DATA);

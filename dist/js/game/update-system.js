@@ -88,8 +88,9 @@ class UpdateSystem extends System {
     for (const KEY in cells) {
       const CELL = cells[KEY];
       const POSITION = CELL.findComponent(COMPONENT_TYPES.POSITION_COMPONENT);
-      const X_POSITION = POSITION.getProperty(POSITION_STATE.X_POSITION);
-      const Y_POSITION = POSITION.getProperty(POSITION_STATE.Y_POSITION);
+      const STATE = POSITION.state;
+      const X_POSITION = STATE[POSITION_STATE.X_POSITION];
+      const Y_POSITION = STATE[POSITION_STATE.Y_POSITION];
 
       if (!GRID[X_POSITION]) {
         GRID[X_POSITION] = [];
@@ -114,8 +115,9 @@ class UpdateSystem extends System {
           if (X_POSITION >= 0 && X_POSITION < grid.length && Y_POSITION >= 0 && Y_POSITION < COLUMN.length) {
             const NEIGHBOR = grid[X_POSITION][Y_POSITION];
             const HEALTH_COMPONENT = NEIGHBOR.findComponent(COMPONENT_TYPES.HEALTH_COMPONENT);
+            const STATE = HEALTH_COMPONENT.state;
 
-            if (HEALTH_COMPONENT.getProperty(HEALTH_STATE.CURRENT_HEALTH) === 1) {
+            if (STATE[HEALTH_STATE.CURRENT_HEALTH] === 1) {
               neighbors++;
             }
           }
@@ -128,7 +130,8 @@ class UpdateSystem extends System {
 
   _checkState(cell, neighbors) {
     const HEALTH_COMPONENT = cell.findComponent(COMPONENT_TYPES.HEALTH_COMPONENT);
-    const ALIVE = HEALTH_COMPONENT.getProperty(HEALTH_STATE.CURRENT_HEALTH);
+    const STATE = HEALTH_COMPONENT.state;
+    const ALIVE = STATE[HEALTH_STATE.CURRENT_HEALTH];
 
     if (neighbors < 2 && ALIVE === 1) {
       this._flaggedForUpdate.push(cell);
@@ -143,7 +146,8 @@ class UpdateSystem extends System {
 
   _changeState(cell) {
     const HEALTH = cell.findComponent(COMPONENT_TYPES.HEALTH_COMPONENT);
-    const VALUE = HEALTH.getProperty(HEALTH_STATE.CURRENT_HEALTH);
+    const STATE = HEALTH.state;
+    const VALUE = STATE[HEALTH_STATE.CURRENT_HEALTH];
     let update;
 
     if (VALUE === 1) {

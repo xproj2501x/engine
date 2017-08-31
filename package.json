@@ -30,24 +30,24 @@
     "babel-preset-es2017": "latest",
     "babel-preset-stage-2": "latest",
     "chai": "latest",
-    "css-loader": "^0.28.5",
+    "css-loader": "latest",
     "eslint": "latest",
-    "eslint-config-google": "^0.9.1",
-    "extract-text-webpack-plugin": "^3.0.0",
-    "file-loader": "^0.11.2",
+    "eslint-config-google": "latest",
+    "extract-text-webpack-plugin": "latest",
+    "file-loader": "latest",
     "jsdoc": "latest",
     "mocha": "latest",
-    "node-sass": "^4.5.3",
-    "sass-loader": "^6.0.6",
-    "style-loader": "^0.18.2",
+    "node-sass": "latest",
+    "sass-loader": "latest",
+    "style-loader": "latest",
     "webpack": "latest"
   },
   "dependencies": {
-    "body-parser": "^1.17.2",
-    "compression": "^1.7.0",
-    "cors": "^2.8.4",
-    "express": "^4.15.4",
-    "morgan": "^1.8.2",
-    "serve-favicon": "^2.4.3"
+    "body-parser": "latest",
+    "compression": "latest",
+    "cors": "latest",
+    "express": "latest",
+    "morgan": "latest",
+    "serve-favicon": "latest"
   }
 }

@@ -13,9 +13,11 @@ import EntityManager from './entity-manager';
 import ComponentManager from './component-manager';
 import AssemblageManager from './assemblage-manager';
 import Display from './display';
-import {ASSEMBLAGE_TYPES} from '../dist/js/game/assemblages';
-import {COMPONENT_TYPES} from '../dist/js/game/components';
+import { ASSEMBLAGE_TYPES } from '../dist/js/game/assemblages';
+import { COMPONENT_TYPES } from '../dist/js/game/components';
 import { FRAME_DURATION } from './constants';
+import { timestamp } from './utility/timestamp';
+
 ////////////////////////////////////////////////////////////////////////////////
 // Definitions
 ////////////////////////////////////////////////////////////////////////////////
@@ -67,10 +69,10 @@ class Engine {
     if (!this._running) {
       this._currentTick = 0;
       this._running = true;
-      this._frameId = requestAnimationFrame((timestamp) => {
-        this._lastFrame = timestamp;
-        this._frameId = requestAnimationFrame((timestamp) =>
-          this._tick(timestamp));
+      this._frameId = requestAnimationFrame((raf) => {
+        this._lastFrame = raf;
+        this._frameId = requestAnimationFrame((raf) =>
+          this._tick(raf));
       });
     }
 
@@ -109,18 +111,20 @@ class Engine {
    * @private
    * @param { float } timestamp - the timestamp for the current animation frame
    */
-  _tick(timestamp) {
-    const NOW = timestamp;
+  _tick(raf) {
+    const NOW = raf;
 
-    this._currentTick++;
-    if (NOW > this._lastFrame + FRAME_DURATION) {
-      this._update(NOW);
-      this._render(NOW);
-      this._lastFrame = NOW;
-    }
-    this._frameId = requestAnimationFrame((timestamp) => {
-      this._tick(timestamp);
-    });
+    // if (this._currentTick < 35) {
+      this._currentTick++;
+      if (NOW > this._lastFrame + FRAME_DURATION) {
+        this._update(NOW);
+        this._render(NOW);
+        this._lastFrame = NOW;
+      }
+      this._frameId = requestAnimationFrame((raf) => {
+        this._tick(raf);
+      });
+    // }
   }
 
   /**

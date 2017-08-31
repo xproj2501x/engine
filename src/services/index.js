@@ -1,8 +1,8 @@
 /**
- * Engine - Message Service
+ * Engine - Service Manager
  * ===
  *
- * @module messageService
+ * @module serviceManager
  */
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -12,99 +12,56 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Definitions
 ////////////////////////////////////////////////////////////////////////////////
+let instance = null;
 
 ////////////////////////////////////////////////////////////////////////////////
 // Class
 ////////////////////////////////////////////////////////////////////////////////
 /**
- * @memberof module:messageService
+ * ServiceManager
+ * @class
+ * @memberof module:services
  */
-class MessageService {
+class ServiceManager {
 
   //////////////////////////////////////////////////////////////////////////////
   // Private Properties
   //////////////////////////////////////////////////////////////////////////////
-  /**
-   * @private
-   * @type { object }
-   */
-  _subscribers;
 
   //////////////////////////////////////////////////////////////////////////////
   // Public Properties
   //////////////////////////////////////////////////////////////////////////////
 
   /**
-   * MessageService
+   * ServiceManager
    * @constructor
    */
   constructor() {
-    this._subscribers = {};
+    if (!instance) {
+      instance = this; // eslint-disable-line consistent-this
+    }
+    return instance;
   }
 
   ////////////////////////////////////////////////////////////////////////////////
   // Public Methods
   ////////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds a subscriber for the specified message type
-   * @param { string } message - the message type
-   * @param { function } subscriber - the subscriber
-   */
-  subscribe(message, subscriber) {
-    if (!(this._subscribers[message])) {
-      this._subscribers[message] = [];
-    }
-    const SUBSCRIBERS = this._subscribers[message];
 
-    SUBSCRIBERS.push(subscriber);
-  }
-
-  /**
-   * Removes a subscriber for the message type
-   * @param { string } message - the message type
-   * @param { function } subscriber - the subscriber
-   */
-  unsubscribe(message, subscriber) {
-    if (message in this._subscribers) {
-      const SUBSCRIBERS = this._subscribers[message];
-      const INDEX = SUBSCRIBERS.indexOf(subscriber);
-
-      if (INDEX > -1) {
-        SUBSCRIBERS.slice(INDEX, 0);
-      }
-    }
-  }
-
-  /**
-   * Publishes a message to all subscribers
-   * @param { object } message -
-   */
-  publish(message) {
-    const SUBSCRIBERS = this._subscribers[message.subject];
-
-    SUBSCRIBERS.forEach((subscriber) => {
-      subscriber(message.body);
-    });
-  }
 
   ////////////////////////////////////////////////////////////////////////////////
   // Private Methods
   ////////////////////////////////////////////////////////////////////////////////
-  _hasSubscriber(message, subscriber) {
-    const SUBSCRIBERS = this._subscribers[message];
 
-    return SUBSCRIBERS.indexOf(subscriber);
-  }
 
   ////////////////////////////////////////////////////////////////////////////////
   // Static Methods
   ////////////////////////////////////////////////////////////////////////////////
   static create() {
-    return new MessageService();
+    return new ServiceManager();
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Exports
 ////////////////////////////////////////////////////////////////////////////////
-export default MessageService;
+export default ServiceManager;

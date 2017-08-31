@@ -2,22 +2,14 @@
 // Imports
 ////////////////////////////////////////////////////////////////////////////////
 import Component from '../src/component';
+import { COMPONENT_TYPES, COMPONENTS } from '../dist/js/game/components';
+
 let chai = require('chai');
 
 ////////////////////////////////////////////////////////////////////////////////
 // Definitions
 ////////////////////////////////////////////////////////////////////////////////
 const DATA = {
-  type: 'component',
-  keys:
-  [
-    'property1',
-    'property2'
-  ],
-  //{
-  //  PROPERTY1: 'PROPERTY1',
-  //  PROPERTY2: 'PROPERTY2'
-  //},
   state: {
     property1: 1,
     property2: 'value'
@@ -43,19 +35,17 @@ describe('Component', () => {
     it('should have a state', () => {
       chai.expect(COMPONENT.state).to.not.equal(null);
     });
-  });
 
-  describe('#getProperty()', () => {
-    const COMPONENT = Component.create(DATA);
-
-    it('should return a valid property', () => {
-      const PROPERTY = COMPONENT.getProperty('property1');
-
-      chai.expect(PROPERTY).to.equal(DATA.state.property1);
+    it('should error on a missing id', () => {
+      chai.expect(() => new Component(null)).to.throw();
     });
 
-    it('should throw an error for an invalid property', () => {
-      chai.expect(() => COMPONENT.getProperty('foo')).to.throw();
+    it('should error on a missing type', () => {
+      chai.expect(() => new Component(1, null)).to.throw();
+    });
+
+    it('should error on a missing state', () => {
+      chai.expect(() => new Component(1, 1, null)).to.throw();
     });
   });
 

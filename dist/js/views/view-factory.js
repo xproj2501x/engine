@@ -1,29 +1,30 @@
 /**
- * Views - Diagnostics View
+ * Views - View Factory
  * ===
  *
- * @module diagnosticsView
+ * @module viewFactory
  */
 
 ////////////////////////////////////////////////////////////////////////////////
 // Imports
 ////////////////////////////////////////////////////////////////////////////////
 import LogService from '../../../src/services/log';
-import MessageService from '../../../src/services/message';
+import AjaxService from '../../../src/services/ajax';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Definitions
 ////////////////////////////////////////////////////////////////////////////////
+const API = 'http://localhost:3050';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Class
 ////////////////////////////////////////////////////////////////////////////////
 /**
- * DiagnosticsView
+ * View
  * @class
  * @memberof module:views
  */
-class DiagnosticsView {
+class ViewFactory {
 
   //////////////////////////////////////////////////////////////////////////////
   // Private Properties
@@ -34,9 +35,13 @@ class DiagnosticsView {
    */
   _logService;
 
-  _messageService;
+  /**
+   * @private
+   * @type { module:services.AjaxService }
+   */
+  _ajaxService;
 
-  _viewModel;
+  _templates;
 
   //////////////////////////////////////////////////////////////////////////////
   // Public Properties
@@ -44,43 +49,42 @@ class DiagnosticsView {
 
   constructor() {
     this._logService = LogService.create(this.constructor.name);
-    this._messageService = MessageService.create();
-    this._messageService.subscribe('DIAGNOSTICS', (msg) => this.update(msg));
+    this._ajaxService = AjaxService.create();
+    this._templates = {};
   }
 
   //////////////////////////////////////////////////////////////////////////////
   // Public Methods
   //////////////////////////////////////////////////////////////////////////////
-  update(message) {
-    console.log(message);
-    this._viewModel = Object.assign({}, this._viewModel, message);
+  createView(options) {
+    return this._ajaxService.get(options)
+      .then((response) => {
+        return response;
+      }).catch((err) => {
+        console.log(err);
+      });
 
-    for (const KEY in this._viewModel) {
-      if (this._viewModel.hasOwnProperty(KEY)) {
-        const ELEMENT = document.getElementById(KEY);
-
-        ELEMENT.textContent = this._viewModel[KEY];
-      }
-    }
   }
 
   //////////////////////////////////////////////////////////////////////////////
   // Private Methods
   //////////////////////////////////////////////////////////////////////////////
+  _loadTemplate() {
 
+  }
   //////////////////////////////////////////////////////////////////////////////
   // Static Methods
   //////////////////////////////////////////////////////////////////////////////
   /**
    * Static factory method
-   * @return {module:views.DiagnosticsView}
+   * @returns { module:views.ViewFactory }
    */
   static create() {
-    return new DiagnosticsView();
+    return new ViewFactory();
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Exports
 ////////////////////////////////////////////////////////////////////////////////
-export default DiagnosticsView;
+export default ViewFactory;

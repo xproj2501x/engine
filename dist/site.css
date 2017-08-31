@@ -271,16 +271,21 @@ body {
     margin-left: 64px; } }
 
 .diagnostics {
-  box-shadow: 0 3px 4px 0.08px rgba(10, 10, 10, 0.33);
-  display: flex;
-  flex-flow: column nowrap;
   background: #FEFEFE;
-  bottom: 0px;
+  bottom: 0;
   position: absolute;
-  right: 0px;
-  top: 96px;
-  width: 420px;
+  right: 0;
   z-index: 1400; }
+  .diagnostics--collapsed {
+    height: 64px;
+    overflow: hidden;
+    width: 64px; }
+  .diagnostics:not(.diagnostics--collapsed) {
+    box-shadow: 0 3px 4px 0.08px rgba(10, 10, 10, 0.33);
+    display: flex;
+    flex-flow: column nowrap;
+    top: 48px;
+    width: 480px; }
   .diagnostics__header {
     flex: 0 0 64px;
     background: #455A64;
@@ -310,6 +315,10 @@ body {
         letter-spacing: 1.1px;
         margin: 0;
         padding: 0 0 16px 0; }
+
+@media screen and (min-width: 481px) {
+  .content-area {
+    margin-left: 64px; } }
 
 @-webkit-keyframes slide {
   100% {

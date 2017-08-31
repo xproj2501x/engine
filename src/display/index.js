@@ -8,6 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Imports
 ////////////////////////////////////////////////////////////////////////////////
+import MessageService from '../services/message';
 import { COMPONENT_TYPES } from '../../dist/js/game/components';
 import { FPS, MILLISECONDS } from '../constants';
 
@@ -30,6 +31,7 @@ class Display {
 
   _element;
   _canvas;
+  _messageService;
   _lastRender;
   _lastFpsUpdate;
   _framesThisSecond;
@@ -48,6 +50,7 @@ class Display {
    * @constructor
    */
   constructor() {
+    this._messageService = MessageService.create();
     this._fps = FPS;
     this._framesThisSecond = 0;
     this._init();
@@ -59,7 +62,7 @@ class Display {
 
   /**
    * Renders a collection of sprites to the screen
-   * @param sprites
+   * @param { Array } sprites - a collection of sprite object to be rendered
    */
   render(sprites) {
     this._refresh();
@@ -90,17 +93,21 @@ class Display {
    * @private
    */
   _updateFps() {
-    const ELEMENT = document.getElementById('fps');
     const MUL1 = 0.25;
     const MUL2 = 0.75;
 
     if (this._lastRender > this._lastFpsUpdate + MILLISECONDS) {
-      this._fps = (MUL1 * this._framesThisSecond) + (MUL2 * this._fps);
+      this._fps = Math.floor((MUL1 * this._framesThisSecond) + (MUL2 * this._fps));
       this._lastFpsUpdate = this._lastRender;
+      const MESSAGE = {
+        subject: 'DIAGNOSTICS',
+        body: {
+          fps: this._fps
+        }
+      };
+      this._messageService.publish(MESSAGE);
       this._framesThisSecond = 0;
     }
-
-    ELEMENT.textContent = Math.round(this._fps) + ' FPS';
   }
 
   /**
@@ -117,7 +124,7 @@ class Display {
 
   /**
    * Draws a collection of sprites to the screen
-   * @param { Array } sprites - a collection of sprites to be drawn
+   * @param { Array } sprites - a collection of sprites to be rendered
    * @private
    */
   _draw(sprites) {

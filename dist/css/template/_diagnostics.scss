@@ -1,13 +1,22 @@
 .diagnostics {
-  @include box-shadow();
-  @include flex-box(column);
   background: $white;
-  bottom: 0px;
+  bottom: 0;
   position: absolute;
-  right: 0px;
-  top: 96px;
-  width: 420px;
+  right: 0;
   z-index: 1400;
+
+  &--collapsed {
+    height: 64px;
+    overflow: hidden;
+    width: 64px;
+  }
+
+  &:not(.diagnostics--collapsed) {
+    @include box-shadow();
+    @include flex-box(column);
+    top: 48px;
+    width: 480px;
+  }
 
   &__header {
     @include flex-item(0, 0, 64px);
@@ -47,5 +56,16 @@
         padding: 0 0 16px 0;
       }
     }
+  }
+}
+
+@media screen and (max-width: $small){
+
+}
+
+
+@media screen and (min-width: 481px){
+  .content-area {
+    margin-left: 64px;
   }
 }

@@ -86,82 +86,42 @@ class Component {
    * @constructor
    * @param { int } id - the id of the parent entity
    * @param { string } type - the type of the component to be created
-   * @param { enum } keys - the keys for the component type
    * @param { object } state - the initial state of the component
    */
-  constructor(id, type, keys, state) { // eslint-disable-line id-length
+  constructor(id, type, state) { // eslint-disable-line id-length
+    if (id === null) {
+      throw new Error('Component id cannot be null');
+    }
     if (type === null) {
       throw new Error('Component type cannot be null');
     }
+    if (state === null) {
+      throw new Error('Component state cannot be null');
+    }
     this._id = id;
     this._type = type;
-    this._init(keys);
-    this.update(state);
-
+    this._state = Object.assign({}, state);
   }
 
   //////////////////////////////////////////////////////////////////////////////
   // Public Methods
   //////////////////////////////////////////////////////////////////////////////
   /**
-   * Gets the specificed property of the component state
-   * @param { string } key - the key for the property to be retrieved
-   * @return { object }
-   */
-  getProperty(key) {
-    if (!this._state.hasOwnProperty(key)) {
-      throw new Error(`Invalid property ${key} for component type ${this._type}`);
-    }
-    return this._state[key];
-  }
-
-  /**
    * Updates the state of the component with new values
    * @param { object } state - the new state of the component
    */
   update(state) {
     for (const KEY in state) {
-      if (state.hasOwnProperty(KEY)) {
-        const VALUE = state[KEY];
-
-        try {
-          this._setProperty(KEY, VALUE);
-        } catch (err) {
-          throw err;
-        }
+      if (!this._state.hasOwnProperty(KEY)) {
+        throw new Error(`Invalid property ${KEY} for component type ${this._type}`);
       }
     }
+    this._state = Object.assign({}, this._state, state);
   }
 
   //////////////////////////////////////////////////////////////////////////////
   // Private Methods
   //////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the keys for the component state
-   * @private
-   * @param { enum } state - the keys for the state of the of the component
-   */
-  _init(state) {
-    this._state = {};
-    for (const KEY in state) {
-      if (state.hasOwnProperty(KEY)) {
-        this._state[state[KEY]] = null;
-      }
-    }
-  }
-
-  /**
-   * Sets the value of the specified property
-   * @private
-   * @param { string } key - the key of the property to be changed
-   * @param { string } value - the value of the property to be changed
-   */
-  _setProperty(key, value) {
-    if (!this._state.hasOwnProperty(key)) {
-      throw new Error(`Invalid property ${key} for component type ${this._type}`);
-    }
-    this._state[key] = value;
-  }
 
   //////////////////////////////////////////////////////////////////////////////
   // Static Methods
@@ -176,7 +136,7 @@ class Component {
     if (data === null) {
       throw new Error('Component configuration missing');
     }
-    return new Component(data.id, data.type, data.keys, data.state);
+    return new Component(data.id, data.type, data.state);
   }
 }
 
