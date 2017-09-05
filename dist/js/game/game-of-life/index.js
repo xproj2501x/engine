@@ -8,8 +8,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Imports
 ////////////////////////////////////////////////////////////////////////////////
-import { COMPONENT_TYPES, COMPONENTS } from "./components";
-import { ASSEMBLAGE_TYPES, ASSEMBLAGES } from "./assemblages";
+import { COMPONENT_TYPES, COMPONENTS } from "../components";
+import { ASSEMBLAGE_TYPES, ASSEMBLAGES } from "../assemblages";
+import UpdateSystem from './update-system';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Definitions
@@ -23,7 +24,7 @@ import { ASSEMBLAGE_TYPES, ASSEMBLAGES } from "./assemblages";
  * @class
  * @memberof module:game
  */
-class Game {
+class GameOfLife {
 
   //////////////////////////////////////////////////////////////////////////////
   // Private Properties
@@ -40,6 +41,22 @@ class Game {
   // Public Methods
   //////////////////////////////////////////////////////////////////////////////
   create() {
+    const CONFIG = {
+      COMPONENTS: COMPONENTS,
+      ASSEMBLAGES: ASSEMBLAGES,
+      SYSTEMS: [
+        new UpdateSystem()
+      ],
+      STATE: this._createState()
+    };
+
+    return CONFIG;
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Private Methods
+  //////////////////////////////////////////////////////////////////////////////
+  _createState() {
     const ASSEMBLAGES = [];
     const HEIGHT = 25;
     const WIDTH = 25;
@@ -51,7 +68,7 @@ class Game {
     let counter = 0;
     for (let idx = 0; idx < WIDTH; idx++) {
       for (let jdx = 0; jdx < HEIGHT; jdx++) {
-        const ASSEMBLAGE = {};2
+        const ASSEMBLAGE = {};
         const POSITION_COMPONENT = {
           X_POSITION: idx,
           Y_POSITION: jdx,
@@ -75,9 +92,6 @@ class Game {
     return ASSEMBLAGES;
   }
 
-  //////////////////////////////////////////////////////////////////////////////
-  // Private Methods
-  //////////////////////////////////////////////////////////////////////////////
   _isAlive() {
     const MIN = 1;
     const MAX = 100;
@@ -90,4 +104,4 @@ class Game {
 ////////////////////////////////////////////////////////////////////////////////
 // Exports
 ////////////////////////////////////////////////////////////////////////////////
-export default Game;
+export default GameOfLife;

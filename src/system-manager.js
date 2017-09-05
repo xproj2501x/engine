@@ -8,6 +8,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Imports
 ////////////////////////////////////////////////////////////////////////////////
+import LogService from './services/log';
+import MessageService from './services/message';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Definitions
@@ -21,25 +23,36 @@ class SystemManager {
   ////////////////////////////////////////////////////////////////////////////////
   // Private Properties
   ////////////////////////////////////////////////////////////////////////////////
+  _logService;
+  _messageService;
+
   /**
    * Collection of registered systems
    * @private
-   * @type { object }
+   * @type {Array}
    */
   _systems;
-
+  _assemblageManager;
   ////////////////////////////////////////////////////////////////////////////////
   // Public Properties
   ////////////////////////////////////////////////////////////////////////////////
+  /** Get _systems.length
+   * @readonly
+   * @return { int }
+   */
+  get systems() {
+    return this._systems.length;
+  }
 
   /**
    * SystemManager
    * @constructor
-   * @param { Array } config - a collection of system constructors
+   * @param { Array } configuration - a collection of system constructors
    */
-  constructor(config) {
-    this._systems = {};
-    this._init(config);
+  constructor(configuration, assemblageManager) {
+    this._logService = LogService.create(this.constructor.name);
+    this._systems = configuration;
+    this._assemblageManager = assemblageManager;
   }
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -47,16 +60,12 @@ class SystemManager {
   ////////////////////////////////////////////////////////////////////////////////
   /**
    * Runs update for each registered system
-   * @param { object } state - the current state of the engine
+   * @param {int} tick - the current state of the engine
    */
-  update(state) {
-    for (const KEY in this._systems) {
-      if (this._systems.hasOwnProperty(KEY)) {
-        const SYSTEM = this._systems[KEY];
-
-        SYSTEM.update(state);
-      }
-    }
+  update(tick) {
+    this._systems.forEach((system) => {
+      system.update(tick, this._assemblageManager);
+    });
   }
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -65,10 +74,10 @@ class SystemManager {
   /**
    * Registers systems from the configuration
    * @private
-   * @param { Array } config - a collection of system constructors
+   * @param { Array } configuration - a collection of system constructors
    */
-  _init(config) {
-    config.forEach((system) => {
+  _init(configuration) {
+    configuration.forEach((system) => {
       this._addSystem(system);
     });
   }
@@ -97,6 +106,13 @@ class SystemManager {
    */
   _hasSystem(name) {
     return name in this._systems;
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Static Methods
+  //////////////////////////////////////////////////////////////////////////////
+  static create(configuration, assemblageManager) {
+    return new SystemManager(configuration, assemblageManager);
   }
 }
 

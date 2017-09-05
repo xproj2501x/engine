@@ -42,17 +42,18 @@ class DiagnosticsView {
   // Public Properties
   //////////////////////////////////////////////////////////////////////////////
 
-  constructor() {
+  constructor(messageService) {
     this._logService = LogService.create(this.constructor.name);
-    this._messageService = MessageService.create();
+    this._messageService = messageService;
     this._messageService.subscribe('DIAGNOSTICS', (msg) => this.update(msg));
   }
 
   //////////////////////////////////////////////////////////////////////////////
   // Public Methods
   //////////////////////////////////////////////////////////////////////////////
+
+
   update(message) {
-    console.log(message);
     this._viewModel = Object.assign({}, this._viewModel, message);
 
     for (const KEY in this._viewModel) {
@@ -75,8 +76,8 @@ class DiagnosticsView {
    * Static factory method
    * @return {module:views.DiagnosticsView}
    */
-  static create() {
-    return new DiagnosticsView();
+  static create(messageService) {
+    return new DiagnosticsView(messageService);
   }
 }
 

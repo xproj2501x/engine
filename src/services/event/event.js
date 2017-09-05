@@ -1,15 +1,14 @@
 /**
- * Views - Game View
+ *  - event
  * ===
  *
- * @module gameView
+ * @module event
  */
 
 ////////////////////////////////////////////////////////////////////////////////
 // Imports
 ////////////////////////////////////////////////////////////////////////////////
-import LogService from '../../../src/services/log';
-import MessageService from '../../src/services/message';
+import Message from '../message/message';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Definitions
@@ -19,58 +18,76 @@ import MessageService from '../../src/services/message';
 // Class
 ////////////////////////////////////////////////////////////////////////////////
 /**
- * GameView
+ * Event
  * @class
- * @memberof module:views
  */
-class DiagnosticsView {
+class Event extends Message {
 
   //////////////////////////////////////////////////////////////////////////////
   // Private Properties
   //////////////////////////////////////////////////////////////////////////////
   /**
-   * @private
-   * @type { module:logService.LogService }
+   * The time the event was sent
+   * @type {int}
    */
-  _logService;
-  _messageService;
+  _sentAt;
 
-  _element;
+  /**
+   * The time the event occurs
+   * @type {int}
+   */
+  _occursIn;
+
+  /**
+   * If the event repeats itself
+   * @type {boolean}
+   */
+  _repeat;
   //////////////////////////////////////////////////////////////////////////////
   // Public Properties
   //////////////////////////////////////////////////////////////////////////////
 
-  constructor() {
-    this._logService = LogService.create(this.constructor.name);
-    this._messageService = MessageService.create();
+  get sentAt() {
+    return this._sentAt;
+  }
+
+  get occursIn() {
+    return this._occursIn;
+  }
+
+  get repeat() {
+    return this._repeat;
+  }
+
+  /**
+   * Event
+   * @constructor
+   */
+  constructor(sender, recipient, subject, body, sentAt, occursIn, repeat) {
+    super(sender, recipient, subject, body);
+    this._sentAt = sentAt;
+    this._occursIn = occursIn;
+    this._repeat = repeat;
   }
 
   //////////////////////////////////////////////////////////////////////////////
   // Public Methods
   //////////////////////////////////////////////////////////////////////////////
-  toggle() {
-
-  }
 
   //////////////////////////////////////////////////////////////////////////////
   // Private Methods
   //////////////////////////////////////////////////////////////////////////////
-  _init() {
-    this._element = document.getElementById('diagnostics');
-  }
+
   //////////////////////////////////////////////////////////////////////////////
   // Static Methods
   //////////////////////////////////////////////////////////////////////////////
-  /**
-   * Static factory method
-   * @return {module:views.DiagnosticsView}
-   */
-  static create() {
-    return new DiagnosticsView();
+  static create(data) {
+    return new Event(data.sender, data.recipient, data.subject, data.body, data.sentAt, data.occursIn, data.repeat);
   }
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Exports
 ////////////////////////////////////////////////////////////////////////////////
-export default DiagnosticsView;
+export default Event;

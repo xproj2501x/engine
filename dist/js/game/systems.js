@@ -1,5 +1,5 @@
-import UpdateSystem from './update-system';
+import UpdateSystem from './game-of-life/update-system';
 
-export const SYSTEMS = {
-  UPDATE_SYSTEM: new UpdateSystem()
-};
+export const SYSTEMS = [
+ new UpdateSystem()
+];

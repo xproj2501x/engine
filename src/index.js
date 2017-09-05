@@ -12,11 +12,12 @@ import LogService from './services/log';
 import EntityManager from './entity-manager';
 import ComponentManager from './component-manager';
 import AssemblageManager from './assemblage-manager';
+import SystemManager from './system-manager';
 import Display from './display';
 import { ASSEMBLAGE_TYPES } from '../dist/js/game/assemblages';
 import { COMPONENT_TYPES } from '../dist/js/game/components';
 import { FRAME_DURATION } from './constants';
-import { timestamp } from './utility/timestamp';
+import timestamp from './utility/timestamp';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Definitions
@@ -36,12 +37,24 @@ class Engine {
   // Private Properties
   //////////////////////////////////////////////////////////////////////////////
   _logService;
+  _messageService;
+
   _systems;
   _assemblageManager;
+  _systemManager;
   _display;
+
   _running;
+
   _lastFrame;
   _frameId;
+
+  _currentTick;
+  _lastUpdate;
+  _updateDuration;
+  _entities;
+  _components;
+  _assemblages;
 
   //////////////////////////////////////////////////////////////////////////////
   // Public Properties
@@ -52,10 +65,12 @@ class Engine {
    * @constructor
    * @param { object } configuration - configuration for the engine
    */
-  constructor(configuration) {
-    this._logService = new LogService(this.constructor.name);
+  constructor(messageService, configuration) {
+    this._logService = LogService.create(this.constructor.name);
+    this._messageService = messageService;
+    this._messageService.subscribe('INPUT', (message) => this.handleInput(message));
     this._running = false;
-    this._display = new Display();
+    this._display = new Display(messageService);
     this._init(configuration);
   }
 
@@ -69,6 +84,7 @@ class Engine {
     if (!this._running) {
       this._currentTick = 0;
       this._running = true;
+      this._lastUpdate = timestamp();
       this._frameId = requestAnimationFrame((raf) => {
         this._lastFrame = raf;
         this._frameId = requestAnimationFrame((raf) =>
@@ -86,6 +102,9 @@ class Engine {
     cancelAnimationFrame(this._frameId);
   }
 
+  handleInput(message) {
+    console.log(message);
+  }
   //////////////////////////////////////////////////////////////////////////////
   // Private Methods
   //////////////////////////////////////////////////////////////////////////////
@@ -98,9 +117,9 @@ class Engine {
     const ENTITY_MANAGER = EntityManager.create();
     const COMPONENT_MANAGER = ComponentManager.create(configuration.COMPONENTS);
 
-    this._systems = configuration.SYSTEMS;
-    this._assemblageManager = AssemblageManager.create(configuration.ASSEMBLAGES, ENTITY_MANAGER, COMPONENT_MANAGER);
 
+    this._assemblageManager = AssemblageManager.create(configuration.ASSEMBLAGES, ENTITY_MANAGER, COMPONENT_MANAGER);
+    this._systemManager = SystemManager.create(configuration.SYSTEMS, this._assemblageManager);
     configuration.STATE.forEach((assemblage) => {
       this._assemblageManager.createAssemblage(assemblage.type, assemblage.state);
     });
@@ -112,19 +131,19 @@ class Engine {
    * @param { float } timestamp - the timestamp for the current animation frame
    */
   _tick(raf) {
-    const NOW = raf;
+    const START = timestamp();
 
-    // if (this._currentTick < 35) {
+    if (START > this._lastFrame + FRAME_DURATION) {
+      this._update(START);
+      this._render(START);
+      this._lastFrame = timestamp();
       this._currentTick++;
-      if (NOW > this._lastFrame + FRAME_DURATION) {
-        this._update(NOW);
-        this._render(NOW);
-        this._lastFrame = NOW;
-      }
-      this._frameId = requestAnimationFrame((raf) => {
-        this._tick(raf);
-      });
-    // }
+      this._sendDebugInfo();
+
+    }
+    this._frameId = requestAnimationFrame((raf) => {
+      this._tick(raf);
+    });
   }
 
   /**
@@ -132,16 +151,20 @@ class Engine {
    * @param { float } delta - the amount of time since last update
    * @private
    */
-  _update(delta) {
-    while (delta >= FRAME_DURATION) {
-      for (const KEY in this._systems) {
-        if (this._systems.hasOwnProperty(KEY)) {
-          const SYSTEM = this._systems[KEY];
+  _update() {
+    let delta = timestamp() - this._lastUpdate;
 
-          SYSTEM.update(this._assemblageManager);
-        }
-      }
+    while (delta >= FRAME_DURATION) {
+      this._systemManager.update(this._currentTick);
+      // for (const KEY in this._systems) {
+      //   if (this._systems.hasOwnProperty(KEY)) {
+      //     const SYSTEM = this._systems[KEY];
+      //
+      //     SYSTEM.update(this._assemblageManager);
+      //   }
+      // }
       delta -= FRAME_DURATION;
+      this._lastUpdate = timestamp();
     }
   }
 
@@ -151,19 +174,29 @@ class Engine {
    * @private
    */
   _render(delta) {
-    const CELLS = this._assemblageManager.findAssemblagesOfType(ASSEMBLAGE_TYPES.CELL_ASSEMBLAGE);
+    const CELLS = this._assemblageManager.findAssemblagesOfType(ASSEMBLAGE_TYPES.CREATURE_ASSEMBLAGE);
     const SPRITES = [];
 
-    CELLS.forEach((cell) => {
-      const HEALTH = cell.findComponent(COMPONENT_TYPES.HEALTH_COMPONENT);
-
-      if (HEALTH.state.CURRENT_HEALTH === 1) {
-        SPRITES.push(cell);
-      }
-    });
-    this._display.render(SPRITES);
+    this._display.render(CELLS);
   }
 
+  _sendDebugInfo() {
+    const PRECISION = 5;
+    const MESSAGE = {
+      subject: 'DIAGNOSTICS',
+      body: {
+        tick: this._currentTick,
+        lastUpdate: this._lastUpdate.toPrecision(PRECISION),
+        updateDuration: this._updateDuration,
+        entities: 0,
+        components: 0,
+        assemblages: this._assemblageManager.assemblages,
+        systems: 0
+      }
+    };
+
+    this._messageService.publish(MESSAGE);
+  }
   //////////////////////////////////////////////////////////////////////////////
   // Static Methods
   //////////////////////////////////////////////////////////////////////////////
@@ -173,8 +206,8 @@ class Engine {
    * @param { object } configuration - configuration for the engine
    * @return { module:engine.Engine }
    */
-  static create(configuration) {
-    return new Engine(configuration);
+  static create(messageService, configuration) {
+    return new Engine(messageService, configuration);
   }
 }
 

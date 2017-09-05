@@ -11,7 +11,7 @@
     width: 64px;
   }
 
-  &:not(.diagnostics--collapsed) {
+  &:not(&--collapsed) {
     @include box-shadow();
     @include flex-box(column);
     top: 48px;
@@ -26,8 +26,8 @@
     &--heading {
       color: $white;
       letter-spacing: 1.3px;
-      font-size: 36px;
-      font-weight: 600;
+      font-size: $xx-large-text;
+      font-weight: $semibold;
       margin: 0;
       padding: 0;
     }
@@ -36,24 +36,25 @@
   &__body {
     @include flex-box(column);
     @include flex-item(1, 0, auto);
-    padding: 24px 16px;
 
     &>.body__row {
       @include flex-box(row);
       @include flex-item(0, 0, auto);
+      padding: $gutter 0;
     }
 
     & .body__section {
-      @include flex-item(1, 1, auto);
+      @include flex-item(1, 1, 100%);
+      padding: 0 $gutter;
 
 
-      &>.section__title {
+      &>.section-title {
         color: $primary-color-dark;
-        font-size: 18px;
-        font-weight: 400;
+        font-size: $large-text;
+        font-weight: $normal;
         letter-spacing: 1.1px;
         margin: 0;
-        padding: 0 0 16px 0;
+        padding-bottom: $gutter;
       }
     }
   }

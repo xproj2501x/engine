@@ -49,3 +49,5 @@ Temporary Items
 .idea/**/**
 node_modules/**
 npm_*/**
+dist/site.js
+dist/site.css

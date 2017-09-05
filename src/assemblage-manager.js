@@ -63,6 +63,13 @@ class AssemblageManager {
   //////////////////////////////////////////////////////////////////////////////
   // Public Properties
   //////////////////////////////////////////////////////////////////////////////
+  /** Get _assemblages.length
+   * @readonly
+   * @return { int }
+   */
+  get assemblages() {
+    return this._assemblages.length;
+  }
 
   /**
    * AssemblageManager
@@ -126,12 +133,12 @@ class AssemblageManager {
 
   /**
    * Removes the specified assemblage from the collection
+   * @param { int } id - the entity id
    * @param { string } type - the assemblage type
-   * @param { int } entity - the entity id
    */
-  removeAssemblage(type, entity) {
+  removeAssemblage(id, type) {
     try {
-      const ASSEMBLAGE = this._findAssemblage(type, entity);
+      const ASSEMBLAGE = this._findAssemblage(id, type);
       const INDEX = this._assemblages.indexOf(ASSEMBLAGE);
 
       this._assemblages.splice(INDEX, 1);
@@ -151,10 +158,10 @@ class AssemblageManager {
    * @param { int } entity - the id of the entity
    * @return { module:engine.Assemblage }
    */
-  _findAssemblage(type, entity) {
+  _findAssemblage(id, type) {
     const ASSEMBLAGE = this._assemblages.find((assemblage) => {
       const IS_TYPE = (assemblage.type === type);
-      const IS_ENTITY = (assemblage.id === entity);
+      const IS_ENTITY = (assemblage.id === id);
 
       if (IS_TYPE && IS_ENTITY) {
         return assemblage;

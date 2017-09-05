@@ -42,11 +42,12 @@ class MessageService {
    * @constructor
    */
   constructor() {
-    if (!instance) {
-      instance = this; // eslint-disable-line consistent-this
-      this._subscribers = {};
-    }
-    return instance;
+    // if (!instance) {
+    //   instance = this; // eslint-disable-line consistent-this
+    //   this._subscribers = {};
+    // }
+    // return instance;
+    this._subscribers = {};
   }
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -75,8 +76,9 @@ class MessageService {
     if (message in this._subscribers) {
       const SUBSCRIBERS = this._subscribers[message];
       const INDEX = SUBSCRIBERS.indexOf(subscriber);
+      const VALUE = -1;
 
-      if (INDEX > -1) {
+      if (INDEX > VALUE) {
         SUBSCRIBERS.slice(INDEX, 0);
       }
     }

@@ -47,6 +47,14 @@ class ComponentManager {
   //////////////////////////////////////////////////////////////////////////////
   // Public Properties
   //////////////////////////////////////////////////////////////////////////////
+  /**
+   * Get _components.length
+   * @readonly
+   * @return { int }
+   */
+  get components() {
+    return this._components.length;
+  }
 
   /**
    * ComponentManager
@@ -87,11 +95,15 @@ class ComponentManager {
   /**
    * Finds a component with the specified id
    * @param { string } id - the id of the component to be retrieved
+   * @param {string} type - the type of component to be retrieved
    * @return { Component }
    */
-  findComponent(id) { // eslint-disable-line id-length
+  findComponent(id , type) { // eslint-disable-line id-length
     const COMPONENT = this._components.find((component) => {
-      if (component.id === id) {
+      const IS_ID = (component.id === id);
+      const IS_TYPE = (component.type === type);
+
+      if (IS_ID && IS_TYPE) {
         return component;
       }
       return null;
@@ -120,9 +132,9 @@ class ComponentManager {
    * Removes a component with the specified id
    * @param { string } id - the id of the component to be removed
    */
-  removeComponent(id) { // eslint-disable-line id-length
+  removeComponent(id, type) { // eslint-disable-line id-length
     try {
-      const COMPONENT = this.findComponent(id);
+      const COMPONENT = this.findComponent(id, type);
       const INDEX = this._components.indexOf(COMPONENT);
 
       this._components.splice(INDEX, 1);

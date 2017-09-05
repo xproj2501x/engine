@@ -9,7 +9,10 @@ const PATHS = {
 };
 
 module.exports = {
-  entry: PATHS.JS + '/app.js',
+  entry: [
+    'babel-polyfill',
+    PATHS.JS + '/app.js',
+  ],
   output: {
     path: PATHS.DIST,
     filename: 'site.js'
@@ -21,11 +24,14 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
+          plugins: [
+            'transform-runtime'
+          ],
           presets: [
             'es2015',
             'es2016',
             'es2017',
-            'stage-2'
+            'stage-0'
           ]
         }
       },
@@ -36,7 +42,7 @@ module.exports = {
     ]
   },
   plugins:[
-      new ExtractTextPlugin('site.css')
+    new ExtractTextPlugin('site.css')
   ]
 };
 

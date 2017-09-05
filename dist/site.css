@@ -88,7 +88,7 @@ body {
   display: flex;
   flex-flow: column nowrap;
   font-family: "Roboto", "Open Sans", monospace;
-  font-size: 16px; }
+  font-size: 12px; }
 
 .hidden {
   display: none !important; }
@@ -293,28 +293,29 @@ body {
     .diagnostics__header--heading {
       color: #FEFEFE;
       letter-spacing: 1.3px;
-      font-size: 36px;
+      font-size: 32px;
       font-weight: 600;
       margin: 0;
       padding: 0; }
   .diagnostics__body {
     display: flex;
     flex-flow: column nowrap;
-    flex: 1 0 auto;
-    padding: 24px 16px; }
+    flex: 1 0 auto; }
     .diagnostics__body > .body__row {
       display: flex;
       flex-flow: row nowrap;
-      flex: 0 0 auto; }
+      flex: 0 0 auto;
+      padding: 16px 0; }
     .diagnostics__body .body__section {
-      flex: 1 1 auto; }
-      .diagnostics__body .body__section > .section__title {
+      flex: 1 1 100%;
+      padding: 0 16px; }
+      .diagnostics__body .body__section > .section-title {
         color: #455A64;
         font-size: 18px;
         font-weight: 400;
         letter-spacing: 1.1px;
         margin: 0;
-        padding: 0 0 16px 0; }
+        padding-bottom: 16px; }
 
 @media screen and (min-width: 481px) {
   .content-area {

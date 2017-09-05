@@ -11,6 +11,7 @@
 import MessageService from '../services/message';
 import { COMPONENT_TYPES } from '../../dist/js/game/components';
 import { FPS, MILLISECONDS } from '../constants';
+import timestamp from '../utility/timestamp';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Definitions
@@ -32,10 +33,13 @@ class Display {
   _element;
   _canvas;
   _messageService;
+
   _lastRender;
+  _renderDuration;
+  _fps;
+
   _lastFpsUpdate;
   _framesThisSecond;
-  _fps;
 
   //////////////////////////////////////////////////////////////////////////////
   // Private Properties
@@ -49,8 +53,8 @@ class Display {
    * Display
    * @constructor
    */
-  constructor() {
-    this._messageService = MessageService.create();
+  constructor(messageService) {
+    this._messageService = messageService;
     this._fps = FPS;
     this._framesThisSecond = 0;
     this._init();
@@ -65,11 +69,16 @@ class Display {
    * @param { Array } sprites - a collection of sprite object to be rendered
    */
   render(sprites) {
+    const START = timestamp();
+
     this._refresh();
     this._draw(sprites);
-    this._lastRender = window.performance.now();
+
+    this._lastRender = timestamp();
+    this._renderDuration = this._lastRender - START;
     this._framesThisSecond++;
     this._updateFps();
+    this._sendDebugInfo();
   }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -83,8 +92,8 @@ class Display {
     this._element = document.getElementById('root');
     this._canvas = document.createElement('canvas');
     this._element.append(this._canvas);
-    this._lastFpsUpdate = window.performance.now();
-    this._lastRender = window.performance.now();
+    this._lastFpsUpdate = timestamp();
+    this._lastRender = timestamp();
     this._refresh();
   }
 
@@ -97,15 +106,9 @@ class Display {
     const MUL2 = 0.75;
 
     if (this._lastRender > this._lastFpsUpdate + MILLISECONDS) {
-      this._fps = Math.floor((MUL1 * this._framesThisSecond) + (MUL2 * this._fps));
+      // this._fps = Math.floor((MUL1 * this._framesThisSecond) + (MUL2 * this._fps));
+      this._fps = this._framesThisSecond;
       this._lastFpsUpdate = this._lastRender;
-      const MESSAGE = {
-        subject: 'DIAGNOSTICS',
-        body: {
-          fps: this._fps
-        }
-      };
-      this._messageService.publish(MESSAGE);
       this._framesThisSecond = 0;
     }
   }
@@ -131,9 +134,7 @@ class Display {
     const CONTEXT = this._canvas.getContext('2d');
 
     CONTEXT.save();
-    CONTEXT.fillStyle = '#FFFFFF';
     CONTEXT.clearRect(0, 0, this._canvas.width, this._canvas.height);
-    CONTEXT.fill();
     sprites.forEach((sprite) => {
       const POSITION = sprite.findComponent(COMPONENT_TYPES.POSITION_COMPONENT);
       const X_POSITION = (POSITION.state.X_POSITION * UNIT) + SPACING;
@@ -147,6 +148,20 @@ class Display {
     CONTEXT.restore();
   }
 
+  _sendDebugInfo() {
+    const PRECISION = 5;
+    const MESSAGE = {
+      subject: 'DIAGNOSTICS',
+      body: {
+        lastRender: this._lastRender.toPrecision(PRECISION),
+        renderDuration: this._renderDuration.toPrecision(PRECISION),
+        fps: this._fps
+      }
+    };
+
+    this._messageService.publish(MESSAGE);
+  }
+
   //////////////////////////////////////////////////////////////////////////////
   // Static Methods
   //////////////////////////////////////////////////////////////////////////////
@@ -155,8 +170,8 @@ class Display {
    * @static
    * @return { module:display.Display }
    */
-  static create() {
-    return new Display();
+  static create(messageService) {
+    return new Display(messageService);
   }
 }
 
