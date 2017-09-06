@@ -63,7 +63,7 @@ class UpdateSystem extends System {
    * Runs the update routine
    * @param { module:engine.AssemblageManager } assemblages - the assemblage manager
    */
-  update(assemblages) {
+  update(tick, assemblages) {
     const TIME_ASSEMBLAGE = assemblages.findAssemblagesOfType(ASSEMBLAGE_TYPES.TIME_ASSEMBLAGE)[0];
     const TIME_COMPONENT = TIME_ASSEMBLAGE.findComponent(COMPONENT_TYPES.TIME_COMPONENT);
     const TIME = TIME_COMPONENT.state.TIME++;

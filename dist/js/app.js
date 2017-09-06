@@ -21,10 +21,11 @@ import Event from '../../src/services/event/event';
   const EVENT_SERVICE = EventService.create();
   const VIEW_FACTORY = ViewFactory.create();
   const DIAGNOSTICS_VIEW = DiagnosticsView.create(MESSAGE_SERVICE);
-  // const GAME_OF_LIFE = new GameOfLife();
-  const GENETICS = new Genetics();
+  const GAME_OF_LIFE = new GameOfLife();
+  // const GENETICS = new Genetics();
   const INPUT_HANDLER = InputHandler.create(MESSAGE_SERVICE);
-  const ENGINE = Engine.create(MESSAGE_SERVICE, GENETICS.create());
+  // const ENGINE = Engine.create(MESSAGE_SERVICE, GENETICS.create());
+  const ENGINE = Engine.create(MESSAGE_SERVICE, GAME_OF_LIFE.create());
 
   VIEW_FACTORY.createView({
     url: 'http://localhost:3050/js/views/diagnostics-view.html',

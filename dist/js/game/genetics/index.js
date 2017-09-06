@@ -74,11 +74,12 @@ class Genetics {
     const SEED = Math.random();
     const GRID = [];
 
-    for (let idx = 0; idx < side + 1; idx++) {
-      GRID[idx] = new Array(side + 1);
+    for (let idx = 0; idx < SIDE; idx++) {
+      GRID[idx] = new Array(SIDE);
     }
-    GRID[0][0] = GRID[0][side] = GRID[side][0] = GRID[side][side] = SEED;
-    GRID[side / 2][side / 2] = SEED;
+
+    GRID[0][0] = GRID[0][MAX] = GRID[MAX][0] = GRID[MAX][MAX] = SEED;
+    GRID[MAX / 2][MAX / 2] = SEED;
     let height = ROUGHNESS;
 
     for (let length = side; length >= 2; length /= 2, height *= ROUGHNESS) {
