@@ -18,7 +18,7 @@
     "clean": "",
     "lint": "eslint --max-warnings 100 --format compact src/**/*.js",
     "start": "babel-node index.js",
-    "test": "mocha --compilers js:babel-core/register test/**/*.test.js"
+    "test": "mocha --compilers js:babel-core/register test/assemblage.test.js"
   },
   "devDependencies": {
     "babel-cli": "latest",
@@ -33,26 +33,14 @@
     "babel-preset-stage-0": "latest",
     "babel-preset-stage-2": "latest",
     "chai": "latest",
-    "css-loader": "latest",
     "eslint": "latest",
     "eslint-config-google": "latest",
-    "extract-text-webpack-plugin": "latest",
-    "file-loader": "latest",
     "jsdoc": "latest",
     "mocha": "latest",
-    "node-sass": "latest",
-    "sass-loader": "latest",
-    "style-loader": "latest",
     "webpack": "latest"
   },
   "dependencies": {
     "babel-polyfill": "latest",
-    "babel-runtime": "latest",
-    "body-parser": "latest",
-    "compression": "latest",
-    "cors": "latest",
-    "express": "latest",
-    "morgan": "latest",
-    "serve-favicon": "latest"
+    "babel-runtime": "latest"
   }
 }

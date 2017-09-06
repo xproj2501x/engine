@@ -13,9 +13,6 @@ import EntityManager from './entity-manager';
 import ComponentManager from './component-manager';
 import AssemblageManager from './assemblage-manager';
 import SystemManager from './system-manager';
-import Display from './display';
-import { ASSEMBLAGE_TYPES } from '../dist/js/game/assemblages';
-import { COMPONENT_TYPES } from '../dist/js/game/components';
 import { FRAME_DURATION } from './constants';
 import timestamp from './utility/timestamp';
 
@@ -37,14 +34,15 @@ class Engine {
   // Private Properties
   //////////////////////////////////////////////////////////////////////////////
   _logService;
-  _messageService;
 
-  _systems;
+  _entityManager;
+  _componentManager;
   _assemblageManager;
   _systemManager;
   _display;
 
   _running;
+  _locked;
 
   _lastFrame;
   _frameId;
@@ -52,9 +50,6 @@ class Engine {
   _currentTick;
   _lastUpdate;
   _updateDuration;
-  _entities;
-  _components;
-  _assemblages;
 
   //////////////////////////////////////////////////////////////////////////////
   // Public Properties
@@ -65,13 +60,9 @@ class Engine {
    * @constructor
    * @param { object } configuration - configuration for the engine
    */
-  constructor(messageService, configuration) {
+  constructor() {
     this._logService = LogService.create(this.constructor.name);
-    this._messageService = messageService;
-    this._messageService.subscribe('INPUT', (message) => this.handleInput(message));
     this._running = false;
-    this._display = new Display(messageService);
-    this._init(configuration);
   }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -82,7 +73,6 @@ class Engine {
    */
   start() {
     if (!this._running) {
-      this._currentTick = 0;
       this._running = true;
       this._lastUpdate = timestamp();
       this._frameId = requestAnimationFrame((raf) => {
@@ -102,28 +92,47 @@ class Engine {
     cancelAnimationFrame(this._frameId);
   }
 
-  handleInput(message) {
-    console.log(message);
-  }
-  //////////////////////////////////////////////////////////////////////////////
-  // Private Methods
-  //////////////////////////////////////////////////////////////////////////////
   /**
-   * Initializes the engine
+   * Pauses the engine
+   */
+  pause() {
+    if (this._running) {
+      this.stop();
+    } else {
+      this.start();
+    }
+  }
+
+  /**
+   * Loads the game configuration into the engine
    * @private
    * @param { object } configuration - configuration for the engine
    */
-  _init(configuration) {
-    const ENTITY_MANAGER = EntityManager.create();
-    const COMPONENT_MANAGER = ComponentManager.create(configuration.COMPONENTS);
+  load(configuration) {
+    if (this._running) {
+      throw new Error('Cannot load new configuration while game is running');
+    }
 
-
-    this._assemblageManager = AssemblageManager.create(configuration.ASSEMBLAGES, ENTITY_MANAGER, COMPONENT_MANAGER);
+    this._display = configuration.display;
+    this._entityManager = EntityManager.create();
+    this._componentManager = ComponentManager.create(configuration.COMPONENTS);
+    this._assemblageManager = AssemblageManager.create(configuration.ASSEMBLAGES, this._entityManager, this._componentManager);
     this._systemManager = SystemManager.create(configuration.SYSTEMS, this._assemblageManager);
     configuration.STATE.forEach((assemblage) => {
       this._assemblageManager.createAssemblage(assemblage.type, assemblage.state);
     });
   }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Private Methods
+  //////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Initializes the engine
+   * @private
+   * @param { object } configuration - configuration for the engine
+   */
+
 
   /**
    * The main game loop
@@ -174,10 +183,7 @@ class Engine {
    * @private
    */
   _render(delta) {
-    const CELLS = this._assemblageManager.findAssemblagesOfType(ASSEMBLAGE_TYPES.CREATURE_ASSEMBLAGE);
-    const SPRITES = [];
-
-    this._display.render(CELLS);
+    this._display.render(this._componentManager);
   }
 
   _sendDebugInfo() {
@@ -195,7 +201,6 @@ class Engine {
       }
     };
 
-    this._messageService.publish(MESSAGE);
   }
   //////////////////////////////////////////////////////////////////////////////
   // Static Methods
@@ -206,8 +211,8 @@ class Engine {
    * @param { object } configuration - configuration for the engine
    * @return { module:engine.Engine }
    */
-  static create(messageService, configuration) {
-    return new Engine(messageService, configuration);
+  static create(configuration) {
+    return new Engine(configuration);
   }
 }
 

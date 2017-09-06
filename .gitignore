@@ -51,3 +51,4 @@ node_modules/**
 npm_*/**
 dist/site.js
 dist/site.css
+npm-debug.log

@@ -2,10 +2,7 @@
 // Imports
 ////////////////////////////////////////////////////////////////////////////////
 import AssemblageManager from '../src/assemblage-manager';
-import Assemblage from '../src/assemblage';
 import Component from '../src/component';
-import { COMPONENT_TYPES, COMPONENTS } from "../dist/js/game/components";
-import { ASSEMBLAGE_TYPES, ASSEMBLAGES } from "../dist/js/game/assemblages";
 let chai = require('chai');
 
 ////////////////////////////////////////////////////////////////////////////////

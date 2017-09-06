@@ -1,10 +1,7 @@
 let path = require('path');
-let ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const PATHS = {
   JS: path.join(__dirname, 'dist/js'),
-  TEST_JS: path.join(__dirname, 'test/unit'),
-  CSS: path.join(__dirname, 'dist/css'),
   DIST: path.join(__dirname, 'dist')
 };
 
@@ -34,15 +31,8 @@ module.exports = {
             'stage-0'
           ]
         }
-      },
-      {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('css-loader!sass-loader')
       }
     ]
   },
-  plugins:[
-    new ExtractTextPlugin('site.css')
-  ]
 };
 

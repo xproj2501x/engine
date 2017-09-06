@@ -113,22 +113,6 @@ class AssemblageManager {
         throw err;
       }
     });
-    const ASSEMBLAGE = Assemblage.create(ENTITY, type);
-
-    this._assemblages.push(ASSEMBLAGE);
-  }
-
-  /**
-   * Finds assemblages of the specified type
-   * @param { string } type - the assemblage type
-   * @return { Array }
-   */
-  findAssemblagesOfType(type) {
-    const ASSEMBLAGES = this._assemblages.filter((assemblage) => {
-      return assemblage.type === type;
-    });
-
-    return ASSEMBLAGES;
   }
 
   /**
@@ -146,33 +130,6 @@ class AssemblageManager {
       this._logService.error(err);
       throw err;
     }
-  }
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Private Methods
-  //////////////////////////////////////////////////////////////////////////////
-  /**
-   * Finds an assemblage with the specified type and entity
-   * @private
-   * @param { string } type - the assemblage type
-   * @param { int } entity - the id of the entity
-   * @return { module:engine.Assemblage }
-   */
-  _findAssemblage(id, type) {
-    const ASSEMBLAGE = this._assemblages.find((assemblage) => {
-      const IS_TYPE = (assemblage.type === type);
-      const IS_ENTITY = (assemblage.id === id);
-
-      if (IS_TYPE && IS_ENTITY) {
-        return assemblage;
-      }
-      return null;
-    });
-
-    if (!ASSEMBLAGE) {
-      throw new Error(`Assemblage type ${type} for entity ${entity} not found`);
-    }
-    return ASSEMBLAGE;
   }
 
   /**

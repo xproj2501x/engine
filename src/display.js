@@ -8,17 +8,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Imports
 ////////////////////////////////////////////////////////////////////////////////
-import MessageService from '../services/message';
-import { COMPONENT_TYPES } from '../../dist/js/game/components';
-import { FPS, MILLISECONDS } from '../constants';
-import timestamp from '../utility/timestamp';
+import { FPS, MILLISECONDS } from './constants';
+import timestamp from './utility/timestamp';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Definitions
 ////////////////////////////////////////////////////////////////////////////////
-const UNIT = 10;
-const SPACING = 1;
-const SIZE = UNIT - (SPACING + SPACING);
 
 ////////////////////////////////////////////////////////////////////////////////
 // Class
@@ -32,7 +27,6 @@ class Display {
 
   _element;
   _canvas;
-  _messageService;
 
   _lastRender;
   _renderDuration;
@@ -41,6 +35,17 @@ class Display {
   _lastFpsUpdate;
   _framesThisSecond;
 
+  _options = {
+
+  };
+
+  _debugInfo = {
+    lastRender: null,
+    renderDuration: null,
+    fps: null,
+    lastFpsUpdate: null,
+    framesThisSecond: null
+  };
   //////////////////////////////////////////////////////////////////////////////
   // Private Properties
   //////////////////////////////////////////////////////////////////////////////
@@ -53,8 +58,7 @@ class Display {
    * Display
    * @constructor
    */
-  constructor(messageService) {
-    this._messageService = messageService;
+  constructor() {
     this._fps = FPS;
     this._framesThisSecond = 0;
     this._init();
@@ -81,21 +85,19 @@ class Display {
     this._sendDebugInfo();
   }
 
+  loadConfiguration(configuration) {
+    this._parentElement = document.getElementById(configuration.parentElement);
+    while (this._parentElement.firstChild) {
+      this._parentElement.removeChild(this._parentElement.firstChild);
+    }
+    this._canvas = document.createElement('canvas');
+    this._parentElement.append(this._canvas);
+    this._refresh();
+  }
+
   //////////////////////////////////////////////////////////////////////////////
   // Private Methods
   //////////////////////////////////////////////////////////////////////////////
-  /**
-   * Initializes the display and generates the canvas element
-   * @private
-   */
-  _init() {
-    this._element = document.getElementById('root');
-    this._canvas = document.createElement('canvas');
-    this._element.append(this._canvas);
-    this._lastFpsUpdate = timestamp();
-    this._lastRender = timestamp();
-    this._refresh();
-  }
 
   /**
    * Updates the number of frames per second
@@ -131,21 +133,8 @@ class Display {
    * @private
    */
   _draw(sprites) {
-    const CONTEXT = this._canvas.getContext('2d');
+    throw new Error('Error _draw() called from base class');
 
-    CONTEXT.save();
-    CONTEXT.clearRect(0, 0, this._canvas.width, this._canvas.height);
-    sprites.forEach((sprite) => {
-      const POSITION = sprite.findComponent(COMPONENT_TYPES.POSITION_COMPONENT);
-      const X_POSITION = (POSITION.state.X_POSITION * UNIT) + SPACING;
-      const Y_POSITION = (POSITION.state.Y_POSITION * UNIT) + SPACING;
-
-      CONTEXT.save();
-      CONTEXT.fillStyle = '#FF0000';
-      CONTEXT.fillRect(X_POSITION, Y_POSITION, SIZE, SIZE);
-      CONTEXT.restore();
-    });
-    CONTEXT.restore();
   }
 
   _sendDebugInfo() {
@@ -155,11 +144,10 @@ class Display {
       body: {
         lastRender: this._lastRender.toPrecision(PRECISION),
         renderDuration: this._renderDuration.toPrecision(PRECISION),
-        fps: this._fps
+        fps: this._fps,
+        sprites: this._debugInfo.sprites
       }
     };
-
-    this._messageService.publish(MESSAGE);
   }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -170,8 +158,8 @@ class Display {
    * @static
    * @return { module:display.Display }
    */
-  static create(messageService) {
-    return new Display(messageService);
+  static create() {
+    return new Display();
   }
 }
 
