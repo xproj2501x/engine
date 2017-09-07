@@ -49,7 +49,7 @@ class SystemManager {
    * @constructor
    * @param { Array } configuration - a collection of system constructors
    */
-  constructor(configuration, assemblageManager) {
+    constructor(configuration, assemblageManager) {
     this._logService = LogService.create(this.constructor.name);
     this._systems = configuration;
     this._assemblageManager = assemblageManager;

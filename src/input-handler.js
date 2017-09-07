@@ -15,10 +15,25 @@
 const INPUT = {
   MOUSE_DOWN: 'mousedown',
   MOUSE_UP: 'mouseup',
+  MOUSE_MOVE: 'mousemove',
   MOUSE_WHEEL: 'mousewheel',
   CONTEXT_MENU: 'contextmenu',
   KEY_DOWN: 'keydown',
   KEY_UP: 'keyup'
+};
+
+const STATE = {
+  mouseDown: false,
+  drag: false,
+  click: false,
+  xPosition: null,
+  yPosition: null,
+  xDown: null,
+  yDown: null,
+  xUp: null,
+  yUp: null,
+  mouseDelta: null,
+  keys: []
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -33,29 +48,28 @@ class InputHandler {
   // Private Properties
   //////////////////////////////////////////////////////////////////////////////
   _element;
-  _state;
+  _currentState;
+  _states;
 
   //////////////////////////////////////////////////////////////////////////////
   // Public Properties
   //////////////////////////////////////////////////////////////////////////////
   get state() {
-    return this._state;
+    return this._states.shift();
+
   }
 
-  constructor() {
-    this._state = {
-      mouse: {
-        down: false,
-        xPosition: 0,
-        yPosition: 0,
-        lastX: 0,
-        lastY: 0,
-        delta: 0
-      },
-      keys: []
-    };
+  set state(changes) {
+    const NEW_STATE = Object.assign({}, STATE, this._currentState, { mouseDelta: null }, changes);
 
-    this.loadConfiguration();
+    this._states.push(NEW_STATE);
+    this._currentState = NEW_STATE;
+  }
+
+  constructor(configuration) {
+    this._states = [];
+    this._currentState = Object.assign({}, STATE);
+    this.loadConfiguration(configuration);
   }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -63,90 +77,88 @@ class InputHandler {
   //////////////////////////////////////////////////////////////////////////////
 
   loadConfiguration(configuration) {
-    this._element = document.getElementById(configuration.element) || document;
+    this._element = configuration ? document.getElementById(configuration.element) : document;
     document.addEventListener(INPUT.KEY_DOWN, (event) => this._handleKeyDown(event));
-    document.addEventListener(INPUT.MOUSE_DOWN, (event) => this._handleMouseDown(event));
-    document.addEventListener(INPUT.MOUSE_UP, (event) => this._handleMouseUp(event));
-    document.addEventListener(INPUT.MOUSE_WHEEL, (event) => this._handleMouseWheel(event));
+    document.addEventListener(INPUT.KEY_UP, (event) => this._handleKeyUp(event));
+    this._element.addEventListener(INPUT.MOUSE_DOWN, (event) => this._handleMouseDown(event));
+    this._element.addEventListener(INPUT.MOUSE_UP, (event) => this._handleMouseUp(event));
+    this._element.addEventListener(INPUT.MOUSE_MOVE, (event) => this._handleMouseMove(event));
+    this._element.addEventListener(INPUT.MOUSE_WHEEL, (event) => this._handleMouseWheel(event));
     document.addEventListener(INPUT.CONTEXT_MENU, (event) => { event.preventDefault(); });
   }
   //////////////////////////////////////////////////////////////////////////////
   // Private Methods
   //////////////////////////////////////////////////////////////////////////////
-  _init() {
-    document.addEventListener(INPUT.KEY_DOWN, (event) => this._handleKeyDown(event));
-    document.addEventListener(INPUT.MOUSE_DOWN, (event) => this._handleMouseDown(event));
-    document.addEventListener(INPUT.MOUSE_UP, (event) => this._handleMouseUp(event));
-    document.addEventListener(INPUT.MOUSE_WHEEL, (event) => this._handleMouseWheel(event));
-    document.addEventListener(INPUT.CONTEXT_MENU, (event) => { event.preventDefault(); });
-  }
 
   _handleMouseDown(event) {
     event.preventDefault();
     if (event.button === 0) {
-      this._mouse.x = event.clientX;
-      this._mouse.y = event.clientY;
-      // this._messageService.publish({ subject: 'INPUT', body: {
-      //   type: 'click',
-      //   elementId: event.target.parentElement.id,
-      //   x: this._mouse.x,
-      //   y: this._mouse.y
-      // }
-      // });
+      this.state = {
+        mouseDown: true,
+        xDown: event.clientX,
+        yDown: event.clientY
+      };
     }
   }
 
   _handleMouseUp(event) {
     event.preventDefault();
     if (event.button === 0) {
-      let absX = Math.abs(this._mouse.x - event.clientX);
-      let absY = Math.abs(this._mouse.y - event.clientY);
-      if ((absX > 10) || (absY > 10)) {
-        // this._messageService.publish({
-        //   subject: 'INPUT', body: {
-        //     type: 'drag',
-        //     elementId: event.target.parentElement.id,
-        //     x1: this._mouse.x,
-        //     y1: this._mouse.y,
-        //     x2: event.clientX,
-        //     y2: event.clientY
-        //   }
-        // });
-      }
+      this.state = {
+        mouseDown: false,
+        xUp: event.clientX,
+        yUp: event.clientY
+      };
     }
+
+  }
+
+  _handleMouseMove(event) {
+    event.preventDefault();
+    this.state = {
+      xPosition: event.clientX,
+      yPosition: event.clientY
+    };
   }
 
   _handleMouseWheel(event) {
     event.preventDefault();
-    // this._messageService.publish({ subject: 'INPUT', body: {
-    //   type: 'zoom',
-    //   elementId: event.target.parentElement.id,
-    //   deltaY: event.deltaY
-    // } });
+    this.state = {
+      mouseDelta: event.wheelDelta
+    };
   }
 
   _handleKeyDown(event) {
+    const KEYS = this._currentState.keys;
     const KEY_CODE = event.keyCode;
-    const INDEX = this._state.keys.indexOf(KEY_CODE);
+    const INDEX = KEYS.indexOf(KEY_CODE);
 
     if (INDEX === -1) {
-     this._state.keys.push(KEY_CODE);
+     KEYS.push(KEY_CODE);
+     this.state = {
+       keys: KEYS
+      };
     }
+
   }
 
   _handleKeyUp(event) {
+    const KEYS = this._currentState.keys;
     const KEY_CODE = event.keyCode;
-    const INDEX = this._state.keys.indexOf(KEY_CODE);
+    const INDEX = KEYS.indexOf(KEY_CODE);
 
     if (INDEX > -1) {
-      this._state.keys.slice(INDEX, 1);
+      KEYS.slice(INDEX, 1);
+      this.state = {
+        keys: KEYS
+      };
     }
   }
   //////////////////////////////////////////////////////////////////////////////
   // Static Methods
   //////////////////////////////////////////////////////////////////////////////
-  static create() {
-    return new InputHandler();
+  static create(configuration) {
+    return new InputHandler(configuration);
   }
 }
 

@@ -39,6 +39,7 @@ class Engine {
   _componentManager;
   _assemblageManager;
   _systemManager;
+  _inputHandler;
   _display;
 
   _running;
@@ -112,8 +113,8 @@ class Engine {
     if (this._running) {
       throw new Error('Cannot load new configuration while game is running');
     }
-
-    this._display = configuration.display;
+    this._inputHandler = configuration.INPUT_HANDLER;
+    this._display = configuration.DISPLAY;
     this._entityManager = EntityManager.create();
     this._componentManager = ComponentManager.create(configuration.COMPONENTS);
     this._assemblageManager = AssemblageManager.create(configuration.ASSEMBLAGES, this._entityManager, this._componentManager);
@@ -141,6 +142,7 @@ class Engine {
    */
   _tick(raf) {
     const START = timestamp();
+    const INPUT_STATE = this._inputHandler.state;
 
     if (START > this._lastFrame + FRAME_DURATION) {
       this._update(START);

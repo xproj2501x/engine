@@ -61,7 +61,6 @@ class Display {
   constructor() {
     this._fps = FPS;
     this._framesThisSecond = 0;
-    this._init();
   }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -120,8 +119,8 @@ class Display {
    * @private
    */
   _refresh() {
-    const HEIGHT = this._element.clientHeight;
-    const WIDTH = this._element.clientWidth;
+    const HEIGHT = this._parentElement.clientHeight;
+    const WIDTH = this._parentElement.clientWidth;
 
     this._canvas.height = HEIGHT;
     this._canvas.width = WIDTH;
@@ -133,7 +132,7 @@ class Display {
    * @private
    */
   _draw(sprites) {
-    throw new Error('Error _draw() called from base class');
+    // throw new Error('Error _draw() called from base class');
 
   }
 
