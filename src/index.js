@@ -64,6 +64,7 @@ class Engine {
   constructor() {
     this._logService = LogService.create(this.constructor.name);
     this._running = false;
+    this._currentTick = 0;
   }
 
   //////////////////////////////////////////////////////////////////////////////

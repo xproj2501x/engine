@@ -110,7 +110,6 @@ class InputHandler {
         yUp: event.clientY
       };
     }
-
   }
 
   _handleMouseMove(event) {
@@ -129,20 +128,22 @@ class InputHandler {
   }
 
   _handleKeyDown(event) {
+    event.preventDefault();
     const KEYS = this._currentState.keys;
     const KEY_CODE = event.keyCode;
     const INDEX = KEYS.indexOf(KEY_CODE);
 
     if (INDEX === -1) {
-     KEYS.push(KEY_CODE);
-     this.state = {
-       keys: KEYS
+      KEYS.push(KEY_CODE);
+      this.state = {
+        keys: KEYS
       };
     }
 
   }
 
   _handleKeyUp(event) {
+    event.preventDefault();
     const KEYS = this._currentState.keys;
     const KEY_CODE = event.keyCode;
     const INDEX = KEYS.indexOf(KEY_CODE);

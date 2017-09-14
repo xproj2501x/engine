@@ -14,7 +14,27 @@ import timestamp from './utility/timestamp';
 ////////////////////////////////////////////////////////////////////////////////
 // Definitions
 ////////////////////////////////////////////////////////////////////////////////
+const OPTIONS = {
+  debug: false,
+  rootElement: null,
+  fps: 30,
+  unit: 8,
+  spacing: 1,
+  height: null,
+  width: null,
 
+};
+
+const DEBUG = {
+  currentFrame: null,
+  sprites: null,
+  lastRender: null,
+  renderDuration: null,
+  averageRender: null,
+  fps: null,
+  lastFpsUpdate: null,
+  framesThisSecond: null
+};
 ////////////////////////////////////////////////////////////////////////////////
 // Class
 ////////////////////////////////////////////////////////////////////////////////
@@ -58,9 +78,10 @@ class Display {
    * Display
    * @constructor
    */
-  constructor() {
+  constructor(configuration) {
     this._fps = FPS;
     this._framesThisSecond = 0;
+    this.loadConfiguration(configuration);
   }
 
   //////////////////////////////////////////////////////////////////////////////
