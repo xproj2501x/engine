@@ -123,6 +123,7 @@ class Engine {
     configuration.STATE.forEach((assemblage) => {
       this._assemblageManager.createAssemblage(assemblage.type, assemblage.state);
     });
+    this._display.render(this._componentManager);
   }
 
   //////////////////////////////////////////////////////////////////////////////
